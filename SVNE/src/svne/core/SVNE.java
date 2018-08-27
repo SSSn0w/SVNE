@@ -1,30 +1,42 @@
 package svne.core;
 
-import svne.io.*;
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
-public class SVNE {
-    public static WindowFrame frame;  
+public class SVNE extends Application {
     
-    public static void main(String args[]) {    
-        frame = new WindowFrame();
-        loadFiles();
-        
-        gameLoop();
-    }
-
-    static void gameLoop() {
-        while(true) {
-            frame.canvas.repaint();
+    @Override
+    public void start(Stage primaryStage) {
+        Button btn = new Button();
+        btn.setText("Button");
+        btn.setOnAction(new EventHandler<ActionEvent>() {
             
-            try {
-                Thread.sleep(16);
-            } catch (Exception e) {
-                 
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("Hello World!");
             }
-        }
+        });
+        
+        StackPane root = new StackPane();
+        root.getChildren().add(btn);
+        
+        Scene scene = new Scene(root, 300, 250);
+        
+        primaryStage.setTitle("SVNE");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        launch(args);
     }
     
-    static void loadFiles() {
-        System.out.println(LoadData.Read("test.txt"));
-    }
 }
