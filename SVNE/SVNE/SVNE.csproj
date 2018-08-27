@@ -56,7 +56,14 @@
   <ItemGroup>
     <Compile Include="Core\Character.cs" />
     <Compile Include="Core\Game.cs" />
+    <Compile Include="Core\GUI\DialogueFrame.cs" />
+    <Compile Include="Core\GUI\MenuControl\Button.cs" />
+    <Compile Include="Core\GUI\MenuControl\Label.cs" />
+    <Compile Include="Core\GUI\MenuControl\TextBox.cs" />
+    <Compile Include="Core\MainMenu.cs" />
     <Compile Include="Core\SVNE.cs" />
+    <Compile Include="Graphics\Draw.cs" />
+    <Compile Include="IO\LoadAsset.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -84,9 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Animation\" />
-    <Folder Include="Assets\" />
     <Folder Include="Data\" />
-    <Folder Include="IO\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
