@@ -4,24 +4,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SVNE.Core.GUI.MenuControl {
-    class Button {
-        public int texture;
-        public float x;
-        public float y;
-        public float width;
-        public float height;
+using SFML.Graphics;
 
-        public Button(int texture, float x, float y, float width, float height) {
-            this.texture = texture;
+namespace SVNE.Core.GUI.MenuControl {
+    class Button : Drawable {
+        public Texture idle;
+        public Texture clicked;
+        public Sprite sprite;
+        public int x;
+        public int y;
+        public int width;
+        public int height;
+
+        public Button(Texture idle, Texture clicked, int x, int y, int width, int height) {
+            this.idle = idle;
+            this.clicked = clicked;
             this.x = x;
             this.y = y;
             this.width = width;
             this.height = height;
+
+            sprite = new Sprite(idle, new IntRect(x, y, width, height));
         }
 
-        public void OnClick() {
+        public void Clicked() {
             Console.WriteLine("Button clicked");
+            sprite = new Sprite(clicked, new IntRect(x, y, width, height)); ;
+        }
+
+        public void Draw(RenderTarget target, RenderStates states) {
+            target.Draw(sprite, states);
         }
     }
 }
