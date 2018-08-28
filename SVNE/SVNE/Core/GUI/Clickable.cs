@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SVNE.Core.GUI.MenuControl {
-    class TextBox {
+namespace SVNE.Core.GUI {
+    interface Clickable {
+        void MouseDown();
+        void MouseUp();
     }
 }

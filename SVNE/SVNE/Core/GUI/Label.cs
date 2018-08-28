@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SVNE.Graphics {
-    class Draw {
-        
+namespace SVNE.Core.GUI.MenuControl {
+    class Label {
+
     }
 }

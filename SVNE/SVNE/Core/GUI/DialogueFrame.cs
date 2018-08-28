@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 using SFML.Audio;
 using SFML.Graphics;
+using SVNE.Core.GUI.MenuControl;
 
 namespace SVNE.Core.GUI {
-    class DialogueFrame {
+    class DialogueFrame : Clickable, Drawable {
         public string Title;
         public string Dialogue;
 
@@ -34,6 +35,18 @@ namespace SVNE.Core.GUI {
             this.Dialogue = Dialogue;
             this.TitleColor = TitleColor;
             this.DialogueColor = DialogueColor;
+        }
+
+        public void MouseDown() {
+
+        }
+
+        public void MouseUp() {
+
+        }
+
+        public void Draw(RenderTarget target, RenderStates states) {
+            //target.Draw(sprite, states);
         }
     }
 }

@@ -23,7 +23,7 @@ namespace SVNE.Core {
             while (window.IsOpen) {
                 window.Clear(backgroundColor);
 
-                game.Update();                
+                game.Update();
 
                 window.DispatchEvents();
                 window.Display();

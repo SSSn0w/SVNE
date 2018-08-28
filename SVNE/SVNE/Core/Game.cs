@@ -9,18 +9,29 @@ using SFML.Graphics;
 using SFML.Window;
 using SFML.System;
 
-using SVNE.Core.GUI.MenuControl;
+using SVNE.Core.GUI;
 
 namespace SVNE.Core {
     class Game {
         public RenderWindow window;
 
+        public List<Clickable> MenuControls = new List<Clickable>();
+
         Sprite sprite = new Sprite(new Texture("Assets/30800208.jpg"));
         Text text = new Text("hello world", new Font("Assets/Consolas.ttf"));
-        Button button = new Button(new Texture("Assets/30800208.jpg"), new Texture("Assets/clouds.jpg"), 0, 0, 100, 100);
 
         public Game(RenderWindow window) {
             this.window = window;
+
+            //MenuControls.Add(new Button(new Texture("Assets/30800208.jpg"), new Texture("Assets/clouds.jpg"), 0, 0, 100, 100));
+            //MenuControls.Add(new Button(new Texture("Assets/clouds.jpg"), new Texture("Assets/30800208.jpg"), 100, 100, 100, 100));
+            //MenuControls.Add(new Button(new Texture("Assets/clouds.jpg"), new Texture("Assets/30800208.jpg"), 200, 100, 100, 100));
+            //MenuControls.Add(new Button(new Texture("Assets/clouds.jpg"), new Texture("Assets/30800208.jpg"), 100, 200, 100, 100));
+            //MenuControls.Add(new Button(new Texture("Assets/clouds.jpg"), new Texture("Assets/30800208.jpg"), 200, 200, 100, 100));
+
+            MenuControls.Add(new Button(new Texture("Assets/notPressed.png"), new Texture("Assets/pressed.png"), 0, 0, 100, 30));
+            MenuControls.Add(new Button(new Texture("Assets/notPressed.png"), new Texture("Assets/pressed.png"), 200, 150, 100, 30));
+            MenuControls.Add(new Button(new Texture("Assets/notPressed.png"), new Texture("Assets/pressed.png"), 0, 240, 100, 30));
 
             sprite.Scale = new Vector2f(1f, 1f);
             sprite.Origin = new Vector2f(-window.Size.X / 4, -window.Size.Y / 4);
@@ -30,23 +41,33 @@ namespace SVNE.Core {
         }
 
         public void Update() {
-            Draw(sprite);
-            Draw(text);
-            Draw(button);
+            //Draw(sprite);
+            //Draw(text);
+
+            foreach (Button button in MenuControls) {
+                Draw(button);
+            }
 
             HandleMouse();
         }
 
         public void HandleMouse() {
-            if (Mouse.IsButtonPressed(Mouse.Button.Left)) {
-                if (Mouse.GetPosition(window).X >= button.x &&
-                    Mouse.GetPosition(window).X <= button.x + button.width &&
-                    Mouse.GetPosition(window).Y >= button.y &&
-                    Mouse.GetPosition(window).Y <= button.y + button.height) {
-                    button.Clicked();
+            foreach (Button control in MenuControls) {
+                if (Mouse.IsButtonPressed(Mouse.Button.Left)) {
+                    if (Mouse.GetPosition(window).X >= control.x &&
+                    Mouse.GetPosition(window).X <= control.x + control.width &&
+                    Mouse.GetPosition(window).Y >= control.y &&
+                    Mouse.GetPosition(window).Y <= control.y + control.height) {
+
+                        control.MouseDown();
+                    }
+                    else {
+                        control.MouseUp();
+                    }
                 }
-                else {
-                    Console.WriteLine("clicked mouse");
+
+                if (!Mouse.IsButtonPressed(Mouse.Button.Left)) {
+                    control.MouseUp();
                 }
             }
         }
