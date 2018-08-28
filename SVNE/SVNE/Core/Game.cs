@@ -32,18 +32,20 @@ namespace SVNE.Core {
             WindowBorder = WindowBorder.Fixed;
 
             GL.ClearColor(new Color4(0.1f, 0.1f, 0.3f, 1.0f));
-            /*GL.Enable(EnableCap.Texture2D);
-            GL.Viewport(0, 0, width, height);
-            GL.MatrixMode(GL_PROJECTION);
+
+            GL.Enable(EnableCap.Texture2D);
+            GL.Viewport(0, 0, Width, Height);
+            GL.MatrixMode(MatrixMode.Projection);
             GL.LoadIdentity();
-            GL.Ortho(0, 0, width, height);
-            GL.MatrixMode(GL_MODELVIEW);
-            GL.LoadIdentity();*/
+            GL.Ortho(-1.0, 1.0, -1.0, 1.0, 0.0, 4.0);
+            GL.MatrixMode(MatrixMode.Modelview);
+            GL.LoadIdentity();
 
 
             //Load Textures
             Textures.Add(IO.LoadAsset.LoadImage("Assets/30800208.jpg"));
-            MenuControls.Add(new GUI.MenuControl.Button(Textures.ElementAt(0), -1f, -1f, 0.25f, 0.1f));
+            Textures.Add(IO.LoadAsset.LoadImage("Assets/clouds.jpg"));
+            MenuControls.Add(new GUI.MenuControl.Button(Textures.ElementAt(0), -0.6f, -0.6f, 0.25f, 0.1f));
         }
 
         protected override void OnResize(EventArgs e) {
@@ -100,26 +102,43 @@ namespace SVNE.Core {
             return (keyboardState[key] && (keyboardState[key] != lastKeyboardState[key]));
         }
 
+        protected override void OnMouseDown(MouseButtonEventArgs e) {
+            base.OnMouseDown(e);
+
+            //Console.WriteLine("x: " + (e.X - 15) + " y: " + (e.Y - 38));
+        }
+
+        protected override void OnMouseUp(MouseButtonEventArgs e) {
+            base.OnMouseDown(e);
+
+            Console.WriteLine("x: " + e.X + " y: " + e.Y);
+            foreach (GUI.MenuControl.Button control in MenuControls) {
+                float controlX = CoordToWorld(control.x, "Width");
+                float controlY = CoordToWorld(control.x, "Height");
+                float controlWidth = CoordToWorld(control.width, "Width");
+                float controlHeight = CoordToWorld(control.height, "Height");
+
+                Console.WriteLine(control.texture);
+
+                if (control.texture == null) {
+                    Console.WriteLine("yeet");
+                    control.texture = Textures.ElementAt(1);
+                }
+                else {
+                    Console.WriteLine("nothing");
+                    Console.WriteLine(controlX);
+                    Console.WriteLine(controlY);
+                }
+            }
+        }
+
         private void HandleMouse() {
             mouseState = Mouse.GetState();
-            float mouseX = PxToCoord(System.Windows.Forms.Cursor.Position.X, "Width");
-            float mouseY = PxToCoord(System.Windows.Forms.Cursor.Position.Y, "Height");
+            float mouseX = mouseState.X;
+            float mouseY = mouseState.Y;
 
             if (MousePress(MouseButton.Left)) {
-                Console.WriteLine("x: " + mouseX + " y: " + mouseY);
-                foreach (GUI.MenuControl.Button control in MenuControls) {
-                    if (mouseX > control.x &&
-                        mouseX < (control.x + control.width) &&
-                        mouseY > control.y &&
-                        mouseY < control.y + control.height) {
-                        Console.WriteLine("yeet");
-                    }
-                    else {
-                        Console.WriteLine("nothing");
-                        Console.WriteLine(control.x + control.width);
-                    }
-                    
-                }
+                
             }
 
             lastMouseState = mouseState;
@@ -129,24 +148,30 @@ namespace SVNE.Core {
             return (mouseState[mButton] && (mouseState[mButton] != lastMouseState[mButton]));
         }
 
-        private float PxToCoord(float px, string axis) {
+        private float WorldToCoord(float px, string axis) {
             float coord = 0f;
 
             if(axis.Equals("Width")) {
-                coord = ((2 / (float)Width) * px) - 1;
-
-                /*if (px < Width / 2) {
-                    coord *= -1;
-                }*/
+                coord = ((2 / ((float)Width + 15)) * px) - 1;
             }
             else if(axis.Equals("Height")) {
-                coord = ((2 / (float)Height) * px) - 1;
-                /*if (px > Height / 2) {
-                    coord *= -1;
-                }*/
+                coord = ((2 / ((float)Height + 38)) * px) - 1;
             }
 
             return coord;
+        }
+
+        private float CoordToWorld(float coord, string axis) {
+            float px = 0f;
+
+            if (axis.Equals("Width")) {
+                px = (coord + 1f) * (((float)Width + 15f) / 2f);
+            }
+            else if (axis.Equals("Height")) {
+                px = (coord + 1f) * (((float)Height + 38f) / 2f);
+            }
+
+            return px;
         }
     }
 }
