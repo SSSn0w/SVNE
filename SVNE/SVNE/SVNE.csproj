@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Core\Character.cs" />
     <Compile Include="Core\Game.cs" />
+    <Compile Include="Core\GameLoop.cs" />
     <Compile Include="Core\GUI\Clickable.cs" />
     <Compile Include="Core\GUI\DialogueFrame.cs" />
     <Compile Include="Core\GUI\Button.cs" />

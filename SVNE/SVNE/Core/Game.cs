@@ -12,7 +12,7 @@ using SFML.System;
 using SVNE.Core.GUI;
 
 namespace SVNE.Core {
-    class Game {
+    class Game : GameLoop {
         public RenderWindow window;
 
         public List<Clickable> MenuControls = new List<Clickable>();
@@ -22,7 +22,9 @@ namespace SVNE.Core {
 
         public Game(RenderWindow window) {
             this.window = window;
+        }
 
+        public override void Startup() {
             //MenuControls.Add(new Button(new Texture("Assets/30800208.jpg"), new Texture("Assets/clouds.jpg"), 0, 0, 100, 100));
             //MenuControls.Add(new Button(new Texture("Assets/clouds.jpg"), new Texture("Assets/30800208.jpg"), 100, 100, 100, 100));
             //MenuControls.Add(new Button(new Texture("Assets/clouds.jpg"), new Texture("Assets/30800208.jpg"), 200, 100, 100, 100));
@@ -40,7 +42,15 @@ namespace SVNE.Core {
             text.Origin = new Vector2f(0, 0);
         }
 
-        public void Update() {
+        public override void Shutdown() {
+            window.Close();
+        }
+
+        public override void Update() {
+            //Update Logic
+        }
+
+        public override void Render() {
             //Draw(sprite);
             //Draw(text);
 

@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 using SFML.Audio;
 using SFML.Graphics;
-using SVNE.Core.GUI.MenuControl;
 
 namespace SVNE.Core.GUI {
     class DialogueFrame : Clickable, Drawable {

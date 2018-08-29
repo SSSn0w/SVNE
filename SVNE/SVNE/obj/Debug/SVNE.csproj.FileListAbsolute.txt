@@ -15,3 +15,4 @@ C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\bin\Debug\sfmlnet-system-2.dll
 C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\bin\Debug\sfmlnet-window-2.dll
 C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\obj\Debug\SVNE.exe
 C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\obj\Debug\SVNE.pdb
+C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\obj\Debug\SVNE.csprojResolveAssemblyReference.cache

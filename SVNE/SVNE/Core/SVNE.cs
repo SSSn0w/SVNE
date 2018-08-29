@@ -19,16 +19,28 @@ namespace SVNE.Core {
             window.Closed += Window_Closed;
 
             Game game = new Game(window);
+            game.Startup();
+
+            Clock clock = new Clock();
+            Time accumulator = Time.Zero;
+            Time ups = Time.FromSeconds(1f / 60f);
 
             while (window.IsOpen) {
                 window.Clear(backgroundColor);
 
-                game.Update();
+                while (accumulator > ups) {
+                    accumulator -= ups;
+
+                    game.Update();
+                }
+
+                game.Render();
 
                 window.DispatchEvents();
                 window.Display();
 
-                System.Threading.Thread.Sleep(15);
+                accumulator += clock.Restart();
+                //System.Threading.Thread.Sleep(15);
             }
         }
 
