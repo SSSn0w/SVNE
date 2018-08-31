@@ -22,6 +22,7 @@ namespace SVNE.Core {
 
         public Game(RenderWindow window) {
             this.window = window;
+            this.window.Closed += Window_Closed;
         }
 
         public override void Startup() {
@@ -42,12 +43,16 @@ namespace SVNE.Core {
             text.Origin = new Vector2f(0, 0);
         }
 
-        public override void Shutdown() {
+        private void Window_Closed(object sender, EventArgs e) {
             window.Close();
         }
 
+        public override void Shutdown() {
+            
+        }
+
         public override void Update() {
-            //Update Logic
+            HandleMouse();
         }
 
         public override void Render() {
@@ -57,8 +62,6 @@ namespace SVNE.Core {
             foreach (Button button in MenuControls) {
                 Draw(button);
             }
-
-            HandleMouse();
         }
 
         public void HandleMouse() {

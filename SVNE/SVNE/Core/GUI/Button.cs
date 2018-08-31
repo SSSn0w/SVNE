@@ -31,12 +31,10 @@ namespace SVNE.Core.GUI {
         }
 
         public void MouseDown() {
-            Console.WriteLine("mouse down");
             sprite = pressed;
         }
 
         public void MouseUp() {
-            Console.WriteLine("mouse up");
             sprite = notPressed;
         }
 

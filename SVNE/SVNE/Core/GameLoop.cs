@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SFML.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -14,25 +15,29 @@ namespace SVNE.Core {
          * Begin the game loop
          * @param delta time between logic updates (in seconds)
          */
-        public void Run(double delta) {
+        public void Run(RenderWindow window, double delta) {
             runFlag = true;
 
             Startup();
             // convert the time to seconds
-            double nextTime = NanoTime() / 1000000000.0;
+            double nextTime = NanoTime();
             double maxTimeDiff = 0.5;
             int skippedFrames = 1;
             int maxSkippedFrames = 5;
+
             while (runFlag) {
                 // convert the time to seconds
-                double currTime = NanoTime() / 1000000000.0;
+                double currTime = NanoTime();
                 if ((currTime - nextTime) > maxTimeDiff) nextTime = currTime;
                 if (currTime >= nextTime) {
                     // assign the time for the next update
                     nextTime += delta;
                     Update();
                     if ((currTime < nextTime) || (skippedFrames > maxSkippedFrames)) {
+                        window.Clear(new Color(0, 0, 0));
                         Render();
+                        window.DispatchEvents();
+                        window.Display();
                         skippedFrames = 1;
                     }
                     else {
