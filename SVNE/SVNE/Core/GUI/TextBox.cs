@@ -16,6 +16,10 @@ namespace SVNE.Core.GUI {
 
         }
 
+        public void Reset() {
+
+        }
+
         public void Draw(RenderTarget target, RenderStates states) {
             //target.Draw(sprite, states);
         }

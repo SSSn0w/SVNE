@@ -34,7 +34,7 @@ namespace SVNE.Core {
                     nextTime += delta;
                     Update();
                     if ((currTime < nextTime) || (skippedFrames > maxSkippedFrames)) {
-                        window.Clear(new Color(0, 0, 0));
+                        window.Clear(new Color(140, 184, 255));
                         Render();
                         window.DispatchEvents();
                         window.Display();

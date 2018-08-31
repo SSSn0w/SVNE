@@ -8,5 +8,6 @@ namespace SVNE.Core.GUI {
     interface Clickable {
         void MouseDown();
         void MouseUp();
+        void Reset();
     }
 }
