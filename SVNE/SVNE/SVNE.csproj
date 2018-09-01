@@ -67,7 +67,7 @@
     <Compile Include="Core\Game.cs" />
     <Compile Include="Core\GameLoop.cs" />
     <Compile Include="Core\GUI\Clickable.cs" />
-    <Compile Include="Core\GUI\DialogueFrame.cs" />
+    <Compile Include="Core\GUI\DialogueBox.cs" />
     <Compile Include="Core\GUI\Button.cs" />
     <Compile Include="Core\GUI\Label.cs" />
     <Compile Include="Core\GUI\TextBox.cs" />

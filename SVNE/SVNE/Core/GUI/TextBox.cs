@@ -16,6 +16,10 @@ namespace SVNE.Core.GUI {
 
         }
 
+        public void Hover() {
+            throw new NotImplementedException();
+        }
+
         public void Reset() {
 
         }
