@@ -4,8 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SVNE.Core.GUI.MenuControl {
-    class Label {
-
+namespace SVNE.Animation {
+    class FadeOut {
     }
 }

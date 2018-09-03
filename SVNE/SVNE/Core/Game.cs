@@ -9,7 +9,7 @@ using SFML.Graphics;
 using SFML.Window;
 using SFML.System;
 
-using SVNE.Core.GUI;
+using SVNE.GUI;
 
 namespace SVNE.Core {
     class Game : GameLoop {
@@ -19,10 +19,11 @@ namespace SVNE.Core {
         public static List<Text> Dialogue = new List<Text>();
         public bool mouseOnClickable = false;
 
-        Sprite sprite = new Sprite(new Texture("Assets/30800208.jpg"));
+        public static Sprite sprite = new Sprite(new Texture("Assets/30800208.jpg"));
         Text text = new Text("hello world! what's crackin'?", new Font("Assets/Consolas.ttf"), 20);
 
         DialogueBox db;
+        //Animation.FadeIn fi;
 
         public Game(RenderWindow window) {
             this.window = window;
@@ -40,9 +41,12 @@ namespace SVNE.Core {
 
             sprite.Scale = new Vector2f(1f, 1f);
             sprite.Origin = new Vector2f(-(window.Size.X - sprite.Texture.Size.X) / 2, -150);
+            //sprite.Color = new Color(255, 255, 255, 255);
 
             //text.Origin = new Vector2f(-340, -560);
             text.Color = new Color(0, 0, 0);
+
+            //fi = new Animation.FadeIn(sprite, 5);
         }
 
         private void Window_Closed(object sender, EventArgs e) {
@@ -56,7 +60,7 @@ namespace SVNE.Core {
 
         public override void Update() {
             HandleMouse();
-
+            //fi.Start();
             db.AnimateText();
         }
 

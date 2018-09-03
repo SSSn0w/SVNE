@@ -9,7 +9,9 @@ using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
 
-namespace SVNE.Core.GUI {
+using SVNE.Core;
+
+namespace SVNE.GUI {
     class DialogueBox : Drawable {
         public string Title;
         public char[] Dialogue;

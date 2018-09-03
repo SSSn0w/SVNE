@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.System;
 
-namespace SVNE.Core.GUI {
+namespace SVNE.GUI {
     class Button : Clickable, Drawable {
         public Sprite notPressed;
         public Sprite pressed;

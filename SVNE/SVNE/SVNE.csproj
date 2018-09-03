@@ -63,14 +63,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Animation\FadeIn.cs" />
+    <Compile Include="Animation\FadeOut.cs" />
     <Compile Include="Core\Character.cs" />
     <Compile Include="Core\Game.cs" />
     <Compile Include="Core\GameLoop.cs" />
-    <Compile Include="Core\GUI\Clickable.cs" />
-    <Compile Include="Core\GUI\DialogueBox.cs" />
-    <Compile Include="Core\GUI\Button.cs" />
-    <Compile Include="Core\GUI\Label.cs" />
-    <Compile Include="Core\GUI\TextBox.cs" />
+    <Compile Include="GUI\Clickable.cs" />
+    <Compile Include="GUI\DialogueBox.cs" />
+    <Compile Include="GUI\Button.cs" />
+    <Compile Include="GUI\Label.cs" />
+    <Compile Include="GUI\TextBox.cs" />
     <Compile Include="Core\MainMenu.cs" />
     <Compile Include="Core\SVNE.cs" />
     <Compile Include="IO\LoadAsset.cs" />
@@ -100,7 +102,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Animation\" />
     <Folder Include="Data\" />
     <Folder Include="Graphics\" />
   </ItemGroup>

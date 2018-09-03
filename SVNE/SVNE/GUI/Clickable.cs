@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SVNE.Core.GUI {
+namespace SVNE.GUI {
     interface Clickable {
         void MouseDown();
         void MouseUp();

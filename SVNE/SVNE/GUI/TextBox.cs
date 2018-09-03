@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using SFML.Graphics;
 
-namespace SVNE.Core.GUI {
+namespace SVNE.GUI {
     class TextBox : Clickable, Drawable{
         public void MouseDown() {
 
