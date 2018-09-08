@@ -23,7 +23,9 @@ namespace SVNE.Core {
         Text text = new Text("hello world! what's crackin'?", new Font("Assets/Consolas.ttf"), 20);
 
         DialogueBox db;
-        //Animation.FadeIn fi;
+        Animation.FadeIn fi;
+        Animation.FadeOut fo;
+        Animation.Shake shake;
 
         public Game(RenderWindow window) {
             this.window = window;
@@ -41,12 +43,14 @@ namespace SVNE.Core {
 
             sprite.Scale = new Vector2f(1f, 1f);
             sprite.Origin = new Vector2f(-(window.Size.X - sprite.Texture.Size.X) / 2, -150);
-            //sprite.Color = new Color(255, 255, 255, 255);
+            sprite.Color = new Color(255, 255, 255, 255);
 
             //text.Origin = new Vector2f(-340, -560);
             text.Color = new Color(0, 0, 0);
 
-            //fi = new Animation.FadeIn(sprite, 5);
+            fi = new Animation.FadeIn(sprite, 2);
+            fo = new Animation.FadeOut(sprite, 2);
+            shake = new Animation.Shake(sprite, 10, 5, 1);
         }
 
         private void Window_Closed(object sender, EventArgs e) {
@@ -60,8 +64,10 @@ namespace SVNE.Core {
 
         public override void Update() {
             HandleMouse();
-            //fi.Start();
-            db.AnimateText();
+            db.Animate();
+            //fi.Animate();
+            //fo.Animate();
+            shake.Animate();
         }
 
         public override void Render() {

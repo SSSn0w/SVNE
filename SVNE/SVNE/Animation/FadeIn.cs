@@ -10,25 +10,41 @@ using SFML.System;
 namespace SVNE.Animation {
     class FadeIn {
         private Clock clock;
-        private int counter = 0;
+        private byte counter = 0;
         private Sprite sprite;
-        private double time;
+        private byte time;
 
-        public FadeIn(Sprite sprite, double time) {
+        public FadeIn(Sprite sprite, int speed) {
             this.sprite = sprite;
-            this.time = time;
+            switch (speed) {
+                //fast
+                case 1:
+                    time = 3;
+                    break;
+                //medium
+                case 2:
+                    time = 2;
+                    break;
+                //slow
+                case 3:
+                    time = 1;
+                    break;
+                default:
+                    time = 2;
+                    break;
+            }
             clock = new Clock();
         }
 
-        public void Start() {
-            if (counter < 0) {
+        public void Animate() {
+            if (counter >= 255) {
                 clock.Dispose();
             }
             else {
-                if (clock.ElapsedTime.AsSeconds() > 1f) {
-                    Core.Game.sprite.Color = new Color(255, 255, 255, 255 - 100);
+                if (clock.ElapsedTime.AsSeconds() > 0.02f) {
+                    sprite.Color = new Color(255, 255, 255, counter);
                     clock.Restart();
-                    counter++;
+                    counter += time;
                 }
             }
         }

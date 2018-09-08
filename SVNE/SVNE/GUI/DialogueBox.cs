@@ -69,7 +69,7 @@ namespace SVNE.GUI {
             clock = new Clock();
         }
 
-        public void AnimateText() {
+        public void Animate() {
             if (counter >= Dialogue.Length) {
                 clock.Dispose();
             }

@@ -65,6 +65,8 @@
   <ItemGroup>
     <Compile Include="Animation\FadeIn.cs" />
     <Compile Include="Animation\FadeOut.cs" />
+    <Compile Include="Animation\Shake.cs" />
+    <Compile Include="Animation\Slide.cs" />
     <Compile Include="Core\Character.cs" />
     <Compile Include="Core\Game.cs" />
     <Compile Include="Core\GameLoop.cs" />
