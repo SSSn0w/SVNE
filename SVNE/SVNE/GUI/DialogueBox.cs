@@ -43,22 +43,22 @@ namespace SVNE.GUI {
         public DialogueBox() : base() {
             Title = "";
             Dialogue = null;
-            TitleColor = new Color(0, 0, 0, 1);
-            DialogueColor = new Color(0, 0, 0, 1);
+            TitleColor = new Color(0, 0, 0, 255);
+            DialogueColor = new Color(0, 0, 0, 255);
             width = (int)texture.Size.X;
             height = (int)texture.Size.Y;
             sprite = new Sprite(texture);
 
             clock = new Clock();
-            Game.Dialogue.Add(new Text());
+            text = new Text();
         }
 
         public DialogueBox(string Title, string Dialogue, uint charSize) {
             this.Title = Title;
             this.Dialogue = Dialogue.ToCharArray();
             this.charSize = charSize;
-            TitleColor = new Color(0, 0, 0, 1);
-            DialogueColor = new Color(0, 0, 0, 1);
+            TitleColor = new Color(0, 0, 0, 255);
+            DialogueColor = new Color(0, 0, 0, 255);
 
             width = (int)texture.Size.X;
             height = (int)texture.Size.Y;
@@ -66,7 +66,7 @@ namespace SVNE.GUI {
 
             clock = new Clock();
             string[] text = Dialogue.Split();
-            Game.Dialogue.Add(new Text());
+            this.text = new Text();
         }
 
         public DialogueBox(string Title, string Dialogue, Color TitleColor, Color DialogueColor) {
@@ -76,7 +76,7 @@ namespace SVNE.GUI {
             this.DialogueColor = DialogueColor;
 
             clock = new Clock();
-            Game.Dialogue.Add(new Text());
+            text = new Text();
         }
 
         public void Animate() {
@@ -85,20 +85,25 @@ namespace SVNE.GUI {
             }
             else {
                 if (clock.ElapsedTime.AsSeconds() > 0.08f) {
-                    Game.Dialogue[0] = new Text(DialogueString, font, charSize);
-                    Game.Dialogue[0].Origin = new Vector2f(-sprite.GetGlobalBounds().Left - marginLeft, -sprite.GetGlobalBounds().Top - marginTop);
+                    text = new Text(DialogueString, font, charSize);
+                    text.Origin = new Vector2f(-sprite.GetGlobalBounds().Left - marginLeft, -sprite.GetGlobalBounds().Top - marginTop);
+                    text.Color = DialogueColor;
 
-                    if (Game.Dialogue[0].GetLocalBounds().Width >= sprite.GetGlobalBounds().Width - marginRight && charMax == 0) {
+                    if (text.GetLocalBounds().Width >= sprite.GetGlobalBounds().Width - marginRight && charMax == 0) {
                         charMax = DialogueString.Length;
                     }
 
                     try {
-                        if (charMax != 0 && DialogueString.EndsWith(" ") && (DialogueString + String.Join("", Dialogue).Split(' ')[wordCount - 1]).ToString().Split('\n')[lineCount].Length >= charMax) {
+                        if (charMax != 0 && DialogueString.EndsWith(" ") 
+                            && (DialogueString + String.Join("", Dialogue).Split(' ')[wordCount - 1]).ToString().Split('\n')[lineCount].Length >= charMax 
+                            || charMax != 0 
+                            && DialogueString.Split('\n')[lineCount].Length >= charMax) {
+
                             DialogueString += "\n";
                             lineCount++;
                         }
                     } catch(Exception e) {
-                        Console.WriteLine("Out of bounds exception from DialogueBox. This is normal. Continuing...");
+                        //Console.WriteLine("Out of bounds exception from DialogueBox. This is normal. Please Ignore.");
                     }
 
                     if (DialogueString.EndsWith("\n")) {
@@ -119,6 +124,7 @@ namespace SVNE.GUI {
         public void Draw(RenderTarget target, RenderStates states) {
             sprite.Origin = new Vector2f(-(1280 - width) / 2, -(720 - height));
             target.Draw(sprite, states);
+            target.Draw(text, states);
         }
     }
 }

@@ -16,7 +16,6 @@ namespace SVNE.Core {
         public RenderWindow window;
 
         public List<Clickable> MenuControls = new List<Clickable>();
-        public static List<Text> Dialogue = new List<Text>();
         public bool mouseOnClickable = false;
 
         public static Sprite sprite = new Sprite(new Texture("Assets/30800208.jpg"));
@@ -39,7 +38,7 @@ namespace SVNE.Core {
 
             MenuControls.Add(new Button("Text Button", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Consolas.ttf"), 340, 515, test));
 
-            db = new DialogueBox("Test", "This is some test text to see if the animation is working! TEXT WRAP WOOOOOOOOOOooooooooooooooooooooooooooOOOO It works hahahaha naisu!!!", 20);
+            db = new DialogueBox("Test", "This is some test text to see if the animation is working! TEXT WRAP WOOOOOOOOOOOOOOOoooooOOOOOOooooooooooooooooooooooOOOoooOooOOooooooOOOOOooooooooooooooooooooooooooOOOO It works hahahaha naisu!!!", 20);
 
             sprite.Scale = new Vector2f(1f, 1f);
             sprite.Origin = new Vector2f(-(window.Size.X - sprite.Texture.Size.X) / 2, -150);
@@ -73,15 +72,9 @@ namespace SVNE.Core {
         public override void Render() {
             Draw(sprite);
             Draw(db);
-            //Draw(text);
 
             foreach (Button button in MenuControls) {
                 Draw(button);
-            }
-
-            foreach (Text text in Dialogue) {
-                text.Color = new Color(0, 0, 0);
-                Draw(text);
             }
         }
 
