@@ -32,13 +32,13 @@ namespace SVNE.Core {
         }
 
         public override void Startup() {
-            //MenuControls.Add(new Button(new Texture("Assets/notPressed.png"), new Texture("Assets/pressed.png"), new Texture("Assets/pressed.png"), 0, 0, 100, 30, test));
-            //MenuControls.Add(new Button(new Texture("Assets/notPressed.png"), new Texture("Assets/pressed.png"), 200, 150, 100, 30));
-            //MenuControls.Add(new Button(new Texture("Assets/notPressed.png"), new Texture("Assets/pressed.png"), 0, 240, 100, 30));
+            MenuControls.Add(new Button(new Texture("Assets/notPressed.png"), new Texture("Assets/pressed.png"), new Texture("Assets/pressed.png"), 0, 0, 100, 30, test));
+            MenuControls.Add(new Button(new Texture("Assets/notPressed.png"), new Texture("Assets/pressed.png"), 200, 150, 100, 30));
+            MenuControls.Add(new Button(new Texture("Assets/notPressed.png"), new Texture("Assets/pressed.png"), 0, 240, 100, 30));
 
             MenuControls.Add(new Button("Text Button", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Consolas.ttf"), 340, 515, test));
 
-            db = new DialogueBox("Test", "This is some test text to see if the animation is working! TEXT WRAP WOOOOOOOOOOOOOOOoooooOOOOOOooooooooooooooooooooooOOOoooOooOOooooooOOOOOooooooooooooooooooooooooooOOOO It works hahahaha naisu!!!", 20);
+            db = new DialogueBox("Test", "This is some test text to see if the animation is working! TEXT WRAP WOoooOOOooOOOOOOOOoOooooooOOOOOooooooooooooooooooooooooooOOOO It works hahahaha naisu!!!", 20);
 
             sprite.Scale = new Vector2f(1f, 1f);
             sprite.Origin = new Vector2f(-(window.Size.X - sprite.Texture.Size.X) / 2, -150);
@@ -99,7 +99,6 @@ namespace SVNE.Core {
                     }
                 }
                 else {
-                    System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
                     control.Reset();
                 }
             }

@@ -95,8 +95,8 @@ namespace SVNE.GUI {
 
                     try {
                         if (charMax != 0 && DialogueString.EndsWith(" ") 
-                            && (DialogueString + String.Join("", Dialogue).Split(' ')[wordCount - 1]).ToString().Split('\n')[lineCount].Length >= charMax 
-                            || charMax != 0 
+                            && (DialogueString + String.Join("", Dialogue).Split(' ')[wordCount - 1]).ToString().Split('\n')[lineCount].Length >= charMax
+                            || charMax != 0
                             && DialogueString.Split('\n')[lineCount].Length >= charMax) {
 
                             DialogueString += "\n";
