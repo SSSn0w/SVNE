@@ -19,7 +19,12 @@ namespace SVNE.Core {
         public bool mouseOnClickable = false;
 
         public static Sprite sprite = new Sprite(new Texture("Assets/30800208.jpg"));
-        Text text = new Text("hello world! what's crackin'?", new Font("Assets/Consolas.ttf"), 20);
+
+        public List<DialogueBox> dialogue = new List<DialogueBox>();
+        public int dialogueCounter = 0;
+
+        enum States { MainMenu, Paused, Playing };
+        public int gameState = (int)States.Playing;
 
         DialogueBox db;
         Animation.FadeIn fi;
@@ -38,14 +43,21 @@ namespace SVNE.Core {
 
             MenuControls.Add(new Button("Text Button", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Consolas.ttf"), 340, 515, test));
 
-            db = new DialogueBox("Test", "This is some test text to see if the animation is working! TEXT WRAP WOoooOOOooOOOOOOOOoOooooooOOOOOooooooooooooooooooooooooooOOOO It works hahahaha naisu!!!", 20);
+            dialogue.Add(new DialogueBox("Test", "This is some test text to see if the animation is working! TEXT WRAP WOoooOOOooOOOOOOOOoOooooooOOOOOooooooooooooooooooooooooooOOOO It works hahahaha naisu!!!", 20));
+            dialogue.Add(new DialogueBox("Test", "1sdfsdf", 20));
+            dialogue.Add(new DialogueBox("Test", "2sfdsf", 20));
+            dialogue.Add(new DialogueBox("Test", "3sdfsdfs", 20));
+            dialogue.Add(new DialogueBox("Test", "4sdfsdf", 20));
+            dialogue.Add(new DialogueBox("Test", "5sdfsdf", 20));
+            dialogue.Add(new DialogueBox("Test", "6sdfdsf", 20));
+            dialogue.Add(new DialogueBox("Test", "7sdfdsf", 20));
+            dialogue.Add(new DialogueBox("Test", "8sdfsdf", 20));
+            dialogue.Add(new DialogueBox("Test", "9sdfsdf", 20));
+            dialogue.Add(new DialogueBox("Test", "10sddfdsfds", 20));
 
             sprite.Scale = new Vector2f(1f, 1f);
             sprite.Origin = new Vector2f(-(window.Size.X - sprite.Texture.Size.X) / 2, -150);
             sprite.Color = new Color(255, 255, 255, 255);
-
-            //text.Origin = new Vector2f(-340, -560);
-            text.Color = new Color(0, 0, 0);
 
             fi = new Animation.FadeIn(sprite, 2);
             fo = new Animation.FadeOut(sprite, 2);
@@ -63,15 +75,30 @@ namespace SVNE.Core {
 
         public override void Update() {
             HandleMouse();
-            db.Animate();
+            //db.Animate();
+
+            if (gameState == (int)States.Playing) {
+                try {
+                    dialogue[dialogueCounter].Animate();
+                } catch (Exception e) {
+                    Console.WriteLine(e + " No more dialogue");
+                }
+            }
             //fi.Animate();
             //fo.Animate();
-            shake.Animate();
+            //shake.Animate();
         }
 
         public override void Render() {
-            Draw(sprite);
-            Draw(db);
+            if (gameState == (int)States.Playing) {
+                Draw(sprite);
+
+                try {
+                    Draw(dialogue[dialogueCounter]);
+                } catch (Exception e) {
+                    Console.WriteLine(e + " No more dialogue");
+                }
+            }
 
             foreach (Button button in MenuControls) {
                 Draw(button);
@@ -101,6 +128,17 @@ namespace SVNE.Core {
                 else {
                     control.Reset();
                 }
+            }
+
+            if (Mouse.IsButtonPressed(Mouse.Button.Left)) {
+                mouseOnClickable = true;
+            }
+            else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
+                dialogueCounter++;
+                mouseOnClickable = false;
+            }
+            else {
+                
             }
         }
 
