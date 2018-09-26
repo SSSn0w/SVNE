@@ -27,15 +27,17 @@ namespace SVNE.GUI {
         public uint charSize;
         public Font font = new Font("Assets/Consolas.ttf");
         public Text text;
+        public Text title;
         public int marginTop = 100;
         public int marginLeft = 100;
         public int marginRight = 260;
 
         public Clock clock;
-        private int counter = 0;
+        public int counter = 0;
         private int charMax = 0;
         private int lineCount = 0;
         private int wordCount = 0;
+        public bool End = false;
 
         public Color TitleColor;
         public Color DialogueColor;
@@ -65,8 +67,13 @@ namespace SVNE.GUI {
             sprite = new Sprite(texture);
 
             clock = new Clock();
+
             string[] text = Dialogue.Split();
             this.text = new Text();
+
+            title = new Text(Title, new Font("Assets/Consolas.ttf"), 30);
+            title.Origin = new Vector2f(-340, -(525 - (int)title.GetGlobalBounds().Height / 2));
+            title.Color = TitleColor;
         }
 
         public DialogueBox(string Title, string Dialogue, Color TitleColor, Color DialogueColor) {
@@ -80,7 +87,40 @@ namespace SVNE.GUI {
         }
 
         public void Animate() {
-            if (counter >= Dialogue.Length) {
+            if (counter >= Dialogue.Length || End) {
+                while(counter < Dialogue.Length * 2) {
+                    text = new Text(DialogueString, font, charSize);
+                    text.Origin = new Vector2f(-sprite.GetGlobalBounds().Left - marginLeft, -sprite.GetGlobalBounds().Top - marginTop);
+                    text.Color = DialogueColor;
+
+                    if (text.GetLocalBounds().Width >= sprite.GetGlobalBounds().Width - marginRight && charMax == 0) {
+                        charMax = DialogueString.Length;
+                    }
+
+                    try {
+                        if (charMax != 0 && DialogueString.EndsWith(" ")
+                            && (DialogueString + String.Join("", Dialogue).Split(' ')[wordCount - 1]).ToString().Split('\n')[lineCount].Length >= charMax
+                            || charMax != 0
+                            && DialogueString.Split('\n')[lineCount].Length >= charMax) {
+
+                            DialogueString += "\n";
+                            lineCount++;
+                        }
+                    } catch (Exception e) {
+                        Console.WriteLine(e + " Out of bounds exception from DialogueBox. This is normal. Please Ignore.");
+                    }
+
+                    if (DialogueString.EndsWith("\n")) {
+                        DialogueString += Dialogue[counter].ToString().TrimStart();
+                    }
+                    else {
+                        DialogueString += Dialogue[counter];
+                    }
+
+                    wordCount = DialogueString.Count(Char.IsWhiteSpace);
+                    counter++;
+                }
+
                 clock.Dispose();
             }
             else {
@@ -103,7 +143,7 @@ namespace SVNE.GUI {
                             lineCount++;
                         }
                     } catch(Exception e) {
-                        //Console.WriteLine("Out of bounds exception from DialogueBox. This is normal. Please Ignore.");
+                        Console.WriteLine(e + " Out of bounds exception from DialogueBox. This is normal. Please Ignore.");
                     }
 
                     if (DialogueString.EndsWith("\n")) {
@@ -124,6 +164,7 @@ namespace SVNE.GUI {
         public void Draw(RenderTarget target, RenderStates states) {
             sprite.Origin = new Vector2f(-(1280 - width) / 2, -(720 - height));
             target.Draw(sprite, states);
+            target.Draw(title, states);
             target.Draw(text, states);
         }
     }

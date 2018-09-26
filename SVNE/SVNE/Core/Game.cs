@@ -41,7 +41,7 @@ namespace SVNE.Core {
             MenuControls.Add(new Button(new Texture("Assets/notPressed.png"), new Texture("Assets/pressed.png"), 200, 150, 100, 30));
             MenuControls.Add(new Button(new Texture("Assets/notPressed.png"), new Texture("Assets/pressed.png"), 0, 240, 100, 30));
 
-            MenuControls.Add(new Button("Text Button", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Consolas.ttf"), 340, 515, test));
+            MenuControls.Add(new Button("Text Button", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Consolas.ttf"), 150, 400, test));
 
             dialogue.Add(new DialogueBox("Test", "This is some test text to see if the animation is working! TEXT WRAP WOoooOOOooOOOOOOOOoOooooooOOOOOooooooooooooooooooooooooooOOOO It works hahahaha naisu!!!", 20));
             dialogue.Add(new DialogueBox("Test", "1sdfsdf", 20));
@@ -134,7 +134,17 @@ namespace SVNE.Core {
                 mouseOnClickable = true;
             }
             else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
-                dialogueCounter++;
+                try {
+                    if (dialogue[dialogueCounter].counter != dialogue[dialogueCounter].Dialogue.Length) {
+                        dialogue[dialogueCounter].End = true;
+                    }
+                    else {
+                        dialogueCounter++;
+                    }
+                } catch(Exception e) {
+                    Console.WriteLine(e + " No more dialogue to be displayed");
+                }
+
                 mouseOnClickable = false;
             }
             else {
