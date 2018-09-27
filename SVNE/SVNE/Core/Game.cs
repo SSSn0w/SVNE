@@ -44,7 +44,11 @@ namespace SVNE.Core {
 
             MenuControls.Add(new Button("Text Button", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Consolas.ttf"), 150, 400, test));
 
-            dialogue.Add(new DialogueBox("???", "So, what brings you here?", 20));
+            fi = new Animation.FadeIn(sprite, 2);
+            fo = new Animation.FadeOut(sprite, 2);
+            shake = new Animation.Shake(sprite, 10, 5, 1);
+
+            dialogue.Add(new DialogueBox("???", "So, what brings you here?", 20, fi.Animate));
             dialogue.Add(new DialogueBox("Me", "Uh...who are you again??", 20));
             dialogue.Add(new DialogueBox("???", "Me? Why, I am the great Magilou of course!!", 20));
             dialogue.Add(new DialogueBox("Magilou", "Now answer the question!", 20));
@@ -54,22 +58,18 @@ namespace SVNE.Core {
             dialogue.Add(new DialogueBox("Magilou", "Hmm, as I thought. Get out of here before the others get here.", 20));
             dialogue.Add(new DialogueBox("Me", "The others?", 20));
             dialogue.Add(new DialogueBox("Magilou", "Yes. The others. Now scram!!", 20));
-            dialogue.Add(new DialogueBox("Me", "Sure thing boss!", 20));
+            dialogue.Add(new DialogueBox("Me", "Sure thing boss!", 20, fo.Animate));
 
             sprite.Scale = new Vector2f(0.2f, 0.2f);
             sprite.Origin = new Vector2f(-(window.Size.X + sprite.Texture.Size.X) / 2, -100);
             //sprite.Origin = new Vector2f(0, 0);
             sprite.Texture.Smooth = true;
-            sprite.Color = new Color(255, 255, 255, 255);
+            sprite.Color = new Color(255, 255, 255, 0);
 
             float size = (float)window.Size.X / (float)sprite.Texture.Size.X;
             Console.WriteLine(size);
             //background.Scale = new Vector2f(size, size);
             background.Origin = new Vector2f(0, 300);
-
-            fi = new Animation.FadeIn(sprite, 2);
-            fo = new Animation.FadeOut(sprite, 2);
-            shake = new Animation.Shake(sprite, 10, 5, 1);
         }
 
         private void Window_Closed(object sender, EventArgs e) {
@@ -86,8 +86,11 @@ namespace SVNE.Core {
             //db.Animate();
 
             if (gameState == (int)States.Playing) {
+                //fi.Animate();
+
                 try {
                     dialogue[dialogueCounter].Animate();
+                    dialogue[dialogueCounter].action();
                 } catch (Exception e) {
                     Console.WriteLine(e + " No more dialogue");
                 }
@@ -95,7 +98,6 @@ namespace SVNE.Core {
             else if(gameState == (int)States.MainMenu) {
 
             }
-            //fi.Animate();
             //fo.Animate();
             //shake.Animate();
         }

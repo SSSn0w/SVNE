@@ -19,24 +19,24 @@ namespace SVNE.Animation {
             switch (speed) {
                 //fast
                 case 1:
-                    time = 3;
+                    time = 5;
                     break;
                 //medium
                 case 2:
-                    time = 2;
+                    time = 3;
                     break;
                 //slow
                 case 3:
                     time = 1;
                     break;
                 default:
-                    time = 2;
+                    time = 3;
                     break;
             }
             clock = new Clock();
         }
 
-        public void Animate() {
+        public int Animate() {
             if (counter >= 255) {
                 clock.Dispose();
             }
@@ -47,6 +47,8 @@ namespace SVNE.Animation {
                     counter += time;
                 }
             }
+
+            return 0;
         }
     }
 }

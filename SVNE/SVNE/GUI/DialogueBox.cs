@@ -39,6 +39,8 @@ namespace SVNE.GUI {
         private int wordCount = 0;
         public bool End = false;
 
+        public Func<int> action = () => 0;
+
         public Color TitleColor;
         public Color DialogueColor;
 
@@ -59,6 +61,29 @@ namespace SVNE.GUI {
             this.Title = Title;
             this.Dialogue = Dialogue.ToCharArray();
             this.charSize = charSize;
+            TitleColor = new Color(0, 0, 0, 255);
+            DialogueColor = new Color(0, 0, 0, 255);
+
+            width = (int)texture.Size.X;
+            height = (int)texture.Size.Y;
+            sprite = new Sprite(texture);
+
+            clock = new Clock();
+
+            string[] text = Dialogue.Split();
+            this.text = new Text();
+
+            title = new Text(Title, new Font("Assets/Consolas.ttf"), 30);
+            float letterH = new Text(Title.ToCharArray()[0].ToString(), new Font("Assets/Consolas.ttf"), 30).GetGlobalBounds().Height;
+            title.Origin = new Vector2f(-340, -(525 - (int)letterH / 2));
+            title.Color = TitleColor;
+        }
+
+        public DialogueBox(string Title, string Dialogue, uint charSize, Func<int> action) {
+            this.Title = Title;
+            this.Dialogue = Dialogue.ToCharArray();
+            this.charSize = charSize;
+            this.action = action;
             TitleColor = new Color(0, 0, 0, 255);
             DialogueColor = new Color(0, 0, 0, 255);
 

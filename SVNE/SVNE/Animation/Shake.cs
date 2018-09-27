@@ -45,7 +45,7 @@ namespace SVNE.Animation {
             clock = new Clock();
         }
 
-        public void Animate() {
+        public int Animate() {
             if (counter >= time) {
                 clock.Dispose();
             }
@@ -58,6 +58,8 @@ namespace SVNE.Animation {
                     counter += tick;
                 }
             }
+
+            return 0;
         }
     }
 }
