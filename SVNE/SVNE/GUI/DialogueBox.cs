@@ -30,7 +30,7 @@ namespace SVNE.GUI {
         public Text title;
         public int marginTop = 100;
         public int marginLeft = 100;
-        public int marginRight = 260;
+        public int marginRight = 280;
 
         public Clock clock;
         public int counter = 0;
@@ -72,7 +72,8 @@ namespace SVNE.GUI {
             this.text = new Text();
 
             title = new Text(Title, new Font("Assets/Consolas.ttf"), 30);
-            title.Origin = new Vector2f(-340, -(525 - (int)title.GetGlobalBounds().Height / 2));
+            float letterH = new Text(Title.ToCharArray()[0].ToString(), new Font("Assets/Consolas.ttf"), 30).GetGlobalBounds().Height;
+            title.Origin = new Vector2f(-340, -(525 - (int)letterH / 2));
             title.Color = TitleColor;
         }
 
