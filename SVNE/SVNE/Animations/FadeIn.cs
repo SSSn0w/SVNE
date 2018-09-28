@@ -7,16 +7,17 @@ using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.System;
 
-namespace SVNE.Animation {
-    class FadeOut {
+namespace SVNE.Animations {
+    class FadeIn : Animation {
         private Clock clock;
-        private byte counter = 255;
+        private byte counter = 0;
+        private byte endAlpha = 255;
         private Sprite sprite;
         private byte time;
 
-        public FadeOut(Sprite sprite, int speed) {
+        public FadeIn(Sprite sprite, int speed) {
             this.sprite = sprite;
-            switch(speed) {
+            switch (speed) {
                 //fast
                 case 1:
                     time = 5;
@@ -36,19 +37,23 @@ namespace SVNE.Animation {
             clock = new Clock();
         }
 
-        public int Animate() {
-            if (counter <= 1) {
+        public void Default() {
+            clock.Dispose();
+            sprite.Color = new Color(255, 255, 255, endAlpha);
+            Console.WriteLine("bum bum");
+        }
+
+        public void Animate() {
+            if (counter >= endAlpha) {
                 clock.Dispose();
             }
             else {
-                if (clock.ElapsedTime.AsSeconds() > 0.01f) {
+                if (clock.ElapsedTime.AsSeconds() > 0.02f) {
                     sprite.Color = new Color(255, 255, 255, counter);
                     clock.Restart();
-                    counter -= time;
+                    counter += time;
                 }
             }
-
-            return 0;
         }
     }
 }

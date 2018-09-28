@@ -63,10 +63,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Animation\FadeIn.cs" />
-    <Compile Include="Animation\FadeOut.cs" />
-    <Compile Include="Animation\Shake.cs" />
-    <Compile Include="Animation\Slide.cs" />
+    <Compile Include="Animations\Animation.cs" />
+    <Compile Include="Animations\FadeIn.cs" />
+    <Compile Include="Animations\FadeOut.cs" />
+    <Compile Include="Animations\Shake.cs" />
+    <Compile Include="Animations\Slide.cs" />
     <Compile Include="Core\Character.cs" />
     <Compile Include="Core\Game.cs" />
     <Compile Include="Core\GameLoop.cs" />

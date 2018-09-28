@@ -27,10 +27,9 @@ namespace SVNE.Core {
         enum States { MainMenu, Paused, Playing };
         public int gameState = (int)States.Playing;
 
-        DialogueBox db;
-        Animation.FadeIn fi;
-        Animation.FadeOut fo;
-        Animation.Shake shake;
+        Animations.FadeIn fi;
+        Animations.FadeOut fo;
+        Animations.Shake shake;
 
         public Game(RenderWindow window) {
             this.window = window;
@@ -44,21 +43,21 @@ namespace SVNE.Core {
 
             MenuControls.Add(new Button("Text Button", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Consolas.ttf"), 150, 400, test));
 
-            fi = new Animation.FadeIn(sprite, 2);
-            fo = new Animation.FadeOut(sprite, 2);
-            shake = new Animation.Shake(sprite, 10, 5, 1);
+            fi = new Animations.FadeIn(sprite, 2);
+            fo = new Animations.FadeOut(sprite, 2);
+            shake = new Animations.Shake(sprite, 10, 5, 1);
 
-            dialogue.Add(new DialogueBox("???", "So, what brings you here?", 20, fi.Animate));
+            dialogue.Add(new DialogueBox("???", "So, what brings you here?", 20, fi));
             dialogue.Add(new DialogueBox("Me", "Uh...who are you again??", 20));
             dialogue.Add(new DialogueBox("???", "Me? Why, I am the great Magilou of course!!", 20));
             dialogue.Add(new DialogueBox("Magilou", "Now answer the question!", 20));
             dialogue.Add(new DialogueBox("Me", "Oh, uh, nothing really. I was just taking a look around and saw this cool mansion so I invited myself in.", 20));
-            dialogue.Add(new DialogueBox("Magilou", "Isn't that trespassing though?", 20));
+            dialogue.Add(new DialogueBox("Magilou", "Isn't that trespassing though?", 20, new Animations.Shake(sprite, 10, 10, 1)));
             dialogue.Add(new DialogueBox("Me", ".....", 20));
             dialogue.Add(new DialogueBox("Magilou", "Hmm, as I thought. Get out of here before the others get here.", 20));
             dialogue.Add(new DialogueBox("Me", "The others?", 20));
             dialogue.Add(new DialogueBox("Magilou", "Yes. The others. Now scram!!", 20));
-            dialogue.Add(new DialogueBox("Me", "Sure thing boss!", 20, fo.Animate));
+            dialogue.Add(new DialogueBox("Me", "Sure thing boss!", 20, fo));
 
             sprite.Scale = new Vector2f(0.2f, 0.2f);
             sprite.Origin = new Vector2f(-(window.Size.X + sprite.Texture.Size.X) / 2, -100);
@@ -67,7 +66,6 @@ namespace SVNE.Core {
             sprite.Color = new Color(255, 255, 255, 0);
 
             float size = (float)window.Size.X / (float)sprite.Texture.Size.X;
-            Console.WriteLine(size);
             //background.Scale = new Vector2f(size, size);
             background.Origin = new Vector2f(0, 300);
         }
@@ -83,14 +81,11 @@ namespace SVNE.Core {
 
         public override void Update() {
             HandleMouse();
-            //db.Animate();
 
             if (gameState == (int)States.Playing) {
-                //fi.Animate();
-
                 try {
                     dialogue[dialogueCounter].Animate();
-                    dialogue[dialogueCounter].action();
+                    dialogue[dialogueCounter].animation.Animate();
                 } catch (Exception e) {
                     Console.WriteLine(e + " No more dialogue");
                 }
@@ -98,8 +93,6 @@ namespace SVNE.Core {
             else if(gameState == (int)States.MainMenu) {
 
             }
-            //fo.Animate();
-            //shake.Animate();
         }
 
         public override void Render() {
@@ -153,6 +146,7 @@ namespace SVNE.Core {
                     try {
                         if (dialogue[dialogueCounter].counter != dialogue[dialogueCounter].Dialogue.Length) {
                             dialogue[dialogueCounter].End = true;
+                            dialogue[dialogueCounter].animation.Default();
                         }
                         else {
                             dialogueCounter++;

@@ -4,7 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SVNE.Animation {
-    class Slide {
+using SFML.Graphics;
+
+namespace SVNE.Animations {
+    interface Animation {
+        void Default();
+        void Animate();
     }
 }

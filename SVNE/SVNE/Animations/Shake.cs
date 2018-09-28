@@ -8,8 +8,8 @@ using SFML.Graphics;
 using SFML.System;
 
 
-namespace SVNE.Animation {
-    class Shake {
+namespace SVNE.Animations {
+    class Shake : Animation {
         private Clock clock;
         private double counter = 0;
         private Sprite sprite;
@@ -41,16 +41,23 @@ namespace SVNE.Animation {
                     break;
             }
 
-            origin = sprite.Origin;
             clock = new Clock();
         }
 
-        public int Animate() {
+        public void Default() {
+            sprite.Origin = origin;
+        }
+
+        public void Animate() {
             if (counter >= time) {
                 clock.Dispose();
             }
             else {
                 if (clock.ElapsedTime.AsSeconds() > tick) {
+                    if(counter == 0) {
+                        origin = sprite.Origin;
+                    }
+
                     float x = new Random().Next(-magnitude, magnitude);
                     float y = new Random().Next(-magnitude, magnitude);
                     sprite.Origin = origin + new Vector2f(x, y);
@@ -58,8 +65,6 @@ namespace SVNE.Animation {
                     counter += tick;
                 }
             }
-
-            return 0;
         }
     }
 }

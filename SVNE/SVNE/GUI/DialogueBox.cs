@@ -10,6 +10,7 @@ using SFML.Graphics;
 using SFML.System;
 
 using SVNE.Core;
+using SVNE.Animations;
 
 namespace SVNE.GUI {
     class DialogueBox : Drawable {
@@ -39,7 +40,7 @@ namespace SVNE.GUI {
         private int wordCount = 0;
         public bool End = false;
 
-        public Func<int> action = () => 0;
+        public Animation animation;
 
         public Color TitleColor;
         public Color DialogueColor;
@@ -79,11 +80,11 @@ namespace SVNE.GUI {
             title.Color = TitleColor;
         }
 
-        public DialogueBox(string Title, string Dialogue, uint charSize, Func<int> action) {
+        public DialogueBox(string Title, string Dialogue, uint charSize, Animation animation) {
             this.Title = Title;
             this.Dialogue = Dialogue.ToCharArray();
             this.charSize = charSize;
-            this.action = action;
+            this.animation = animation;
             TitleColor = new Color(0, 0, 0, 255);
             DialogueColor = new Color(0, 0, 0, 255);
 
@@ -115,76 +116,53 @@ namespace SVNE.GUI {
         public void Animate() {
             if (counter >= Dialogue.Length || End) {
                 while(counter < Dialogue.Length * 2) {
-                    text = new Text(DialogueString, font, charSize);
-                    text.Origin = new Vector2f(-sprite.GetGlobalBounds().Left - marginLeft, -sprite.GetGlobalBounds().Top - marginTop);
-                    text.Color = DialogueColor;
-
-                    if (text.GetLocalBounds().Width >= sprite.GetGlobalBounds().Width - marginRight && charMax == 0) {
-                        charMax = DialogueString.Length;
-                    }
-
-                    try {
-                        if (charMax != 0 && DialogueString.EndsWith(" ")
-                            && (DialogueString + String.Join("", Dialogue).Split(' ')[wordCount - 1]).ToString().Split('\n')[lineCount].Length >= charMax
-                            || charMax != 0
-                            && DialogueString.Split('\n')[lineCount].Length >= charMax) {
-
-                            DialogueString += "\n";
-                            lineCount++;
-                        }
-                    } catch (Exception e) {
-                        Console.WriteLine(e + " Out of bounds exception from DialogueBox. This is normal. Please Ignore.");
-                    }
-
-                    if (DialogueString.EndsWith("\n")) {
-                        DialogueString += Dialogue[counter].ToString().TrimStart();
-                    }
-                    else {
-                        DialogueString += Dialogue[counter];
-                    }
-
-                    wordCount = DialogueString.Count(Char.IsWhiteSpace);
-                    counter++;
+                    AnimateDialogue();
                 }
 
                 clock.Dispose();
             }
             else {
                 if (clock.ElapsedTime.AsSeconds() > 0.08f) {
-                    text = new Text(DialogueString, font, charSize);
-                    text.Origin = new Vector2f(-sprite.GetGlobalBounds().Left - marginLeft, -sprite.GetGlobalBounds().Top - marginTop);
-                    text.Color = DialogueColor;
-
-                    if (text.GetLocalBounds().Width >= sprite.GetGlobalBounds().Width - marginRight && charMax == 0) {
-                        charMax = DialogueString.Length;
-                    }
-
-                    try {
-                        if (charMax != 0 && DialogueString.EndsWith(" ") 
-                            && (DialogueString + String.Join("", Dialogue).Split(' ')[wordCount - 1]).ToString().Split('\n')[lineCount].Length >= charMax
-                            || charMax != 0
-                            && DialogueString.Split('\n')[lineCount].Length >= charMax) {
-
-                            DialogueString += "\n";
-                            lineCount++;
-                        }
-                    } catch(Exception e) {
-                        Console.WriteLine(e + " Out of bounds exception from DialogueBox. This is normal. Please Ignore.");
-                    }
-
-                    if (DialogueString.EndsWith("\n")) {
-                        DialogueString += Dialogue[counter].ToString().TrimStart();
-                    }
-                    else {
-                        DialogueString += Dialogue[counter];
-                    }
-
-                    wordCount = DialogueString.Count(Char.IsWhiteSpace);
-                    counter++;
+                    AnimateDialogue();
 
                     clock.Restart();
                 }
             }
+        }
+
+        public void AnimateDialogue() {
+            text = new Text(DialogueString, font, charSize);
+            text.Origin = new Vector2f(-sprite.GetGlobalBounds().Left - marginLeft, -sprite.GetGlobalBounds().Top - marginTop);
+            text.Color = DialogueColor;
+
+            if (text.GetLocalBounds().Width >= sprite.GetGlobalBounds().Width - marginRight && charMax == 0) {
+                charMax = DialogueString.Length;
+            }
+
+            try {
+                if (charMax != 0 && DialogueString.EndsWith(" ")
+                    && (DialogueString + String.Join("", Dialogue).Split(' ')[wordCount - 1]).ToString().Split('\n')[lineCount].Length >= charMax
+                    /*|| charMax != 0
+                    && DialogueString.Split('\n')[lineCount].Length >= charMax*/
+                    || charMax != 0
+                    && DialogueString.Split('\n')[lineCount].Split(' ').Last().Length >= charMax) {
+
+                    DialogueString += "\n";
+                    lineCount++;
+                }
+            } catch (Exception e) {
+                Console.WriteLine(e + " Out of bounds exception from DialogueBox. This is normal. Please Ignore.");
+            }
+
+            if (DialogueString.EndsWith("\n")) {
+                DialogueString += Dialogue[counter].ToString().TrimStart();
+            }
+            else {
+                DialogueString += Dialogue[counter];
+            }
+
+            wordCount = DialogueString.Count(Char.IsWhiteSpace);
+            counter++;
         }
 
         public void Draw(RenderTarget target, RenderStates states) {
