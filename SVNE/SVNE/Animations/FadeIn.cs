@@ -40,7 +40,6 @@ namespace SVNE.Animations {
         public void Default() {
             clock.Dispose();
             sprite.Color = new Color(255, 255, 255, endAlpha);
-            Console.WriteLine("bum bum");
         }
 
         public void Animate() {

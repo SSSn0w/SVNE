@@ -19,13 +19,15 @@ namespace SVNE.Core {
         public bool mouseOnClickable = false;
 
         public Sprite background = new Sprite(new Texture("Assets/background.jpg"));
-        public static Sprite sprite = new Sprite(new Texture("Assets/character.png"));
+        public Sprite sprite = new Sprite(new Texture("Assets/character.png"));
 
         public List<DialogueBox> dialogue = new List<DialogueBox>();
         public int dialogueCounter = 0;
 
-        enum States { MainMenu, Paused, Playing };
-        public int gameState = (int)States.Playing;
+        public enum States { MainMenu, Paused, Playing, Quit };
+        public static int gameState = (int)States.MainMenu;
+
+        MainMenu mm = new MainMenu();
 
         Animations.FadeIn fi;
         Animations.FadeOut fo;
@@ -37,11 +39,11 @@ namespace SVNE.Core {
         }
 
         public override void Startup() {
-            MenuControls.Add(new Button(new Texture("Assets/notPressed.png"), new Texture("Assets/pressed.png"), new Texture("Assets/pressed.png"), 0, 0, 100, 30, test));
+            /*MenuControls.Add(new Button(new Texture("Assets/notPressed.png"), new Texture("Assets/pressed.png"), new Texture("Assets/pressed.png"), 0, 0, 100, 30, test));
             MenuControls.Add(new Button(new Texture("Assets/notPressed.png"), new Texture("Assets/pressed.png"), 200, 150, 100, 30));
             MenuControls.Add(new Button(new Texture("Assets/notPressed.png"), new Texture("Assets/pressed.png"), 0, 240, 100, 30));
 
-            MenuControls.Add(new Button("Text Button", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Consolas.ttf"), 150, 400, test));
+            MenuControls.Add(new Button("Text Button", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Consolas.ttf"), 150, 400, test));*/
 
             fi = new Animations.FadeIn(sprite, 2);
             fo = new Animations.FadeOut(sprite, 2);
@@ -71,12 +73,12 @@ namespace SVNE.Core {
         }
 
         private void Window_Closed(object sender, EventArgs e) {
-            Stop();
-            window.Close();
+            Shutdown();
         }
 
         public override void Shutdown() {
-            
+            Stop();
+            window.Close();
         }
 
         public override void Update() {
@@ -91,7 +93,10 @@ namespace SVNE.Core {
                 }
             }
             else if(gameState == (int)States.MainMenu) {
-
+                
+            }
+            else if(gameState == (int)States.Quit) {
+                Shutdown();
             }
         }
 
@@ -107,58 +112,59 @@ namespace SVNE.Core {
                 }
             }
             else if (gameState == (int)States.MainMenu) {
-                foreach (Button button in MenuControls) {
-                    Draw(button);
-                }
+                Draw(mm);
             }
         }
 
         public void HandleMouse() {
             if (window.HasFocus()) {
-                foreach (Button control in MenuControls) {
-                    if (Mouse.GetPosition(window).X >= control.x &&
-                    Mouse.GetPosition(window).X <= control.x + control.width &&
-                    Mouse.GetPosition(window).Y >= control.y &&
-                    Mouse.GetPosition(window).Y <= control.y + control.height) {
-                        System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Hand;
+                if (gameState == (int)States.MainMenu) {
+                    foreach (Button control in mm.MenuControls) {
+                        if (Mouse.GetPosition(window).X >= control.x &&
+                        Mouse.GetPosition(window).X <= control.x + control.width &&
+                        Mouse.GetPosition(window).Y >= control.y &&
+                        Mouse.GetPosition(window).Y <= control.y + control.height) {
+                            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Hand;
 
-                        if (Mouse.IsButtonPressed(Mouse.Button.Left)) {
-                            control.MouseDown();
-                            mouseOnClickable = true;
-                        }
-                        else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
-                            control.MouseUp();
-                            mouseOnClickable = false;
+                            if (Mouse.IsButtonPressed(Mouse.Button.Left)) {
+                                control.MouseDown();
+                                mouseOnClickable = true;
+                            }
+                            else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
+                                control.MouseUp();
+                                mouseOnClickable = false;
+                            }
+                            else {
+                                control.Hover();
+                            }
                         }
                         else {
-                            control.Hover();
+                            control.Reset();
                         }
+                    }
+                }
+                else if (gameState == (int)States.Playing) {
+                    if (Mouse.IsButtonPressed(Mouse.Button.Left)) {
+                        mouseOnClickable = true;
+                    }
+                    else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
+                        try {
+                            if (dialogue[dialogueCounter].counter != dialogue[dialogueCounter].Dialogue.Length) {
+                                dialogue[dialogueCounter].End = true;
+                                dialogue[dialogueCounter].animation.Default();
+                            }
+                            else {
+                                dialogueCounter++;
+                            }
+                        } catch (Exception e) {
+                            Console.WriteLine(e + " No more dialogue to be displayed");
+                        }
+
+                        mouseOnClickable = false;
                     }
                     else {
-                        control.Reset();
+
                     }
-                }
-
-                if (Mouse.IsButtonPressed(Mouse.Button.Left)) {
-                    mouseOnClickable = true;
-                }
-                else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
-                    try {
-                        if (dialogue[dialogueCounter].counter != dialogue[dialogueCounter].Dialogue.Length) {
-                            dialogue[dialogueCounter].End = true;
-                            dialogue[dialogueCounter].animation.Default();
-                        }
-                        else {
-                            dialogueCounter++;
-                        }
-                    } catch (Exception e) {
-                        Console.WriteLine(e + " No more dialogue to be displayed");
-                    }
-
-                    mouseOnClickable = false;
-                }
-                else {
-
                 }
             }
         }
