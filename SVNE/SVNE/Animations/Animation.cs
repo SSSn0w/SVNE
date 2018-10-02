@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 using SFML.Graphics;
 
+using SVNE.Core;
+
 namespace SVNE.Animations {
-    interface Animation {
+    interface Animation : Event {
         void Default();
         void Animate();
     }

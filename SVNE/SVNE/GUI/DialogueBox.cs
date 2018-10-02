@@ -13,7 +13,7 @@ using SVNE.Core;
 using SVNE.Animations;
 
 namespace SVNE.GUI {
-    class DialogueBox : Drawable {
+    class DialogueBox : Event, Drawable {
         public string Title;
         public char[] Dialogue;
         public string DialogueString = "";
@@ -163,6 +163,30 @@ namespace SVNE.GUI {
 
             wordCount = DialogueString.Count(Char.IsWhiteSpace);
             counter++;
+        }
+
+        public void StartEvent() {
+            Animate();
+            animation.StartEvent();
+        }
+
+        public void EndEvent() {
+            if (counter != Dialogue.Length) {
+                End = true;
+                animation.EndEvent();
+            }
+            else {
+                Game.timelineCounter++;
+            }
+        }
+
+        public bool Ended() {
+            if (End) {
+                return true;
+            }
+            else {
+                return false;
+            }
         }
 
         public void Draw(RenderTarget target, RenderStates states) {

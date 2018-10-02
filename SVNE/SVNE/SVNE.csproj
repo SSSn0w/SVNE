@@ -69,6 +69,8 @@
     <Compile Include="Animations\Shake.cs" />
     <Compile Include="Animations\Slide.cs" />
     <Compile Include="Core\Character.cs" />
+    <Compile Include="Core\Event.cs" />
+    <Compile Include="Core\EventTrigger.cs" />
     <Compile Include="Core\Game.cs" />
     <Compile Include="Core\GameLoop.cs" />
     <Compile Include="GUI\Clickable.cs" />

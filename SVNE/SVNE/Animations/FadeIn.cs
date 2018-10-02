@@ -54,5 +54,22 @@ namespace SVNE.Animations {
                 }
             }
         }
+
+        public void StartEvent() {
+            Animate();
+        }
+
+        public void EndEvent() {
+            Default();
+        }
+
+        public bool Ended() {
+            if(counter >= endAlpha) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
     }
 }
