@@ -82,6 +82,8 @@
     <Compile Include="Core\SVNE.cs" />
     <Compile Include="IO\LoadAsset.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Transitions\FadeFromBlack.cs" />
+    <Compile Include="Transitions\FadeToBlack.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

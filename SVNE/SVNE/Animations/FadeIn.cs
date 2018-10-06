@@ -47,7 +47,7 @@ namespace SVNE.Animations {
                 clock.Dispose();
             }
             else {
-                if (clock.ElapsedTime.AsSeconds() > 0.02f) {
+                if (clock.ElapsedTime.AsSeconds() > 0.01f) {
                     sprite.Color = new Color(255, 255, 255, counter);
                     clock.Restart();
                     counter += time;

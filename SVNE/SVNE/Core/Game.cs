@@ -20,6 +20,7 @@ namespace SVNE.Core {
 
         public Sprite background = new Sprite(new Texture("Assets/background.jpg"));
         public Sprite sprite = new Sprite(new Texture("Assets/character.png"));
+        public RectangleShape cover;
 
         public List<Event> TimeLine = new List<Event>();
         public static int timelineCounter = 0;
@@ -39,18 +40,15 @@ namespace SVNE.Core {
         }
 
         public override void Startup() {
-            /*MenuControls.Add(new Button(new Texture("Assets/notPressed.png"), new Texture("Assets/pressed.png"), new Texture("Assets/pressed.png"), 0, 0, 100, 30, test));
-            MenuControls.Add(new Button(new Texture("Assets/notPressed.png"), new Texture("Assets/pressed.png"), 200, 150, 100, 30));
-            MenuControls.Add(new Button(new Texture("Assets/notPressed.png"), new Texture("Assets/pressed.png"), 0, 240, 100, 30));
-
-            MenuControls.Add(new Button("Text Button", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Consolas.ttf"), 150, 400, test));*/
+            cover = new RectangleShape(new Vector2f(window.Size.X, window.Size.Y));
+            cover.FillColor = new Color(0, 0, 0, 0);
 
             fi = new Animations.FadeIn(sprite, 2);
             fo = new Animations.FadeOut(sprite, 2);
             shake = new Animations.Shake(sprite, 10, 5, 1);
 
+            TimeLine.Add(new EventTrigger(new Transitions.FadeFromBlack(cover, 3, window), true));
             TimeLine.Add(new DialogueBox("???", "So, what brings you here?", 20, fi));
-            TimeLine.Add(new EventTrigger(new Animations.Shake(sprite, 3, 20, 1), true));
             TimeLine.Add(new DialogueBox("Me", "Uh...who are you again??", 20));
             TimeLine.Add(new DialogueBox("???", "Me? Why, I am the great Magilou of course!!", 20));
             TimeLine.Add(new DialogueBox("Magilou", "Now answer the question!", 20));
@@ -61,6 +59,7 @@ namespace SVNE.Core {
             TimeLine.Add(new DialogueBox("Me", "The others?", 20));
             TimeLine.Add(new DialogueBox("Magilou", "Yes. The others. Now scram!!", 20));
             TimeLine.Add(new DialogueBox("Me", "Sure thing boss!", 20, fo));
+            TimeLine.Add(new EventTrigger(new Transitions.FadeToBlack(cover, 3, window), true));
 
             sprite.Scale = new Vector2f(0.2f, 0.2f);
             sprite.Origin = new Vector2f(-(window.Size.X + sprite.Texture.Size.X) / 2, -100);
@@ -117,6 +116,8 @@ namespace SVNE.Core {
             else if (gameState == (int)States.MainMenu) {
                 Draw(mm);
             }
+
+            Draw(cover);
         }
 
         public void HandleMouse() {
