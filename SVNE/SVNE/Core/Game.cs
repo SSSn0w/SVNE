@@ -20,10 +20,12 @@ namespace SVNE.Core {
 
         public Sprite background = new Sprite(new Texture("Assets/background.jpg"));
         public Sprite sprite = new Sprite(new Texture("Assets/character.png"));
-        public RectangleShape cover;
+        public RectangleShape sceneOverlay;
 
         public List<Event> TimeLine = new List<Event>();
         public static int timelineCounter = 0;
+
+        //public static IDictionary<string, Drawable> SpriteList = new Dictionary<string, Drawable>();
 
         public enum States { MainMenu, Paused, Playing, Quit };
         public static int gameState = (int)States.MainMenu;
@@ -40,14 +42,26 @@ namespace SVNE.Core {
         }
 
         public override void Startup() {
-            cover = new RectangleShape(new Vector2f(window.Size.X, window.Size.Y));
-            cover.FillColor = new Color(0, 0, 0, 0);
+            sceneOverlay = new RectangleShape(new Vector2f(window.Size.X, window.Size.Y));
+            sceneOverlay.FillColor = new Color(0, 0, 0, 0);
+
+            sprite.Scale = new Vector2f(0.2f, 0.2f);
+            sprite.Origin = new Vector2f(-(window.Size.X + sprite.Texture.Size.X) / 2, -100);
+            sprite.Texture.Smooth = true;
+            sprite.Color = new Color(255, 255, 255, 0);
+
+            background.Origin = new Vector2f(0, 300);
+
+            /*SpriteList.Add("sceneOverlay", sceneOverlay);
+            SpriteList.Add("background", background);
+            SpriteList.Add("characters", sprite); //Needs rework to add multiple characters
+            SpriteList.Add("mainMenu", mm);*/
 
             fi = new Animations.FadeIn(sprite, 2);
             fo = new Animations.FadeOut(sprite, 2);
             shake = new Animations.Shake(sprite, 10, 5, 1);
 
-            TimeLine.Add(new EventTrigger(new Transitions.FadeFromBlack(cover, 3, window), true));
+            TimeLine.Add(new EventTrigger(new Transitions.FadeFromBlack(sceneOverlay, 3, window), true));
             TimeLine.Add(new DialogueBox("???", "So, what brings you here?", 20, fi));
             TimeLine.Add(new DialogueBox("Me", "Uh...who are you again??", 20));
             TimeLine.Add(new DialogueBox("???", "Me? Why, I am the great Magilou of course!!", 20));
@@ -59,17 +73,7 @@ namespace SVNE.Core {
             TimeLine.Add(new DialogueBox("Me", "The others?", 20));
             TimeLine.Add(new DialogueBox("Magilou", "Yes. The others. Now scram!!", 20));
             TimeLine.Add(new DialogueBox("Me", "Sure thing boss!", 20, fo));
-            TimeLine.Add(new EventTrigger(new Transitions.FadeToBlack(cover, 3, window), true));
-
-            sprite.Scale = new Vector2f(0.2f, 0.2f);
-            sprite.Origin = new Vector2f(-(window.Size.X + sprite.Texture.Size.X) / 2, -100);
-            //sprite.Origin = new Vector2f(0, 0);
-            sprite.Texture.Smooth = true;
-            sprite.Color = new Color(255, 255, 255, 0);
-
-            float size = (float)window.Size.X / (float)sprite.Texture.Size.X;
-            //background.Scale = new Vector2f(size, size);
-            background.Origin = new Vector2f(0, 300);
+            TimeLine.Add(new EventTrigger(new Transitions.FadeToBlack(sceneOverlay, 3, window), true));
         }
 
         private void Window_Closed(object sender, EventArgs e) {
@@ -117,21 +121,21 @@ namespace SVNE.Core {
                 Draw(mm);
             }
 
-            Draw(cover);
+            Draw(sceneOverlay);
         }
 
         public void HandleMouse() {
             if (window.HasFocus()) {
                 if (gameState == (int)States.MainMenu) {
-                    foreach (Button control in mm.MenuControls) {
-                        if (Mouse.GetPosition(window).X >= control.x &&
-                        Mouse.GetPosition(window).X <= control.x + control.width &&
-                        Mouse.GetPosition(window).Y >= control.y &&
-                        Mouse.GetPosition(window).Y <= control.y + control.height) {
+                    foreach (Clickable control in mm.MenuControls) {
+                        if (Mouse.GetPosition(window).X >= control.GetX &&
+                        Mouse.GetPosition(window).X <= control.GetX + control.GetWidth &&
+                        Mouse.GetPosition(window).Y >= control.GetY &&
+                        Mouse.GetPosition(window).Y <= control.GetY + control.GetHeight) {
                             System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Hand;
 
                             if (Mouse.IsButtonPressed(Mouse.Button.Left)) {
-                                control.MouseDown();
+                                control.MouseDown(window);
                                 mouseOnClickable = true;
                             }
                             else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {

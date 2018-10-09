@@ -20,6 +20,7 @@ namespace SVNE.Core {
             MenuControls.Add(new Button("About", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Consolas.ttf"), 100, 400));
             MenuControls.Add(new Button("Help", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Consolas.ttf"), 100, 500));
             MenuControls.Add(new Button("Quit", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Consolas.ttf"), 100, 600, Quit));
+            MenuControls.Add(new Slider(new RectangleShape(new Vector2f(100, 10)), new RectangleShape(new Vector2f(20, 20))));
         }
 
         public int Start() {
@@ -37,7 +38,7 @@ namespace SVNE.Core {
         public void Draw(RenderTarget target, RenderStates states) {
             target.Draw(new RectangleShape(new Vector2f(1280, 720)), states);
 
-            foreach (Button button in MenuControls) {
+            foreach (Clickable button in MenuControls) {
                 target.Draw(button, states);
             }
         }

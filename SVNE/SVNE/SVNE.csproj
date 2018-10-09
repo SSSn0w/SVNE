@@ -77,6 +77,7 @@
     <Compile Include="GUI\DialogueBox.cs" />
     <Compile Include="GUI\Button.cs" />
     <Compile Include="GUI\Label.cs" />
+    <Compile Include="GUI\Slider.cs" />
     <Compile Include="GUI\TextBox.cs" />
     <Compile Include="Core\MainMenu.cs" />
     <Compile Include="Core\SVNE.cs" />
