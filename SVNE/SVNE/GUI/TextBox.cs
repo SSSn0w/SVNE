@@ -37,6 +37,10 @@ namespace SVNE.GUI {
             set { height = value; }
         }
 
+        public bool MouseInBounds(RenderWindow window) {
+            throw new NotImplementedException();
+        }
+
         public void MouseDown(RenderWindow window) {
 
         }

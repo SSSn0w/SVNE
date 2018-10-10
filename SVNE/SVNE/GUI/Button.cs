@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using SFML.Graphics;
 using SFML.System;
+using SFML.Window;
 
 namespace SVNE.GUI {
     class Button : Clickable {
@@ -152,6 +153,19 @@ namespace SVNE.GUI {
         public int GetHeight {
             get { return height; }
             set { height = value; }
+        }
+
+        public bool MouseInBounds(RenderWindow window) {
+            if(Mouse.GetPosition(window).X >= GetX &&
+               Mouse.GetPosition(window).X <= GetX + GetWidth &&
+               Mouse.GetPosition(window).Y >= GetY &&
+               Mouse.GetPosition(window).Y <= GetY + GetHeight) {
+
+                return true;
+            }
+            else {
+                return false;
+            }
         }
 
         public void MouseDown(RenderWindow window) {

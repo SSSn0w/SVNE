@@ -62,6 +62,19 @@ namespace SVNE.GUI
             set { height = value; }
         }
 
+        public bool MouseInBounds(RenderWindow window) {
+            if (Mouse.GetPosition(window).X >= GetX &&
+               Mouse.GetPosition(window).X <= GetX + GetWidth &&
+               Mouse.GetPosition(window).Y >= GetY &&
+               Mouse.GetPosition(window).Y <= GetY + GetHeight) {
+
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
         public void Hover()
         {
 

@@ -17,6 +17,7 @@ namespace SVNE.Core {
 
         public List<Clickable> MenuControls = new List<Clickable>();
         public bool mouseOnClickable = false;
+        public bool mouseDown = false;
 
         public Sprite background = new Sprite(new Texture("Assets/background.jpg"));
         public Sprite sprite = new Sprite(new Texture("Assets/character.png"));
@@ -128,10 +129,30 @@ namespace SVNE.Core {
             if (window.HasFocus()) {
                 if (gameState == (int)States.MainMenu) {
                     foreach (Clickable control in mm.MenuControls) {
-                        if (Mouse.GetPosition(window).X >= control.GetX &&
-                        Mouse.GetPosition(window).X <= control.GetX + control.GetWidth &&
-                        Mouse.GetPosition(window).Y >= control.GetY &&
-                        Mouse.GetPosition(window).Y <= control.GetY + control.GetHeight) {
+                        /*if (control.MouseInBounds(window)) {
+                            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Hand;
+
+                            if (!Mouse.IsButtonPressed(Mouse.Button.Left)) {
+                                mouseOnClickable = true;
+                                control.Hover();
+                            }
+
+                            if (Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
+                                control.MouseDown(window);
+                                mouseDown = true;
+                            }
+
+                            if (!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseDown) {
+                                control.MouseUp();
+                                mouseDown = false;
+                            }
+                        }
+                        else {
+                            mouseOnClickable = false;
+                            control.Reset();
+                        }*/
+
+                        if (control.MouseInBounds(window)) {
                             System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Hand;
 
                             if (Mouse.IsButtonPressed(Mouse.Button.Left)) {
