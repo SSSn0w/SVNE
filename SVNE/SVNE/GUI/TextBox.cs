@@ -41,15 +41,15 @@ namespace SVNE.GUI {
             throw new NotImplementedException();
         }
 
-        public void MouseDown(RenderWindow window) {
-
+        public bool MouseDown(RenderWindow window) {
+            throw new NotImplementedException();
         }
 
-        public void MouseUp() {
-
+        public bool MouseUp(RenderWindow window) {
+            throw new NotImplementedException();
         }
 
-        public void Hover() {
+        public bool Hover(RenderWindow window) {
             throw new NotImplementedException();
         }
 

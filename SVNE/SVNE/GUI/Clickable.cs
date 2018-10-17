@@ -13,9 +13,9 @@ namespace SVNE.GUI {
         int GetWidth { get; set; }
         int GetHeight { get; set; }
         bool MouseInBounds(RenderWindow window);
-        void MouseDown(RenderWindow window);
-        void MouseUp();
-        void Hover();
+        bool MouseDown(RenderWindow window);
+        bool MouseUp(RenderWindow window);
+        bool Hover(RenderWindow window);
         void Reset();
     }
 }

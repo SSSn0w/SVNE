@@ -129,46 +129,18 @@ namespace SVNE.Core {
             if (window.HasFocus()) {
                 if (gameState == (int)States.MainMenu) {
                     foreach (Clickable control in mm.MenuControls) {
-                        /*if (control.MouseInBounds(window)) {
-                            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Hand;
-
-                            if (!Mouse.IsButtonPressed(Mouse.Button.Left)) {
-                                mouseOnClickable = true;
-                                control.Hover();
-                            }
-
-                            if (Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
-                                control.MouseDown(window);
-                                mouseDown = true;
-                            }
-
-                            if (!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseDown) {
-                                control.MouseUp();
-                                mouseDown = false;
-                            }
+                        if (Mouse.IsButtonPressed(Mouse.Button.Left)) {
+                            control.MouseDown(window);
+                            mouseOnClickable = true;
                         }
-                        else {
-                            mouseOnClickable = false;
-                            control.Reset();
-                        }*/
-
-                        if (control.MouseInBounds(window)) {
-                            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Hand;
-
-                            if (Mouse.IsButtonPressed(Mouse.Button.Left)) {
-                                control.MouseDown(window);
-                                mouseOnClickable = true;
-                            }
-                            else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
-                                control.MouseUp();
+                        else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && !control.MouseDown(window) && mouseOnClickable) {
+                            if (control.MouseInBounds(window)) {
+                                control.MouseUp(window);
                                 mouseOnClickable = false;
                             }
-                            else {
-                                control.Hover();
-                            }
                         }
                         else {
-                            control.Reset();
+                            control.Hover(window);
                         }
                     }
                 }

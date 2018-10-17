@@ -161,6 +161,7 @@ namespace SVNE.GUI {
                Mouse.GetPosition(window).Y >= GetY &&
                Mouse.GetPosition(window).Y <= GetY + GetHeight) {
 
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Hand;
                 return true;
             }
             else {
@@ -168,16 +169,25 @@ namespace SVNE.GUI {
             }
         }
 
-        public void MouseDown(RenderWindow window) {
-            if (sprite != null) {
-                sprite = pressed;
+        public bool MouseDown(RenderWindow window) {
+            if (MouseInBounds(window) && Mouse.IsButtonPressed(Mouse.Button.Left)) {
+                if (sprite != null) {
+                    sprite = pressed;
+                }
+                else {
+                    text.Color = pressedColor;
+                }
+
+                return true;
             }
             else {
-                text.Color = pressedColor;
+                Reset();
+
+                return false;
             }
         }
 
-        public void MouseUp() {
+        public bool MouseUp(RenderWindow window) {
             if (sprite != null) {
                 sprite = notPressed;
             }
@@ -185,15 +195,26 @@ namespace SVNE.GUI {
                 text.Color = notPressedColor;
             }
             action();
+
+            return true;
         }
 
-        public void Hover() {
-            if (hover != null) {
-                sprite = hover;
-            }
+        public bool Hover(RenderWindow window) {
+            if (MouseInBounds(window)) {
+                if (hover != null) {
+                    sprite = hover;
+                }
 
-            if(hoverColor != default(Color)) {
-                text.Color = hoverColor;
+                if (hoverColor != default(Color)) {
+                    text.Color = hoverColor;
+                }
+
+                return true;
+            }
+            else {
+                Reset();
+
+                return false;
             }
         }
 

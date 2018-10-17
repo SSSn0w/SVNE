@@ -22,13 +22,15 @@ namespace SVNE.GUI
         public int width;
         public int height;
 
+        public bool grabbed = false;
+
         public Slider(RectangleShape bar, RectangleShape handle) : base()
         {
             this.bar = bar;
             this.handle = handle;
 
             this.bar.Position = new Vector2f(300, 100);
-            this.handle.Position = new Vector2f(300, 100);
+            this.handle.Position = new Vector2f(300, 100 - ((handle.Size.Y - bar.Size.Y) / 2));
             this.bar.FillColor = new Color(0, 0, 0, 255);
             this.handle.FillColor = new Color(0, 0, 0, 255);
 
@@ -68,6 +70,7 @@ namespace SVNE.GUI
                Mouse.GetPosition(window).Y >= GetY &&
                Mouse.GetPosition(window).Y <= GetY + GetHeight) {
 
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Hand;
                 return true;
             }
             else {
@@ -75,35 +78,49 @@ namespace SVNE.GUI
             }
         }
 
-        public void Hover()
+        public bool Hover(RenderWindow window)
         {
+            grabbed = false;
 
+            return false;
         }
 
-        public void MouseDown(RenderWindow window)
+        public bool MouseDown(RenderWindow window)
         {
-            int mouseX = Mouse.GetPosition(window).X;
-            int mouseY = Mouse.GetPosition(window).Y;
-
-            x = (int)(mouseX - (handle.Size.X / 2));
-            handle.Position = new Vector2f(mouseX - (handle.Size.X / 2), handle.Position.Y);
-
-            if (handle.Position.X <= bar.Position.X)
-            {
-                x = (int)(bar.Position.X);
-                handle.Position = new Vector2f(bar.Position.X, handle.Position.Y);
+            if (MouseInBounds(window) && Mouse.IsButtonPressed(Mouse.Button.Left)) {
+                grabbed = true;
             }
 
-            if (handle.Position.X >= (bar.Position.X + bar.Size.X) - handle.Size.X)
-            {
-                x = (int)((bar.Position.X + bar.Size.X) - handle.Size.X);
-                handle.Position = new Vector2f((bar.Position.X + bar.Size.X) - handle.Size.X, handle.Position.Y);
+            if(grabbed) {
+                int mouseX = Mouse.GetPosition(window).X;
+                int mouseY = Mouse.GetPosition(window).Y;
+
+                x = (int)(mouseX - (handle.Size.X / 2));
+                handle.Position = new Vector2f(mouseX - (handle.Size.X / 2), handle.Position.Y);
+
+                if (handle.Position.X <= bar.Position.X) {
+                    x = (int)(bar.Position.X);
+                    handle.Position = new Vector2f(bar.Position.X, handle.Position.Y);
+                }
+
+                if (handle.Position.X >= (bar.Position.X + bar.Size.X) - handle.Size.X) {
+                    x = (int)((bar.Position.X + bar.Size.X) - handle.Size.X);
+                    handle.Position = new Vector2f((bar.Position.X + bar.Size.X) - handle.Size.X, handle.Position.Y);
+                }
+
+                return true;
+            }
+            else {
+                Reset();
+
+                return false;
             }
         }
 
-        public void MouseUp()
+        public bool MouseUp(RenderWindow window)
         {
-
+            grabbed = false;
+            return true;
         }
 
         public void Reset()

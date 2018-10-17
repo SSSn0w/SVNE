@@ -31,7 +31,7 @@ namespace SVNE.Core {
 
         public int Quit() {
             Game.gameState = (int)Game.States.Quit;
-
+            
             return 0;
         }
 
