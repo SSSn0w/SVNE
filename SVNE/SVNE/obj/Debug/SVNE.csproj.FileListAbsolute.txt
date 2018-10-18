@@ -1,11 +1,6 @@
 C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\obj\Debug\SVNE.Properties.Resources.resources
 C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\obj\Debug\SVNE.csproj.GenerateResource.Cache
 C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\obj\Debug\SVNE.csproj.CoreCompileInputs.cache
-C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\bin\Debug\csfml-audio-2.dll
-C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\bin\Debug\csfml-graphics-2.dll
-C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\bin\Debug\csfml-network-2.dll
-C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\bin\Debug\csfml-system-2.dll
-C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\bin\Debug\csfml-window-2.dll
 C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\bin\Debug\SVNE.exe.config
 C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\bin\Debug\SVNE.exe
 C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\bin\Debug\SVNE.pdb
@@ -35,3 +30,8 @@ F:\CSharp\Git\SVNE\SVNE\SVNE\obj\Debug\SVNE.csproj.CoreCompileInputs.cache
 F:\CSharp\Git\SVNE\SVNE\SVNE\obj\Debug\SVNE.csproj.CopyComplete
 F:\CSharp\Git\SVNE\SVNE\SVNE\obj\Debug\SVNE.exe
 F:\CSharp\Git\SVNE\SVNE\SVNE\obj\Debug\SVNE.pdb
+C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\bin\Debug\csfml-audio-2.dll
+C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\bin\Debug\csfml-graphics-2.dll
+C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\bin\Debug\csfml-network-2.dll
+C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\bin\Debug\csfml-system-2.dll
+C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\bin\Debug\csfml-window-2.dll

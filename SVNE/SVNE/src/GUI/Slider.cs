@@ -31,8 +31,8 @@ namespace SVNE.GUI
 
             this.bar.Position = new Vector2f(300, 100);
             this.handle.Position = new Vector2f(300, 100 - ((handle.Size.Y - bar.Size.Y) / 2));
-            this.bar.FillColor = new Color(0, 0, 0, 255);
-            this.handle.FillColor = new Color(0, 0, 0, 255);
+            this.bar.FillColor = new Color(103, 163, 225, 255);
+            this.handle.FillColor = new Color(0, 102, 203, 255);
 
             x = (int)handle.Position.X;
             y = (int)handle.Position.Y;
@@ -68,7 +68,11 @@ namespace SVNE.GUI
             if (Mouse.GetPosition(window).X >= GetX &&
                Mouse.GetPosition(window).X <= GetX + GetWidth &&
                Mouse.GetPosition(window).Y >= GetY &&
-               Mouse.GetPosition(window).Y <= GetY + GetHeight) {
+               Mouse.GetPosition(window).Y <= GetY + GetHeight ||
+               Mouse.GetPosition(window).X >= bar.Position.X &&
+               Mouse.GetPosition(window).X <= bar.Position.X + bar.Size.X &&
+               Mouse.GetPosition(window).Y >= bar.Position.Y &&
+               Mouse.GetPosition(window).Y <= bar.Position.Y + bar.Size.Y) {
 
                 System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Hand;
                 return true;
@@ -108,6 +112,8 @@ namespace SVNE.GUI
                     handle.Position = new Vector2f((bar.Position.X + bar.Size.X) - handle.Size.X, handle.Position.Y);
                 }
 
+                GetPosition();
+
                 return true;
             }
             else {
@@ -120,12 +126,17 @@ namespace SVNE.GUI
         public bool MouseUp(RenderWindow window)
         {
             grabbed = false;
+
             return true;
         }
 
         public void Reset()
         {
 
+        }
+
+        public void GetPosition() {
+            Console.WriteLine((handle.Position.X - bar.Position.X) / (bar.Size.X / 100));
         }
 
         public void Draw(RenderTarget target, RenderStates states)

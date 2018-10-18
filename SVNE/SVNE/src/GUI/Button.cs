@@ -218,6 +218,7 @@ namespace SVNE.GUI {
             }
         }
 
+
         public void Reset() {
             if (sprite != null) {
                 sprite = notPressed;

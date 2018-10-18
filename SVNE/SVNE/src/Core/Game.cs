@@ -15,15 +15,15 @@ namespace SVNE.Core {
     class Game : GameLoop {
         public RenderWindow window;
 
+        public InputHandler inputHandler;
+
         public List<Clickable> MenuControls = new List<Clickable>();
-        public bool mouseOnClickable = false;
-        public bool mouseDown = false;
 
         public Sprite background = new Sprite(new Texture("Assets/background.jpg"));
         public Sprite sprite = new Sprite(new Texture("Assets/character.png"));
         public RectangleShape sceneOverlay;
 
-        public List<Event> TimeLine = new List<Event>();
+        public static List<Event> TimeLine = new List<Event>();
         public static int timelineCounter = 0;
 
         //public static IDictionary<string, Drawable> SpriteList = new Dictionary<string, Drawable>();
@@ -31,7 +31,7 @@ namespace SVNE.Core {
         public enum States { MainMenu, Paused, Playing, Quit };
         public static int gameState = (int)States.MainMenu;
 
-        MainMenu mm = new MainMenu();
+        public static MainMenu mm = new MainMenu();
 
         Animations.FadeIn fi;
         Animations.FadeOut fo;
@@ -43,6 +43,8 @@ namespace SVNE.Core {
         }
 
         public override void Startup() {
+            inputHandler = new InputHandler(window);
+
             sceneOverlay = new RectangleShape(new Vector2f(window.Size.X, window.Size.Y));
             sceneOverlay.FillColor = new Color(0, 0, 0, 0);
 
@@ -87,7 +89,7 @@ namespace SVNE.Core {
         }
 
         public override void Update() {
-            HandleMouse();
+            inputHandler.HandleMouse();
 
             if (gameState == (int)States.Playing) {
                 try {
@@ -123,45 +125,6 @@ namespace SVNE.Core {
             }
 
             Draw(sceneOverlay);
-        }
-
-        public void HandleMouse() {
-            if (window.HasFocus()) {
-                if (gameState == (int)States.MainMenu) {
-                    foreach (Clickable control in mm.MenuControls) {
-                        if (Mouse.IsButtonPressed(Mouse.Button.Left)) {
-                            control.MouseDown(window);
-                            mouseOnClickable = true;
-                        }
-                        else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && !control.MouseDown(window) && mouseOnClickable) {
-                            if (control.MouseInBounds(window)) {
-                                control.MouseUp(window);
-                                mouseOnClickable = false;
-                            }
-                        }
-                        else {
-                            control.Hover(window);
-                        }
-                    }
-                }
-                else if (gameState == (int)States.Playing) {
-                    if (Mouse.IsButtonPressed(Mouse.Button.Left)) {
-                        mouseOnClickable = true;
-                    }
-                    else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
-                        try {
-                            TimeLine[timelineCounter].EndEvent();
-                        } catch (Exception e) {
-                            Console.WriteLine(e + " No more dialogue to be displayed");
-                        }
-
-                        mouseOnClickable = false;
-                    }
-                    else {
-
-                    }
-                }
-            }
         }
 
         public void Draw(Drawable gameObject) {
