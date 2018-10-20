@@ -95,7 +95,7 @@ namespace SVNE.Core {
                 try {
                     TimeLine[timelineCounter].StartEvent();
                 } catch (Exception e) {
-                    Console.WriteLine(e + " No more dialogue");
+                    //Console.WriteLine(e + " No more dialogue");
                 }
             }
             else if(gameState == (int)States.MainMenu) {
@@ -117,7 +117,7 @@ namespace SVNE.Core {
                         Draw(drawable);
                     }
                 } catch (Exception e) {
-                    Console.WriteLine(e + " No more dialogue");
+                    //Console.WriteLine(e + " No more dialogue");
                 }
             }
             else if (gameState == (int)States.MainMenu) {
@@ -129,12 +129,6 @@ namespace SVNE.Core {
 
         public void Draw(Drawable gameObject) {
             window.Draw(gameObject);
-        }
-
-        public int test() {
-            System.Windows.Forms.MessageBox.Show("haHAA");
-
-            return 0;
         }
     }
 }

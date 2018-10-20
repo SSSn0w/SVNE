@@ -52,7 +52,7 @@ namespace SVNE.Core {
                         try {
                             Game.TimeLine[Game.timelineCounter].EndEvent();
                         } catch (Exception e) {
-                            Console.WriteLine(e + " No more dialogue to be displayed");
+                            //Console.WriteLine(e + " No more dialogue to be displayed");
                         }
 
                         mouseDown = false;

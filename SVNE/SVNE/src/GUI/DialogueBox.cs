@@ -151,7 +151,7 @@ namespace SVNE.GUI {
                     lineCount++;
                 }
             } catch (Exception e) {
-                Console.WriteLine(e + " Out of bounds exception from DialogueBox. This is normal. Please Ignore.");
+                //Console.WriteLine(e + " Out of bounds exception from DialogueBox. This is normal. Please Ignore.");
             }
 
             if (DialogueString.EndsWith("\n")) {
