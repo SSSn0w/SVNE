@@ -3,6 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <RuntimeIdentifiers>win-x64;osx-x64;linux-x64</RuntimeIdentifiers>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -28,5 +29,13 @@
       <HintPath>libs\sfmlnet-window-2.dll</HintPath>
     </Reference>
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy /y /d  &quot;$(ProjectDir)*.dll&quot; &quot;$(ProjectDir)$(OutDir)&quot;&#xD;&#xA;if not exist $(ProjectDir)$(OutDir)\Assets mkdir $(ProjectDir)$(OutDir)\Assets&#xD;&#xA;xcopy /y /d  &quot;$(ProjectDir)Assets&quot; &quot;$(ProjectDir)$(OutDir)Assets&quot; /e" />
+  </Target>
+
+  <Target Name="AddPayloadsFolder" AfterTargets="Publish">
+    <Exec Command="xcopy /y /d  &quot;$(ProjectDir)*.dll&quot; &quot;$(ProjectDir)$(PublishDir)&quot;&#xD;&#xA;if not exist $(ProjectDir)$(PublishDir)\Assets mkdir $(ProjectDir)$(PublishDir)\Assets&#xD;&#xA;xcopy /y /d  &quot;$(ProjectDir)Assets&quot; &quot;$(ProjectDir)$(PublishDir)Assets&quot; /e" />
+  </Target>
 
 </Project>

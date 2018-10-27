@@ -1,0 +1,15 @@
+C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\bin\Release\netcoreapp2.1\SVNE.deps.json
+C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\bin\Release\netcoreapp2.1\SVNE.runtimeconfig.json
+C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\bin\Release\netcoreapp2.1\SVNE.runtimeconfig.dev.json
+C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\bin\Release\netcoreapp2.1\SVNE.dll
+C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\bin\Release\netcoreapp2.1\SVNE.pdb
+C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\bin\Release\netcoreapp2.1\sfmlnet-audio-2.dll
+C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\bin\Release\netcoreapp2.1\sfmlnet-graphics-2.dll
+C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\bin\Release\netcoreapp2.1\sfmlnet-system-2.dll
+C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\bin\Release\netcoreapp2.1\sfmlnet-window-2.dll
+C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\obj\Release\netcoreapp2.1\SVNE.csprojResolveAssemblyReference.cache
+C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\obj\Release\netcoreapp2.1\SVNE.csproj.CoreCompileInputs.cache
+C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\obj\Release\netcoreapp2.1\SVNE.AssemblyInfoInputs.cache
+C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\obj\Release\netcoreapp2.1\SVNE.AssemblyInfo.cs
+C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\obj\Release\netcoreapp2.1\SVNE.dll
+C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\obj\Release\netcoreapp2.1\SVNE.pdb
