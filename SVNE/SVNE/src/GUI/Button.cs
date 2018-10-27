@@ -161,7 +161,7 @@ namespace SVNE.GUI {
                Mouse.GetPosition(window).Y >= GetY &&
                Mouse.GetPosition(window).Y <= GetY + GetHeight) {
 
-                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Hand;
+                //System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Hand;
                 return true;
             }
             else {

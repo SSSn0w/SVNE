@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SVNE.IO {
     class LoadAsset {
-        public static Bitmap LoadImage(string filename) {
+        /*public static Bitmap LoadImage(string filename) {
             try {
                 Bitmap file = new Bitmap(filename);
                 return file;
@@ -17,6 +17,6 @@ namespace SVNE.IO {
                 Console.WriteLine(e);
                 return null;
             }
-        }
+        }*/
     }
 }
