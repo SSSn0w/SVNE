@@ -14,7 +14,7 @@ namespace SVNE.Core {
         private static ContextSettings settings = new ContextSettings(0, 0, 16);
         private static RenderWindow window = new RenderWindow(new VideoMode(1280, 720), "SVNE", Styles.Titlebar | Styles.Close, settings);
 
-        public static void Main(string[] args) {
+        public static void Main() {
             Game game = new Game(window);
 
             while (window.IsOpen) {

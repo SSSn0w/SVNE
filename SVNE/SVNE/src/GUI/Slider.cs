@@ -8,6 +8,8 @@ using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
 
+using SVNE.Core;
+
 namespace SVNE.GUI
 {
     class Slider : Clickable
@@ -72,7 +74,7 @@ namespace SVNE.GUI
                Mouse.GetPosition(window).Y >= bar.Position.Y &&
                Mouse.GetPosition(window).Y <= bar.Position.Y + bar.Size.Y) {
 
-                //System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Hand;
+                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Hand;
                 return true;
             }
             else {
