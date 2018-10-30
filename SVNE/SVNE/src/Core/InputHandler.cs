@@ -68,14 +68,18 @@ namespace SVNE.Core {
                         if (Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
                             control.MouseDown(window);
                         }
+                        else if(Mouse.IsButtonPressed(Mouse.Button.Left) && control is Slider) {
+                            control.MouseDown(window);
+                        }
                         else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseDown[i] && mouseOnClickable) {
-                            Console.WriteLine("doot");
                             control.MouseUp(window);
                             mouseDown[i] = false;
                         }
-                        else if(!Mouse.IsButtonPressed(Mouse.Button.Left)) {
+                        else if(!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
                             control.Hover(window);
-                            //mouseDown = false;
+                        }
+                        else if(!mouseOnClickable && !(control is Slider)) {
+                            control.Reset();
                         }
 
                         i++;
@@ -87,8 +91,13 @@ namespace SVNE.Core {
                     }
                     else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseDown[0]) {
                         try {
-                            //if(Game.TimeLine[Game.timelineCounter].GetType !== Transition)
-                            Game.TimeLine[Game.timelineCounter].EndEvent();
+                            if (Game.TimeLine[Game.timelineCounter].GetEvent() is Transitions.Transition) {
+                                Console.WriteLine("is non-skippable transition");
+                            }
+                            else {
+                                Console.WriteLine("is skippable event");
+                                Game.TimeLine[Game.timelineCounter].EndEvent();
+                            }
                         } catch (Exception e) {
                             //Console.WriteLine(e + " No more dialogue to be displayed");
                         }

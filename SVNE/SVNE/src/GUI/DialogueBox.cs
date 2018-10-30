@@ -189,6 +189,10 @@ namespace SVNE.GUI {
             }
         }
 
+        public Event GetEvent() {
+            return this;
+        }
+
         public void Draw(RenderTarget target, RenderStates states) {
             sprite.Origin = new Vector2f(-(1280 - width) / 2, -(720 - height));
             target.Draw(sprite, states);

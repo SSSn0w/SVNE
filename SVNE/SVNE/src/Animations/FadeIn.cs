@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.System;
 
+using SVNE.Core;
+
 namespace SVNE.Animations {
     class FadeIn : Animation {
         private Clock clock;
@@ -70,6 +72,10 @@ namespace SVNE.Animations {
             else {
                 return false;
             }
+        }
+
+        public Event GetEvent() {
+            return this;
         }
     }
 }

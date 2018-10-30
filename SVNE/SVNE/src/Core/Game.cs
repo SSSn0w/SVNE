@@ -42,6 +42,7 @@ namespace SVNE.Core {
 
         public override void Startup() {
             inputHandler = new InputHandler(window);
+            //window.Size = new Vector2u(200, 300);
 
             sceneOverlay = new RectangleShape(new Vector2f(window.Size.X, window.Size.Y));
             sceneOverlay.FillColor = new Color(0, 0, 0, 0);
@@ -87,6 +88,8 @@ namespace SVNE.Core {
         }
 
         public override void Update() {
+            window.DispatchEvents();
+
             inputHandler.HandleMouse();
 
             if (gameState == (int)States.Playing) {
@@ -123,6 +126,8 @@ namespace SVNE.Core {
             }
 
             Draw(sceneOverlay);
+
+            window.Display();
         }
 
         public void Draw(Drawable gameObject) {

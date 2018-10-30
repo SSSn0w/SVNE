@@ -8,9 +8,10 @@ using SFML.Graphics;
 using SFML.System;
 
 using SVNE.Animations;
+using SVNE.Core;
 
 namespace SVNE.Transitions {
-    class FadeFromBlack : Animation {
+    class FadeFromBlack : Transition {
         private Clock clock;
         private byte counter = 255;
         private byte endAlpha = 0;
@@ -73,6 +74,10 @@ namespace SVNE.Transitions {
             else {
                 return false;
             }
+        }
+
+        public Event GetEvent() {
+            return this;
         }
     }
 }

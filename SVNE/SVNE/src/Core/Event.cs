@@ -9,5 +9,6 @@ namespace SVNE.Core {
         void StartEvent();
         void EndEvent();
         bool Ended();
+        Event GetEvent();
     }
 }

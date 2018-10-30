@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 using SVNE.Core;
 
-namespace SVNE.Animations {
-    interface Animation : Event {
+namespace SVNE.Transitions {
+    interface Transition : Event {
         void Default();
         void Animate();
     }

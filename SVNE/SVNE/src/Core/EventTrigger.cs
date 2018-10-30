@@ -35,5 +35,9 @@ namespace SVNE.Core {
         public bool Ended() {
             return true;
         }
+
+        public Event GetEvent() {
+            return _event;
+        }
     }
 }
