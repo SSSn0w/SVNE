@@ -32,10 +32,10 @@ namespace SVNE.Core {
                 if (currTime >= nextTime) {
                     // assign the time for the next update
                     nextTime += delta;
+                    window.DispatchEvents();
                     Update();
                     if ((currTime < nextTime) || (skippedFrames > maxSkippedFrames)) {
                         Render();
-                        window.DispatchEvents();
                         window.Display();
                         skippedFrames = 1;
                     }
