@@ -26,8 +26,6 @@ namespace SVNE.Core {
         public static List<Event> TimeLine = new List<Event>();
         public static int timelineCounter = 0;
 
-        //public static IDictionary<string, Drawable> SpriteList = new Dictionary<string, Drawable>();
-
         public enum States { MainMenu, Paused, Playing, Quit };
         public static int gameState = (int)States.MainMenu;
 

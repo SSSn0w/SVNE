@@ -194,6 +194,7 @@ namespace SVNE.GUI {
             else {
                 text.Color = notPressedColor;
             }
+
             action();
 
             return true;
@@ -203,13 +204,15 @@ namespace SVNE.GUI {
             if (MouseInBounds(window)) {
                 if (hover != null) {
                     sprite = hover;
+                    return true;
                 }
 
                 if (hoverColor != default(Color)) {
                     text.Color = hoverColor;
+                    return true;
                 }
 
-                return true;
+                return false;
             }
             else {
                 Reset();
@@ -217,7 +220,6 @@ namespace SVNE.GUI {
                 return false;
             }
         }
-
 
         public void Reset() {
             if (sprite != null) {

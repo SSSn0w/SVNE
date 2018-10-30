@@ -15,9 +15,21 @@ namespace SVNE.Core {
 
         public bool mouseOnClickable = false;
         public bool mouseDown = false;
+        public bool prevMouseDown = false;
 
         public InputHandler(RenderWindow window) {
             this.window = window;
+            this.window.MouseButtonReleased += OnMousePressed;
+        }
+
+        public void OnMousePressed(object sender, MouseButtonEventArgs e) {
+            if (e.Button == Mouse.Button.Left) {
+                foreach (Clickable control in Game.mm.MenuControls) {
+                    if (control.MouseInBounds(window)) {
+                        mouseDown = true;
+                    }
+                }
+            }
         }
 
         public void HandleMouse() {
@@ -31,16 +43,17 @@ namespace SVNE.Core {
                             mouseOnClickable = false;
                         }
 
-                        if (Mouse.IsButtonPressed(Mouse.Button.Left)) {
+                        if (Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
                             control.MouseDown(window);
-                            mouseDown = true;
                         }
-                        else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && !control.MouseDown(window) && mouseDown && mouseOnClickable) {
+                        else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseDown && mouseOnClickable) {
+                            Console.WriteLine("doot");
                             control.MouseUp(window);
                             mouseDown = false;
                         }
-                        else {
+                        else if(!Mouse.IsButtonPressed(Mouse.Button.Left)) {
                             control.Hover(window);
+                            //mouseDown = false;
                         }
                     }
                 }
