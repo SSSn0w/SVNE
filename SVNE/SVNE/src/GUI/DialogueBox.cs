@@ -194,7 +194,9 @@ namespace SVNE.GUI {
         }
 
         public void Draw(RenderTarget target, RenderStates states) {
-            sprite.Origin = new Vector2f(-(1280 - width) / 2, -(720 - height));
+            sprite.Origin = new Vector2f(-(SVNE.Core.SVNE.window.Size.X - width) / 2, -(SVNE.Core.SVNE.window.Size.Y - height));
+            sprite.Scale = new Vector2f(Game.xRatio, Game.yRatio);
+
             target.Draw(sprite, states);
             target.Draw(title, states);
             target.Draw(text, states);

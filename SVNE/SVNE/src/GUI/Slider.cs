@@ -65,6 +65,15 @@ namespace SVNE.GUI
         }
 
         public bool MouseInBounds(RenderWindow window) {
+            /*if (Mouse.GetPosition(window).X >= GetX * Game.xRatio &&
+               Mouse.GetPosition(window).X <= GetX * Game.xRatio + GetWidth * Game.xRatio &&
+               Mouse.GetPosition(window).Y >= GetY * Game.yRatio &&
+               Mouse.GetPosition(window).Y <= GetY * Game.yRatio + GetHeight * Game.yRatio ||
+               Mouse.GetPosition(window).X >= bar.Position.X * Game.xRatio &&
+               Mouse.GetPosition(window).X <= bar.Position.X * Game.xRatio + bar.Size.X * Game.xRatio &&
+               Mouse.GetPosition(window).Y >= bar.Position.Y * Game.yRatio &&
+               Mouse.GetPosition(window).Y <= bar.Position.Y * Game.yRatio + bar.Size.Y * Game.yRatio) {*/
+
             if (Mouse.GetPosition(window).X >= GetX &&
                Mouse.GetPosition(window).X <= GetX + GetWidth &&
                Mouse.GetPosition(window).Y >= GetY &&
@@ -141,6 +150,12 @@ namespace SVNE.GUI
 
         public void Draw(RenderTarget target, RenderStates states)
         {
+            //bar.Position = new Vector2f(bar.Position.X * Game.xRatio, bar.Position.Y * Game.yRatio);
+            //bar.Size = new Vector2f(bar.Size.X * Game.xRatio, bar.Size.Y * Game.yRatio);
+
+            //handle.Position = new Vector2f(handle.Position.X * Game.xRatio, handle.Position.Y * Game.yRatio);
+            //handle.Size = new Vector2f(handle.Size.X * Game.xRatio, handle.Size.Y * Game.yRatio);
+
             target.Draw(bar, states);
             target.Draw(handle, states);
         }

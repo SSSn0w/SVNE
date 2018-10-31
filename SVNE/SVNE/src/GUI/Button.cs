@@ -8,6 +8,8 @@ using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
 
+using SVNE.Core;
+
 namespace SVNE.GUI {
     class Button : Clickable {
         public Sprite notPressed;
@@ -156,10 +158,10 @@ namespace SVNE.GUI {
         }
 
         public bool MouseInBounds(RenderWindow window) {
-            if(Mouse.GetPosition(window).X >= GetX &&
-               Mouse.GetPosition(window).X <= GetX + GetWidth &&
-               Mouse.GetPosition(window).Y >= GetY &&
-               Mouse.GetPosition(window).Y <= GetY + GetHeight) {
+            if(Mouse.GetPosition(window).X >= GetX * Game.xRatio &&
+               Mouse.GetPosition(window).X <= GetX * Game.xRatio + GetWidth * Game.xRatio &&
+               Mouse.GetPosition(window).Y >= GetY * Game.yRatio &&
+               Mouse.GetPosition(window).Y <= GetY * Game.yRatio + GetHeight * Game.yRatio) {
 
                 System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Hand;
                 return true;
@@ -231,12 +233,19 @@ namespace SVNE.GUI {
         }
 
         public void Draw(RenderTarget target, RenderStates states) {
+            float x = -this.x * Game.xRatio;
+            float y = -this.y * Game.yRatio;
+
             if (sprite != null) {
-                sprite.Origin = new Vector2f(-x, -y);
+                sprite.Scale = new Vector2f(Game.xRatio, Game.yRatio);
+
+                sprite.Origin = new Vector2f(x, y);
                 target.Draw(sprite, states);
             }
             else {
-                text.Origin = new Vector2f(-x, -(y - height / 2));
+                //text.Scale = new Vector2f(SVNE.Core.SVNE.window.Size.X / SVNE.Core.SVNE.defaultWidth, SVNE.Core.SVNE.window.Size.Y / SVNE.Core.SVNE.defaultHeight);
+
+                text.Origin = new Vector2f(x, (y - -(height / 2)));
                 target.Draw(text, states);
             }
         }

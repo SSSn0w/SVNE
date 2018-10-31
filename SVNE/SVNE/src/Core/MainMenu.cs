@@ -34,10 +34,13 @@ namespace SVNE.Core {
         public int Preferences() {
             //To-do: Add more resolutions and make sure to multiply all drawables have their size multiplied by the new resolution ratio
 
-            SVNE.window.Close();
+            /*SVNE.window.Close();
             SVNE.window = new RenderWindow(VideoMode.FullscreenModes[0], "SVNE", Styles.Fullscreen, SVNE.window.Settings);
             SVNE.game = new Game(SVNE.window);
-            SVNE.game.Run(SVNE.window, 1f / 60f);
+            SVNE.game.Run(SVNE.window, 1f / 60f);*/
+
+            SVNE.window.Size = new Vector2u(1024, 576);
+            SVNE.window.SetView(SVNE.view = new View(new FloatRect(0, 0, SVNE.window.Size.X, SVNE.window.Size.Y)));
 
             return 0;
         }
@@ -49,7 +52,7 @@ namespace SVNE.Core {
         }
 
         public void Draw(RenderTarget target, RenderStates states) {
-            target.Draw(new RectangleShape(new Vector2f(1280, 720)), states);
+            target.Draw(new RectangleShape(new Vector2f(SVNE.window.Size.X, SVNE.window.Size.Y)), states);
 
             foreach (Clickable button in MenuControls) {
                 target.Draw(button, states);

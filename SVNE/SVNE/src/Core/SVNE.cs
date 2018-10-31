@@ -11,8 +11,14 @@ using SFML.System;
 
 namespace SVNE.Core {
     class SVNE {
+        public static uint defaultWidth = 1280;
+        public static uint defaultHeight = 720;
+
         private static ContextSettings settings = new ContextSettings(0, 0, 16);
-        public static RenderWindow window = new RenderWindow(new VideoMode(1280, 720), "SVNE", Styles.Titlebar | Styles.Close, settings);
+
+        public static RenderWindow window = new RenderWindow(new VideoMode(defaultWidth, defaultHeight), "SVNE", Styles.Titlebar | Styles.Close, settings);
+        public static View view = window.GetView();
+
         public static Game game;
 
         public static void Main() {

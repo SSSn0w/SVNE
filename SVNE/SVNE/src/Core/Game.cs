@@ -14,6 +14,8 @@ using SVNE.GUI;
 namespace SVNE.Core {
     class Game : GameLoop {
         public RenderWindow window;
+        public static float xRatio;
+        public static float yRatio;
 
         public InputHandler inputHandler;
 
@@ -76,6 +78,7 @@ namespace SVNE.Core {
             TimeLine.Add(new DialogueBox("Magilou", "Yes. The others. Now scram!!", 20));
             TimeLine.Add(new DialogueBox("Me", "Sure thing boss!", 20, fo));
             TimeLine.Add(new EventTrigger(new Transitions.FadeToBlack(sceneOverlay, 3, window), true));
+            TimeLine.Add(new EventTrigger(new StateEvent((int)States.MainMenu)));
         }
 
         private void Window_Closed(object sender, EventArgs e) {
@@ -88,6 +91,9 @@ namespace SVNE.Core {
         }
 
         public override void Update() {
+            xRatio = ((float)SVNE.window.Size.X / (float)SVNE.defaultWidth);
+            yRatio = ((float)SVNE.window.Size.Y / (float)SVNE.defaultHeight);
+
             window.DispatchEvents();
 
             inputHandler.HandleMouse();
@@ -120,12 +126,12 @@ namespace SVNE.Core {
                 } catch (Exception e) {
                     //Console.WriteLine(e + " No more dialogue");
                 }
+
+                Draw(sceneOverlay);
             }
             else if (gameState == (int)States.MainMenu) {
                 Draw(mm);
             }
-
-            Draw(sceneOverlay);
 
             window.Display();
         }
