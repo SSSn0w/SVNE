@@ -19,13 +19,11 @@ namespace SVNE.Core {
 
         public InputHandler inputHandler;
 
-        public List<Clickable> MenuControls = new List<Clickable>();
-
         public Sprite background = new Sprite(new Texture("Assets/background.jpg"));
         public Sprite sprite = new Sprite(new Texture("Assets/character.png"));
         public RectangleShape sceneOverlay;
 
-        public static List<Event> TimeLine = new List<Event>();
+        public static List<Event> TimeLine;
         public static int timelineCounter = 0;
 
         public enum States { MainMenu, Paused, Playing, Quit };
@@ -64,6 +62,8 @@ namespace SVNE.Core {
             fi = new Animations.FadeIn(sprite, 2);
             fo = new Animations.FadeOut(sprite, 2);
             shake = new Animations.Shake(sprite, 10, 5, 1);
+
+            TimeLine = new List<Event>();
 
             TimeLine.Add(new EventTrigger(new Transitions.FadeFromBlack(sceneOverlay, 3, window), true));
             TimeLine.Add(new DialogueBox("???", "So, what brings you here?", 20, fi));

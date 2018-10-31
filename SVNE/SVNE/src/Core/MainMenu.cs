@@ -25,7 +25,7 @@ namespace SVNE.Core {
             MenuControls.Add(new Slider(new RectangleShape(new Vector2f(300, 40)), new RectangleShape(new Vector2f(20, 40))));
         }
 
-        public int Start() {
+        public int Start() { 
             Game.gameState = (int)Game.States.Playing;
 
             return 0;
@@ -39,8 +39,11 @@ namespace SVNE.Core {
             SVNE.game = new Game(SVNE.window);
             SVNE.game.Run(SVNE.window, 1f / 60f);*/
 
-            SVNE.window.Size = new Vector2u(1024, 576);
-            SVNE.window.SetView(SVNE.view = new View(new FloatRect(0, 0, SVNE.window.Size.X, SVNE.window.Size.Y)));
+
+            View view = SVNE.window.DefaultView;
+
+            SVNE.window.SetView(view);
+            SVNE.window.Size = new Vector2u(1120, 630);
 
             return 0;
         }
@@ -52,7 +55,7 @@ namespace SVNE.Core {
         }
 
         public void Draw(RenderTarget target, RenderStates states) {
-            target.Draw(new RectangleShape(new Vector2f(SVNE.window.Size.X, SVNE.window.Size.Y)), states);
+            target.Draw(new RectangleShape(SVNE.window.DefaultView.Size), states);
 
             foreach (Clickable button in MenuControls) {
                 target.Draw(button, states);

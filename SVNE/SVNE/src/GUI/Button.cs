@@ -233,18 +233,15 @@ namespace SVNE.GUI {
         }
 
         public void Draw(RenderTarget target, RenderStates states) {
-            float x = -this.x * Game.xRatio;
-            float y = -this.y * Game.yRatio;
+            float x = -this.x;
+            float y = -this.y;
 
             if (sprite != null) {
-                sprite.Scale = new Vector2f(Game.xRatio, Game.yRatio);
 
                 sprite.Origin = new Vector2f(x, y);
                 target.Draw(sprite, states);
             }
             else {
-                //text.Scale = new Vector2f(SVNE.Core.SVNE.window.Size.X / SVNE.Core.SVNE.defaultWidth, SVNE.Core.SVNE.window.Size.Y / SVNE.Core.SVNE.defaultHeight);
-
                 text.Origin = new Vector2f(x, (y - -(height / 2)));
                 target.Draw(text, states);
             }
