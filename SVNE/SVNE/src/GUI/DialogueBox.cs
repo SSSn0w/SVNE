@@ -176,7 +176,7 @@ namespace SVNE.GUI {
                 animation.EndEvent();
             }
             else {
-                Game.timelineCounter++;
+                TimeLine.timeLineCounter++;
             }
         }
 

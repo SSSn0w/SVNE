@@ -29,7 +29,7 @@ namespace SVNE.Core {
 
         public void EndEvent() {
             _event.EndEvent();
-            Game.timelineCounter++;
+            TimeLine.timeLineCounter++;
         }
 
         public bool Ended() {

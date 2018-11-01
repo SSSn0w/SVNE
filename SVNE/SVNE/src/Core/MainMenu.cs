@@ -25,25 +25,22 @@ namespace SVNE.Core {
             MenuControls.Add(new Slider(new RectangleShape(new Vector2f(300, 40)), new RectangleShape(new Vector2f(20, 40))));
         }
 
-        public int Start() { 
+        public int Start() {
+            TimeLine.Load();
             Game.gameState = (int)Game.States.Playing;
 
             return 0;
         }
 
         public int Preferences() {
-            //To-do: Add more resolutions and make sure to multiply all drawables have their size multiplied by the new resolution ratio
-
-            /*SVNE.window.Close();
-            SVNE.window = new RenderWindow(VideoMode.FullscreenModes[0], "SVNE", Styles.Fullscreen, SVNE.window.Settings);
-            SVNE.game = new Game(SVNE.window);
-            SVNE.game.Run(SVNE.window, 1f / 60f);*/
-
+            //To-do: Add more resolutions
 
             View view = SVNE.window.DefaultView;
 
             SVNE.window.SetView(view);
-            SVNE.window.Size = new Vector2u(1120, 630);
+            SVNE.window.Size = new Vector2u(640, 360);
+            Game.xRatio = ((float)SVNE.window.Size.X / (float)SVNE.defaultWidth);
+            Game.yRatio = ((float)SVNE.window.Size.Y / (float)SVNE.defaultHeight);
 
             return 0;
         }

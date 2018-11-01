@@ -22,7 +22,7 @@ namespace SVNE.Core {
 
         public void EndEvent() {
             if (gameState == (int)Game.States.MainMenu) {
-                Game.timelineCounter = 0;
+                TimeLine.timeLineCounter = 0;
             }
         }
 

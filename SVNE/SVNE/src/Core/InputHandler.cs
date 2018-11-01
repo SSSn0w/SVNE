@@ -91,12 +91,12 @@ namespace SVNE.Core {
                     }
                     else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseDown[0]) {
                         try {
-                            if (Game.TimeLine[Game.timelineCounter].GetEvent() is Transitions.Transition) {
+                            if (TimeLine.timeLine[TimeLine.timeLineCounter].GetEvent() is Transitions.Transition) {
                                 Console.WriteLine("is non-skippable transition");
                             }
                             else {
                                 Console.WriteLine("is skippable event");
-                                Game.TimeLine[Game.timelineCounter].EndEvent();
+                                TimeLine.timeLine[TimeLine.timeLineCounter].EndEvent();
                             }
                         } catch (Exception e) {
                             //Console.WriteLine(e + " No more dialogue to be displayed");

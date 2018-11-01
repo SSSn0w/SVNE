@@ -74,6 +74,7 @@
     <Compile Include="src\Core\Game.cs" />
     <Compile Include="src\Core\GameLoop.cs" />
     <Compile Include="src\Core\StateEvent.cs" />
+    <Compile Include="src\Core\TimeLine.cs" />
     <Compile Include="src\GUI\Clickable.cs" />
     <Compile Include="src\GUI\DialogueBox.cs" />
     <Compile Include="src\GUI\Button.cs" />
