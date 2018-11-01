@@ -26,6 +26,7 @@ namespace SVNE.GUI {
         public Texture texture = new Texture("Assets/dialogue_box.png");
         public Sprite sprite;
         public uint charSize;
+        public float letterHeight;
         public Font font = new Font("Assets/Consolas.ttf");
         public Text text;
         public Text title;
@@ -62,8 +63,10 @@ namespace SVNE.GUI {
             this.Title = Title;
             this.Dialogue = Dialogue.ToCharArray();
             this.charSize = charSize;
-            TitleColor = new Color(0, 0, 0, 255);
-            DialogueColor = new Color(0, 0, 0, 255);
+            //TitleColor = new Color(0, 0, 0, 255);
+            TitleColor = new Color(255, 255, 255, 255);
+            //DialogueColor = new Color(0, 0, 0, 255);
+            DialogueColor = new Color(255, 255, 255, 255);
 
             width = (int)texture.Size.X;
             height = (int)texture.Size.Y;
@@ -75,8 +78,8 @@ namespace SVNE.GUI {
             this.text = new Text();
 
             title = new Text(Title, new Font("Assets/Consolas.ttf"), 30);
-            float letterH = new Text(Title.ToCharArray()[0].ToString(), new Font("Assets/Consolas.ttf"), 30).GetGlobalBounds().Height;
-            title.Origin = new Vector2f(-340, -(525 - (int)letterH / 2));
+            letterHeight = new Text(Title.ToCharArray()[0].ToString(), new Font("Assets/Consolas.ttf"), 30).GetGlobalBounds().Height;
+            title.Origin = new Vector2f(-340, -(525 - (int)letterHeight / 2));
             title.Color = TitleColor;
         }
 
@@ -85,8 +88,10 @@ namespace SVNE.GUI {
             this.Dialogue = Dialogue.ToCharArray();
             this.charSize = charSize;
             this.animation = animation;
-            TitleColor = new Color(0, 0, 0, 255);
-            DialogueColor = new Color(0, 0, 0, 255);
+            //TitleColor = new Color(0, 0, 0, 255);
+            TitleColor = new Color(255, 255, 255, 255);
+            //DialogueColor = new Color(0, 0, 0, 255);
+            DialogueColor = new Color(255, 255, 255, 255);
 
             width = (int)texture.Size.X;
             height = (int)texture.Size.Y;
@@ -98,8 +103,8 @@ namespace SVNE.GUI {
             this.text = new Text();
 
             title = new Text(Title, new Font("Assets/Consolas.ttf"), 30);
-            float letterH = new Text(Title.ToCharArray()[0].ToString(), new Font("Assets/Consolas.ttf"), 30).GetGlobalBounds().Height;
-            title.Origin = new Vector2f(-340, -(525 - (int)letterH / 2));
+            letterHeight = new Text(Title.ToCharArray()[0].ToString(), new Font("Assets/Consolas.ttf"), 30).GetGlobalBounds().Height;
+            title.Origin = new Vector2f(-340, -(525 - (int)letterHeight / 2));
             title.Color = TitleColor;
         }
 
@@ -195,6 +200,7 @@ namespace SVNE.GUI {
 
         public void Draw(RenderTarget target, RenderStates states) {
             sprite.Origin = new Vector2f(-(1280 - width) / 2, -(720 - height));
+            title.Origin = new Vector2f(text.Origin.X, -(525 - (int)letterHeight / 2));
 
             target.Draw(sprite, states);
             target.Draw(title, states);
