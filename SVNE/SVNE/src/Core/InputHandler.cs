@@ -10,29 +10,20 @@ using SFML.Window;
 using SVNE.GUI;
 
 namespace SVNE.Core {
-    class InputHandler {
-        private RenderWindow window;
+    static class InputHandler {
+        public static bool mouseOnClickable = false;
+        public static bool[] mouseDown = new bool[100];
+        public static bool mouseDownBackground = false;
+        public static int controlCounter = 0;
+        public static bool hideControls = false;
 
-        public bool mouseOnClickable = false;
-        public bool[] mouseDown;
-        public bool mouseDownBackground = false;
-        public int controlCounter = 0;
-
-        public InputHandler(RenderWindow window) {
-            this.window = window;
-            this.window.MouseButtonReleased += OnMousePressed;
-
-            //mouseDown = new bool[Game.mm.MenuControls.Capacity];
-            mouseDown = new bool[100];
-        }
-
-        public void OnMousePressed(object sender, MouseButtonEventArgs e) {
+        public static void OnMousePressed(object sender, MouseButtonEventArgs e) {
             if (e.Button == Mouse.Button.Left) {
                 int i = 0;
 
                 if (Game.gameState == (int)Game.States.MainMenu) {
                     foreach (Clickable control in Game.mm.MenuControls) {
-                        if (control.MouseInBounds(window)) {
+                        if (control.MouseInBounds(SVNE.window)) {
                             mouseDown[i] = true;
                         }
 
@@ -45,10 +36,9 @@ namespace SVNE.Core {
             }
         }
 
-        public void HandleMouse() {
+        public static void HandleMouse(RenderWindow window) {
             if (window.HasFocus()) {
                 if (Game.gameState == (int)Game.States.MainMenu) {
-
                     controlCounter = 0;
 
                     foreach (Clickable control in Game.mm.MenuControls) {
@@ -62,7 +52,7 @@ namespace SVNE.Core {
                     controlCounter = 0;
 
                     foreach (Clickable control in Game.mm.MenuControls) {
-                        if (control.MouseInBounds(window)) {
+                        if (control.MouseInBounds(window) && control.IsDisplayed) {
                             mouseOnClickable = true;
                         }
                         else {
@@ -70,9 +60,6 @@ namespace SVNE.Core {
                         }
 
                         if (Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
-                            control.MouseDown(window);
-                        }
-                        else if (Mouse.IsButtonPressed(Mouse.Button.Left) && control is Slider) {
                             control.MouseDown(window);
                         }
                         else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseDown[controlCounter] && mouseOnClickable) {
@@ -90,40 +77,62 @@ namespace SVNE.Core {
                     }
                 }
                 else if (Game.gameState == (int)Game.States.Playing) {
+                    bool lockBackground = false;
+
                     controlCounter = 0;
 
-                    foreach (Clickable control in TimeLine.Options) {
-                        if (control.MouseInBounds(window) && control.IsDisplayed) {
-                            mouseOnClickable = true;
-                        }
-                        else {
-                            mouseOnClickable = false;
+                    //Story Pathway Option Buttons
+                    int listCount = 0;
+                    foreach (List<Clickable> list in TimeLine.Options) {
+                        foreach (Clickable control in TimeLine.Options[listCount]) {
+                            if (hideControls) {
+                                control.IsDisplayed = false;
+                                lockBackground = false;
+                            }
+                            else if (control.IsDisplayed) {
+                                lockBackground = true;
+
+                                if (control.MouseInBounds(window) && control.IsDisplayed) {
+                                    mouseOnClickable = true;
+                                }
+                                else {
+                                    mouseOnClickable = false;
+                                    mouseDown[controlCounter] = false;
+                                }
+
+                                if (Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
+                                    control.MouseDown(window);
+                                    mouseDown[controlCounter] = true;
+                                }
+                                else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseDown[controlCounter] && mouseOnClickable) {
+                                    control.MouseUp(window);
+                                    hideControls = true;
+                                    lockBackground = false;
+                                    mouseOnClickable = false;
+                                    mouseDown[controlCounter] = false;
+                                }
+                                else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
+                                    control.Hover(window);
+                                }
+                                else if (!mouseOnClickable && !(control is Slider)) {
+                                    control.Reset();
+                                }
+                            }
+                            else {
+                                //mouseDown = new bool[100];
+                            }
+
+                            controlCounter++;
                         }
 
-                        if (Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
-                            control.MouseDown(window);
-                        }
-                        else if (Mouse.IsButtonPressed(Mouse.Button.Left) && control is Slider) {
-                            control.MouseDown(window);
-                        }
-                        else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseDown[controlCounter] && mouseOnClickable) {
-                            control.MouseUp(window);
-                            mouseDown[controlCounter] = false;
-                        }
-                        else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
-                            control.Hover(window);
-                        }
-                        else if (!mouseOnClickable && !(control is Slider)) {
-                            control.Reset();
-                        }
-                            
-                        controlCounter++;
+                        listCount++;
                     }
 
-                    if (Mouse.IsButtonPressed(Mouse.Button.Left) && !mouseOnClickable) {
+                    //Move TimeLine forward on screen click if no options are up
+                    if (Mouse.IsButtonPressed(Mouse.Button.Left) && !mouseOnClickable && !lockBackground) {
                         mouseDownBackground = true;
                     }
-                    else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseDownBackground && !mouseOnClickable) {
+                    else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseDownBackground) {
                         try {
                             if (TimeLine.timeLine[TimeLine.timeLineCounter].GetEvent() is Transitions.Transition) {
                                 Console.WriteLine("is non-skippable transition");
@@ -138,6 +147,8 @@ namespace SVNE.Core {
 
                         mouseDownBackground = false;
                     }
+
+                    lockBackground = false;
                 }
             }
         }

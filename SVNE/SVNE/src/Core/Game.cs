@@ -17,8 +17,6 @@ namespace SVNE.Core {
         public static float xRatio;
         public static float yRatio;
 
-        public InputHandler inputHandler;
-
         public static Sprite background = new Sprite(new Texture("Assets/background.jpg"));
         //public static Sprite sprite = new Sprite(new Texture("Assets/character.png"));
         //public static Character sprite = new Character("Magilou", "Assets/character.png", 0.2f);
@@ -32,10 +30,10 @@ namespace SVNE.Core {
         public Game(RenderWindow window) {
             this.window = window;
             this.window.Closed += Window_Closed;
+            this.window.MouseButtonReleased += InputHandler.OnMousePressed;
         }
 
         public override void Startup() {
-            inputHandler = new InputHandler(window);
 
             xRatio = ((float)SVNE.window.Size.X / (float)SVNE.defaultWidth);
             yRatio = ((float)SVNE.window.Size.Y / (float)SVNE.defaultHeight);
@@ -53,6 +51,8 @@ namespace SVNE.Core {
             SpriteList.Add("background", background);
             SpriteList.Add("characters", sprite); //Needs rework to add multiple characters
             SpriteList.Add("mainMenu", mm);*/
+
+            //TimeLine.Load();
         }
 
         private void Window_Closed(object sender, EventArgs e) {
@@ -67,7 +67,7 @@ namespace SVNE.Core {
         public override void Update() {
             window.DispatchEvents();
 
-            inputHandler.HandleMouse();
+            InputHandler.HandleMouse(window);
 
             if (gameState == (int)States.Playing) {
                 try {
@@ -108,10 +108,15 @@ namespace SVNE.Core {
                     Draw(TimeLine.Objects[i]);
                 }
 
-                foreach(Clickable control in TimeLine.Options) {
-                    if(control.IsDisplayed) {
-                        Draw(control);
+                int listCount = 0;
+                foreach(List<Clickable> list in TimeLine.Options) {
+                    foreach (Clickable control in TimeLine.Options[listCount]) {
+                        if (control.IsDisplayed) {
+                            Draw(control);
+                        }
                     }
+
+                    listCount++;
                 }
 
                 Draw(sceneOverlay);

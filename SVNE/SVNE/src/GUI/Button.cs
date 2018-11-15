@@ -203,7 +203,10 @@ namespace SVNE.GUI {
                Mouse.GetPosition(window).Y >= GetY * Game.yRatio &&
                Mouse.GetPosition(window).Y <= GetY * Game.yRatio + GetHeight * Game.yRatio) {
 
-                System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Hand;
+                if(isDisplaying) {
+                    System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Hand;
+                }
+
                 return true;
             }
             else {
