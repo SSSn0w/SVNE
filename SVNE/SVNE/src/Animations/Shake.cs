@@ -17,10 +17,10 @@ namespace SVNE.Animations {
         private Sprite sprite;
         private double time;
         private int magnitude;
-        private Vector2f origin;
+        private Vector2f position;
         private float tick;
 
-        public Shake(Sprite sprite, double time, int magnitude, int speed) {
+        public Shake(Sprite sprite, double time, int magnitude, int speed) : base() {
             this.sprite = sprite;
             this.time = time;
             this.magnitude = magnitude;
@@ -46,8 +46,34 @@ namespace SVNE.Animations {
             clock = new Clock();
         }
 
+        public Shake(Character character, double time, int magnitude, int speed) {
+            sprite = character.sprite;
+            this.time = time;
+            this.magnitude = magnitude;
+
+            switch (speed) {
+                //fast
+                case 1:
+                    tick = 0.01f;
+                    break;
+                //medium
+                case 2:
+                    tick = 0.04f;
+                    break;
+                //slow
+                case 3:
+                    tick = 0.08f;
+                    break;
+                default:
+                    tick = 2;
+                    break;
+            }
+
+            clock = new Clock();
+        }
+
         public void Default() {
-            sprite.Origin = origin;
+            sprite.Position = position;
         }
 
         public void Animate() {
@@ -57,12 +83,12 @@ namespace SVNE.Animations {
             else {
                 if (clock.ElapsedTime.AsSeconds() > tick) {
                     if(counter == 0) {
-                        origin = sprite.Origin;
+                        position = sprite.Position;
                     }
 
                     float x = new Random().Next(-magnitude, magnitude);
                     float y = new Random().Next(-magnitude, magnitude);
-                    sprite.Origin = origin + new Vector2f(x, y);
+                    sprite.Position = position + new Vector2f(x, y);
                     clock.Restart();
                     counter += tick;
                 }

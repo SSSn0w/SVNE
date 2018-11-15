@@ -71,6 +71,7 @@
     <Compile Include="src\Core\Character.cs" />
     <Compile Include="src\Core\Event.cs" />
     <Compile Include="src\Core\EventTrigger.cs" />
+    <Compile Include="src\Core\Function.cs" />
     <Compile Include="src\Core\Game.cs" />
     <Compile Include="src\Core\GameLoop.cs" />
     <Compile Include="src\Core\StateEvent.cs" />

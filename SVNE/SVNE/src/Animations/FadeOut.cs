@@ -17,9 +17,31 @@ namespace SVNE.Animations {
         private Sprite sprite;
         private byte time;
 
-        public FadeOut(Sprite sprite, int speed) {
+        public FadeOut(Sprite sprite, int speed) : base() {
             this.sprite = sprite;
             switch(speed) {
+                //fast
+                case 1:
+                    time = 5;
+                    break;
+                //medium
+                case 2:
+                    time = 3;
+                    break;
+                //slow
+                case 3:
+                    time = 1;
+                    break;
+                default:
+                    time = 3;
+                    break;
+            }
+            clock = new Clock();
+        }
+
+        public FadeOut(Character character, int speed) {
+            sprite = character.sprite;
+            switch (speed) {
                 //fast
                 case 1:
                     time = 5;

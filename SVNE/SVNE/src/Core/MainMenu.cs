@@ -35,9 +35,6 @@ namespace SVNE.Core {
         public int Preferences() {
             //To-do: Add more resolutions
 
-            View view = SVNE.window.DefaultView;
-
-            SVNE.window.SetView(view);
             SVNE.window.Size = new Vector2u(640, 360);
             Game.xRatio = ((float)SVNE.window.Size.X / (float)SVNE.defaultWidth);
             Game.yRatio = ((float)SVNE.window.Size.Y / (float)SVNE.defaultHeight);

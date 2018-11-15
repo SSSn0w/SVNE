@@ -20,7 +20,8 @@ namespace SVNE.Core {
         public InputHandler inputHandler;
 
         public static Sprite background = new Sprite(new Texture("Assets/background.jpg"));
-        public static Sprite sprite = new Sprite(new Texture("Assets/character.png"));
+        //public static Sprite sprite = new Sprite(new Texture("Assets/character.png"));
+        //public static Character sprite = new Character("Magilou", "Assets/character.png", 0.2f);
         public static RectangleShape sceneOverlay;
 
         public enum States { MainMenu, Paused, Playing, Quit };
@@ -42,10 +43,9 @@ namespace SVNE.Core {
             sceneOverlay = new RectangleShape(new Vector2f(window.Size.X, window.Size.Y));
             sceneOverlay.FillColor = new Color(0, 0, 0, 0);
 
-            sprite.Scale = new Vector2f(0.2f, 0.2f);
-            sprite.Origin = new Vector2f(-(window.Size.X + sprite.Texture.Size.X) / 2, -100);
-            sprite.Texture.Smooth = true;
-            sprite.Color = new Color(255, 255, 255, 0);
+            /*sprite.Scale = new Vector2f(0.2f, 0.2f);
+            sprite.Origin = new Vector2f(-(SVNE.window.Size.X + (sprite.Texture.Size.X * sprite.Scale.X)), -(SVNE.window.Size.Y - (sprite.Texture.Size.Y * sprite.Scale.Y)) * 5);
+            sprite.Texture.Smooth = true;*/
 
             background.Origin = new Vector2f(0, 300);
 
@@ -87,7 +87,7 @@ namespace SVNE.Core {
         public override void Render() {
             if (gameState == (int)States.Playing) {
                 Draw(background);
-                Draw(sprite);
+                Draw(TimeLine.magilou);
 
                 try {
                     if (TimeLine.timeLine[TimeLine.timeLineCounter] is Drawable) {

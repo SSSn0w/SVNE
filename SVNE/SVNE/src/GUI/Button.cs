@@ -233,16 +233,13 @@ namespace SVNE.GUI {
         }
 
         public void Draw(RenderTarget target, RenderStates states) {
-            float x = -this.x;
-            float y = -this.y;
-
             if (sprite != null) {
 
-                sprite.Origin = new Vector2f(x, y);
+                sprite.Position = new Vector2f(x, y);
                 target.Draw(sprite, states);
             }
             else {
-                text.Origin = new Vector2f(x, (y - -(height / 2)));
+                text.Position = new Vector2f(x, (y - (height / 2)));
                 target.Draw(text, states);
             }
         }

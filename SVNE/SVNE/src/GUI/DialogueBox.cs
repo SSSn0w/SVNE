@@ -15,6 +15,7 @@ using SVNE.Animations;
 namespace SVNE.GUI {
     class DialogueBox : Event, Drawable {
         public string Title;
+        public Character character;
         public char[] Dialogue;
         public string DialogueString = "";
 
@@ -79,7 +80,7 @@ namespace SVNE.GUI {
 
             title = new Text(Title, new Font("Assets/Consolas.ttf"), 30);
             letterHeight = new Text(Title.ToCharArray()[0].ToString(), new Font("Assets/Consolas.ttf"), 30).GetGlobalBounds().Height;
-            title.Origin = new Vector2f(-340, -(525 - (int)letterHeight / 2));
+            title.Position = new Vector2f(this.text.Position.X, (525 - (int)letterHeight / 2));
             title.Color = TitleColor;
         }
 
@@ -104,7 +105,54 @@ namespace SVNE.GUI {
 
             title = new Text(Title, new Font("Assets/Consolas.ttf"), 30);
             letterHeight = new Text(Title.ToCharArray()[0].ToString(), new Font("Assets/Consolas.ttf"), 30).GetGlobalBounds().Height;
-            title.Origin = new Vector2f(-340, -(525 - (int)letterHeight / 2));
+            title.Position = new Vector2f(this.text.Position.X, (525 - (int)letterHeight / 2));
+            title.Color = TitleColor;
+        }
+
+        public DialogueBox(Character character, string Dialogue, uint charSize, Animation animation) {
+            this.character = character;
+            Title = character.Name;
+            this.Dialogue = Dialogue.ToCharArray();
+            this.charSize = charSize;
+            this.animation = animation;
+            TitleColor = new Color(255, 255, 255, 255);
+            DialogueColor = new Color(255, 255, 255, 255);
+
+            width = (int)texture.Size.X;
+            height = (int)texture.Size.Y;
+            sprite = new Sprite(texture);
+
+            clock = new Clock();
+
+            string[] text = Dialogue.Split();
+            this.text = new Text();
+
+            title = new Text(Title, new Font("Assets/Consolas.ttf"), 30);
+            letterHeight = new Text(Title.ToCharArray()[0].ToString(), new Font("Assets/Consolas.ttf"), 30).GetGlobalBounds().Height;
+            title.Position = new Vector2f(this.text.Position.X, (525 - (int)letterHeight / 2));
+            title.Color = TitleColor;
+        }
+
+        public DialogueBox(Character character, string Dialogue, uint charSize) {
+            this.character = character;
+            Title = character.Name;
+            this.Dialogue = Dialogue.ToCharArray();
+            this.charSize = charSize;
+            TitleColor = new Color(255, 255, 255, 255);
+            DialogueColor = new Color(255, 255, 255, 255);
+
+            width = (int)texture.Size.X;
+            height = (int)texture.Size.Y;
+            sprite = new Sprite(texture);
+
+            clock = new Clock();
+
+            string[] text = Dialogue.Split();
+            this.text = new Text();
+
+            title = new Text(Title, new Font("Assets/Consolas.ttf"), 30);
+            letterHeight = new Text(Title.ToCharArray()[0].ToString(), new Font("Assets/Consolas.ttf"), 30).GetGlobalBounds().Height;
+            title.Position = new Vector2f(this.text.Position.X, (525 - (int)letterHeight / 2));
             title.Color = TitleColor;
         }
 
@@ -137,7 +185,7 @@ namespace SVNE.GUI {
 
         public void AnimateDialogue() {
             text = new Text(DialogueString, font, charSize);
-            text.Origin = new Vector2f(-sprite.GetGlobalBounds().Left - marginLeft, -sprite.GetGlobalBounds().Top - marginTop);
+            text.Position = new Vector2f(sprite.GetGlobalBounds().Left + marginLeft, sprite.GetGlobalBounds().Top + marginTop);
             text.Color = DialogueColor;
 
             if (text.GetLocalBounds().Width >= sprite.GetGlobalBounds().Width - marginRight && charMax == 0) {
@@ -199,8 +247,8 @@ namespace SVNE.GUI {
         }
 
         public void Draw(RenderTarget target, RenderStates states) {
-            sprite.Origin = new Vector2f(-(1280 - width) / 2, -(720 - height));
-            title.Origin = new Vector2f(text.Origin.X, -(525 - (int)letterHeight / 2));
+            sprite.Position = new Vector2f((1280 - width) / 2, (720 - height));
+            title.Position = new Vector2f(text.Position.X, (525 - (int)letterHeight / 2));
 
             target.Draw(sprite, states);
             target.Draw(title, states);
