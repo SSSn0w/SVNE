@@ -85,7 +85,13 @@ namespace SVNE.Core {
         }
 
         public override void Render() {
-            if (gameState == (int)States.Playing) {
+            if (gameState == (int)States.MainMenu) {
+                mm.IsDisplaying(true);
+                Draw(mm);
+            }
+            else if (gameState == (int)States.Playing) {
+                mm.IsDisplaying(false);
+
                 Draw(background);
                 Draw(TimeLine.magilou);
 
@@ -98,10 +104,17 @@ namespace SVNE.Core {
                     //Console.WriteLine(e + " No more dialogue");
                 }
 
+                for (int i = 0; i < TimeLine.Objects.Count(); i++) {
+                    Draw(TimeLine.Objects[i]);
+                }
+
+                foreach(Clickable control in TimeLine.Options) {
+                    if(control.IsDisplayed) {
+                        Draw(control);
+                    }
+                }
+
                 Draw(sceneOverlay);
-            }
-            else if (gameState == (int)States.MainMenu) {
-                Draw(mm);
             }
 
             window.Display();

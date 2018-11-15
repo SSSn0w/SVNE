@@ -78,10 +78,7 @@ namespace SVNE.GUI {
             string[] text = Dialogue.Split();
             this.text = new Text();
 
-            title = new Text(Title, new Font("Assets/Consolas.ttf"), 30);
-            letterHeight = new Text(Title.ToCharArray()[0].ToString(), new Font("Assets/Consolas.ttf"), 30).GetGlobalBounds().Height;
-            title.Position = new Vector2f(this.text.Position.X, (525 - (int)letterHeight / 2));
-            title.Color = TitleColor;
+            SetTitle(Title);
         }
 
         public DialogueBox(string Title, string Dialogue, uint charSize, Animation animation) {
@@ -103,10 +100,7 @@ namespace SVNE.GUI {
             string[] text = Dialogue.Split();
             this.text = new Text();
 
-            title = new Text(Title, new Font("Assets/Consolas.ttf"), 30);
-            letterHeight = new Text(Title.ToCharArray()[0].ToString(), new Font("Assets/Consolas.ttf"), 30).GetGlobalBounds().Height;
-            title.Position = new Vector2f(this.text.Position.X, (525 - (int)letterHeight / 2));
-            title.Color = TitleColor;
+            SetTitle(Title);
         }
 
         public DialogueBox(Character character, string Dialogue, uint charSize, Animation animation) {
@@ -127,10 +121,7 @@ namespace SVNE.GUI {
             string[] text = Dialogue.Split();
             this.text = new Text();
 
-            title = new Text(Title, new Font("Assets/Consolas.ttf"), 30);
-            letterHeight = new Text(Title.ToCharArray()[0].ToString(), new Font("Assets/Consolas.ttf"), 30).GetGlobalBounds().Height;
-            title.Position = new Vector2f(this.text.Position.X, (525 - (int)letterHeight / 2));
-            title.Color = TitleColor;
+            SetTitle(Title);
         }
 
         public DialogueBox(Character character, string Dialogue, uint charSize) {
@@ -150,10 +141,7 @@ namespace SVNE.GUI {
             string[] text = Dialogue.Split();
             this.text = new Text();
 
-            title = new Text(Title, new Font("Assets/Consolas.ttf"), 30);
-            letterHeight = new Text(Title.ToCharArray()[0].ToString(), new Font("Assets/Consolas.ttf"), 30).GetGlobalBounds().Height;
-            title.Position = new Vector2f(this.text.Position.X, (525 - (int)letterHeight / 2));
-            title.Color = TitleColor;
+            SetTitle(Title);
         }
 
         public DialogueBox(string Title, string Dialogue, Color TitleColor, Color DialogueColor) {
@@ -164,6 +152,12 @@ namespace SVNE.GUI {
 
             clock = new Clock();
             text = new Text();
+        }
+
+        public void SetTitle(string Title) {
+            title = new Text(Title, font, 30);
+            letterHeight = new Text(Title.ToCharArray()[0].ToString(), font, 30).GetGlobalBounds().Height;
+            title.Color = TitleColor;
         }
 
         public void Animate() {
@@ -220,6 +214,7 @@ namespace SVNE.GUI {
 
         public void StartEvent() {
             Animate();
+            //SetTitle(character.Name);
             animation.StartEvent();
         }
 

@@ -23,6 +23,7 @@ namespace SVNE.GUI
         public int height;
 
         public bool grabbed = false;
+        public bool isDisplaying;
 
         public Slider(RectangleShape bar, RectangleShape handle) : base()
         {
@@ -62,6 +63,11 @@ namespace SVNE.GUI
         {
             get { return height; }
             set { height = value; }
+        }
+
+        public bool IsDisplayed {
+            get { return isDisplaying; }
+            set { isDisplaying = value; }
         }
 
         public bool MouseInBounds(RenderWindow window) {

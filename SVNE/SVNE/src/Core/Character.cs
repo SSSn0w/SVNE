@@ -11,10 +11,9 @@ namespace SVNE.Core {
     class Character : Drawable {
         public string Name;
         public string ResPath;
-        public string Color;
+        public Color Color;
 
         public Sprite sprite;
-        public Vector2f position;
 
         public int x;
         public int y;
@@ -24,19 +23,23 @@ namespace SVNE.Core {
         public Character(string Name, string ResPath, float scale) : base() {
             this.Name = Name;
             this.ResPath = ResPath;
-            this.Color = "black";
+            this.Color = new Color(0, 0, 0);
 
             sprite = new Sprite(new Texture(ResPath));
             sprite.Scale = new Vector2f(scale, scale);
             ChangePos("center"); //Default
         }
 
-        public Character(string Name, string ResPath, string Color) {
+        public Character(string Name, string ResPath, Color Color) {
             this.Name = Name;
             this.ResPath = ResPath;
             this.Color = Color;
 
             sprite = new Sprite(new Texture(ResPath));
+        }
+
+        public Character(string Name) {
+            this.Name = Name;
         }
 
         public int ChangePos(string position) {
@@ -64,6 +67,24 @@ namespace SVNE.Core {
             else {
                 
             }
+
+            return 0;
+        }
+
+        public int ChangeName(string name) {
+            Name = name;
+
+            return 0;
+        }
+
+        public int ChangeColour(Color color) {
+            Color = color;
+
+            return 0;
+        }
+
+        public int ChangeSprite(string respath) {
+            sprite.Texture = new Texture(respath);
 
             return 0;
         }

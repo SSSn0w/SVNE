@@ -13,6 +13,8 @@ namespace SVNE.GUI {
         public int width;
         public int height;
 
+        public bool isDisplaying;
+
         public TextBox() {
 
         }
@@ -35,6 +37,11 @@ namespace SVNE.GUI {
         public int GetHeight {
             get { return height; }
             set { height = value; }
+        }
+
+        public bool IsDisplayed {
+            get { return isDisplaying; }
+            set { isDisplaying = value; }
         }
 
         public bool MouseInBounds(RenderWindow window) {

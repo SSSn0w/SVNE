@@ -29,6 +29,10 @@ namespace SVNE.GUI {
         public Font font;
         public Text text;
 
+        public bool hideAfterClick = false;
+
+        public bool isDisplaying = false;
+
         public Button(Texture notPressed, Texture pressed, int x, int y, int width, int height) : base() {
             this.notPressed = new Sprite(notPressed, new IntRect(x, y, width, height));
             this.pressed = new Sprite(pressed, new IntRect(x, y, width, height));
@@ -137,6 +141,37 @@ namespace SVNE.GUI {
             this.y = this.y + height / 2;
         }
 
+        public Button(string text, Color notPressedColor, Color pressedColor, Color hoverColor, uint charSize, Font font, int x, int y, Func<int> action, bool hideAfterClick) {
+            this.notPressedColor = notPressedColor;
+            this.pressedColor = pressedColor;
+            this.hoverColor = hoverColor;
+            this.charSize = charSize;
+            this.font = font;
+            this.action = action;
+            this.hideAfterClick = hideAfterClick;
+            this.x = x;
+            this.y = y;
+            this.text = new Text(text, font, charSize);
+            width = (int)this.text.GetGlobalBounds().Width;
+            height = (int)this.text.GetGlobalBounds().Height;
+            this.y = this.y + height / 2;
+        }
+
+        public Button(string text, Color notPressedColor, Color pressedColor, Color hoverColor, uint charSize, Font font, int x, int y, bool hideAfterClick) {
+            this.notPressedColor = notPressedColor;
+            this.pressedColor = pressedColor;
+            this.hoverColor = hoverColor;
+            this.charSize = charSize;
+            this.font = font;
+            this.hideAfterClick = hideAfterClick;
+            this.x = x;
+            this.y = y;
+            this.text = new Text(text, font, charSize);
+            width = (int)this.text.GetGlobalBounds().Width;
+            height = (int)this.text.GetGlobalBounds().Height;
+            this.y = this.y + height / 2;
+        }
+
         public int GetX {
             get { return x; }
             set { x = value; }
@@ -155,6 +190,11 @@ namespace SVNE.GUI {
         public int GetHeight {
             get { return height; }
             set { height = value; }
+        }
+
+        public bool IsDisplayed {
+            get { return isDisplaying; }
+            set { isDisplaying = value; }
         }
 
         public bool MouseInBounds(RenderWindow window) {
@@ -198,6 +238,10 @@ namespace SVNE.GUI {
             }
 
             action();
+
+            if (hideAfterClick) {
+                IsDisplayed = false;
+            }
 
             return true;
         }

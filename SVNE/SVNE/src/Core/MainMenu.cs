@@ -14,6 +14,8 @@ namespace SVNE.Core {
     class MainMenu : Drawable {
         public List<Clickable> MenuControls = new List<Clickable>();
 
+        public bool[] mouseDown;
+
         public MainMenu() {
             MenuControls.Add(new Button("Start", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Consolas.ttf"), 100, 100, Start));
             MenuControls.Add(new Button("Load", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Consolas.ttf"), 100, 200));
@@ -48,11 +50,17 @@ namespace SVNE.Core {
             return 0;
         }
 
+        public void IsDisplaying(bool displaying) {
+            foreach (Clickable control in MenuControls) {
+                control.IsDisplayed = displaying;
+            }
+        }
+
         public void Draw(RenderTarget target, RenderStates states) {
             target.Draw(new RectangleShape(SVNE.window.DefaultView.Size), states);
 
-            foreach (Clickable button in MenuControls) {
-                target.Draw(button, states);
+            foreach (Clickable control in MenuControls) {
+                target.Draw(control, states);
             }
         }
     }
