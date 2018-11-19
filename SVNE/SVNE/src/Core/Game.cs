@@ -20,7 +20,6 @@ namespace SVNE.Core {
         public static Sprite background = new Sprite(new Texture("Assets/background.jpg"));
         //public static Sprite sprite = new Sprite(new Texture("Assets/character.png"));
         //public static Character sprite = new Character("Magilou", "Assets/character.png", 0.2f);
-        public static RectangleShape sceneOverlay;
 
         public enum States { MainMenu, Paused, Playing, Quit };
         public static int gameState = (int)States.MainMenu;
@@ -37,9 +36,6 @@ namespace SVNE.Core {
 
             xRatio = ((float)SVNE.window.Size.X / (float)SVNE.defaultWidth);
             yRatio = ((float)SVNE.window.Size.Y / (float)SVNE.defaultHeight);
-
-            sceneOverlay = new RectangleShape(new Vector2f(window.Size.X, window.Size.Y));
-            sceneOverlay.FillColor = new Color(0, 0, 0, 0);
 
             /*sprite.Scale = new Vector2f(0.2f, 0.2f);
             sprite.Origin = new Vector2f(-(SVNE.window.Size.X + (sprite.Texture.Size.X * sprite.Scale.X)), -(SVNE.window.Size.Y - (sprite.Texture.Size.Y * sprite.Scale.Y)) * 5);
@@ -104,10 +100,6 @@ namespace SVNE.Core {
                     //Console.WriteLine(e + " No more dialogue");
                 }
 
-                for (int i = 0; i < TimeLine.Objects.Count(); i++) {
-                    Draw(TimeLine.Objects[i]);
-                }
-
                 int listCount = 0;
                 foreach(List<Clickable> list in TimeLine.Options) {
                     foreach (Clickable control in TimeLine.Options[listCount]) {
@@ -119,7 +111,9 @@ namespace SVNE.Core {
                     listCount++;
                 }
 
-                Draw(sceneOverlay);
+                for (int i = 0; i < TimeLine.Objects.Count(); i++) {
+                    Draw(TimeLine.Objects[i]);
+                }
             }
 
             window.Display();

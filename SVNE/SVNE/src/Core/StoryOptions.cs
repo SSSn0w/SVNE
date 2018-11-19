@@ -17,13 +17,17 @@ namespace SVNE.Core {
 
             List<Clickable> list = new List<Clickable>();
             for (int i = 0; i < options.Count(); i++) {
-                list.Add(new Button(options[i].Text, new Color(255, 255, 255), new Color(255, 0, 0), new Color(0, 255, 0), 30, new Font("Assets/Consolas.ttf"), 5, 100 * (i + 1), () => { TimeLine.timeLineCounter++; return 0; }, true));
+                list.Add(new Button(options[i].Text, new Color(255, 255, 255), new Color(255, 0, 0), new Color(0, 255, 0), 30, new Font("Assets/Consolas.ttf"), 5, 100 * (i + 1), () => {
+                    TimeLine.timeLineCounter += 2;
+                    return 0;
+                }, true));
             }
 
             TimeLine.Options.Add(list);
         }
 
         public static int Display(int optionIndex) {
+            TimeLine.timeLineCounter--;
             InputHandler.hideControls = false;
 
             foreach(Clickable control in TimeLine.Options[optionIndex]) {

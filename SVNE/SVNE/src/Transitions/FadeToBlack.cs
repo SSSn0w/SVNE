@@ -12,14 +12,15 @@ using SVNE.Core;
 
 namespace SVNE.Transitions {
     class FadeToBlack : Transition {
+        private RenderWindow window;
         private Clock clock;
         private byte counter = 0;
         private byte endAlpha = 255;
         private RectangleShape cover;
         private byte time;
 
-        public FadeToBlack(RectangleShape cover, int speed, RenderWindow window) {
-            this.cover = cover;
+        public FadeToBlack(int speed, RenderWindow window) {
+            this.window = window;
 
             switch (speed) {
                 //fast
@@ -44,6 +45,9 @@ namespace SVNE.Transitions {
         public void Default() {
             clock.Dispose();
             cover.FillColor = new Color(0, 0, 0, endAlpha);
+
+            var itemToRemove = TimeLine.Objects.Single(r => r.Equals(cover));
+            TimeLine.Objects.Remove(itemToRemove);
         }
 
         public void Animate() {
@@ -60,6 +64,12 @@ namespace SVNE.Transitions {
         }
 
         public void StartEvent() {
+            if (counter == 0) {
+                cover = new RectangleShape(new Vector2f(window.Size.X, window.Size.Y));
+                TimeLine.Objects.Add(cover);
+                cover = (RectangleShape)TimeLine.Objects[TimeLine.Objects.FindIndex(r => r.Equals(cover))];
+            }
+
             Animate();
         }
 

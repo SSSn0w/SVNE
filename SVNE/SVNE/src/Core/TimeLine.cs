@@ -25,14 +25,14 @@ namespace SVNE.Core {
             Objects = new List<Drawable>();
             Options = new List<List<Clickable>>();
 
-            StoryOptions.Add(new List<Option>() { new Option("test 1"), new Option("test 2"), new Option("test 3") });
-            StoryOptions.Add(new List<Option>() { new Option("noot0"), new Option("noot1"), new Option("noot2"), new Option("noot3") });
-            StoryOptions.Add(new List<Option>() { new Option("123"), new Option("1234") });
+            StoryOptions.Add(new List<Option>() { new Option("Option 1"), new Option("Option 2"), new Option("Option 3") });
+            StoryOptions.Add(new List<Option>() { new Option("Option 1"), new Option("Option 2"), new Option("Option 3"), new Option("Option 4") });
+            StoryOptions.Add(new List<Option>() { new Option("Option 1"), new Option("Option 2") });
 
             magilou.sprite.Color = new Color(255, 255, 255, 0);
             //timeLine.Add(new EventTrigger(new Function(() => magilou.ChangePos("right")), true));
 
-            timeLine.Add(new EventTrigger(new Transitions.FadeFromBlack(Game.sceneOverlay, 3, SVNE.window), true));
+            timeLine.Add(new EventTrigger(new Transitions.FadeFromBlack(3, SVNE.window), true));
             timeLine.Add(new DialogueBox(mystery, "So, what brings you here?", 20, new Animations.FadeIn(magilou, 2)));
             timeLine.Add(new DialogueBox("Me", "Uh...who are you again??", 20));
 
@@ -53,7 +53,7 @@ namespace SVNE.Core {
 
             timeLine.Add(new DialogueBox(magilou, "Yes. The others. Now scram!!", 20));
             timeLine.Add(new DialogueBox("Me", "Sure thing boss!", 20, new Animations.FadeOut(magilou, 2)));
-            timeLine.Add(new EventTrigger(new Transitions.FadeToBlack(Game.sceneOverlay, 3, SVNE.window), true));
+            timeLine.Add(new EventTrigger(new Transitions.FadeToBlack(3, SVNE.window), true));
             timeLine.Add(new EventTrigger(new StateEvent((int)Game.States.MainMenu)));
         }
     }
