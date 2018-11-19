@@ -7,25 +7,32 @@ using System.Threading.Tasks;
 namespace SVNE.Core {
     class Option : Event {
         public string Text;
+        public string JumpToScene;
 
-        public Option(string Text) {
+        public Option(string Text) : base() {
             this.Text = Text;
+            this.JumpToScene = "";
+        }
+
+        public Option(string Text, string JumpToScene) {
+            this.Text = Text;
+            this.JumpToScene = JumpToScene;
         }
 
         public void StartEvent() {
-            throw new NotImplementedException();
+            EndEvent();
         }
 
         public void EndEvent() {
-            throw new NotImplementedException();
+            
         }
 
         public bool Ended() {
-            throw new NotImplementedException();
+            return true;
         }
 
         public Event GetEvent() {
-            throw new NotImplementedException();
+            return this;
         }
     }
 }

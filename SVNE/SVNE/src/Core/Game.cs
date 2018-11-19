@@ -17,10 +17,6 @@ namespace SVNE.Core {
         public static float xRatio;
         public static float yRatio;
 
-        public static Sprite background = new Sprite(new Texture("Assets/background.jpg"));
-        //public static Sprite sprite = new Sprite(new Texture("Assets/character.png"));
-        //public static Character sprite = new Character("Magilou", "Assets/character.png", 0.2f);
-
         public enum States { MainMenu, Paused, Playing, Quit };
         public static int gameState = (int)States.MainMenu;
 
@@ -33,22 +29,8 @@ namespace SVNE.Core {
         }
 
         public override void Startup() {
-
             xRatio = ((float)SVNE.window.Size.X / (float)SVNE.defaultWidth);
             yRatio = ((float)SVNE.window.Size.Y / (float)SVNE.defaultHeight);
-
-            /*sprite.Scale = new Vector2f(0.2f, 0.2f);
-            sprite.Origin = new Vector2f(-(SVNE.window.Size.X + (sprite.Texture.Size.X * sprite.Scale.X)), -(SVNE.window.Size.Y - (sprite.Texture.Size.Y * sprite.Scale.Y)) * 5);
-            sprite.Texture.Smooth = true;*/
-
-            background.Origin = new Vector2f(0, 300);
-
-            /*SpriteList.Add("sceneOverlay", sceneOverlay);
-            SpriteList.Add("background", background);
-            SpriteList.Add("characters", sprite); //Needs rework to add multiple characters
-            SpriteList.Add("mainMenu", mm);*/
-
-            //TimeLine.Load();
         }
 
         private void Window_Closed(object sender, EventArgs e) {
@@ -88,7 +70,8 @@ namespace SVNE.Core {
             else if (gameState == (int)States.Playing) {
                 mm.IsDisplaying(false);
 
-                Draw(background);
+                Draw(TimeLine.Background);
+
                 Draw(TimeLine.magilou);
 
                 try {
