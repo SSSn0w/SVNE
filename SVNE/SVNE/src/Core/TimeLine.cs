@@ -27,6 +27,8 @@ namespace SVNE.Core {
             Objects = new List<Drawable>();
             Options = new List<List<Clickable>>();
 
+            timeLineCounter = 0;
+
             magilou.sprite.Color = new Color(255, 255, 255, 0);
             //timeLine.Add(new EventTrigger(new Function(() => magilou.ChangePos("right")), true));
 

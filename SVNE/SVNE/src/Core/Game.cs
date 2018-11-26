@@ -20,7 +20,8 @@ namespace SVNE.Core {
         public enum States { MainMenu, Paused, Playing, Quit };
         public static int gameState = (int)States.MainMenu;
 
-        public static MainMenu mm = new MainMenu();
+        public static MainMenu mainMenu;
+        public static GameMenu gameMenu;
 
         public Game(RenderWindow window) {
             this.window = window;
@@ -31,7 +32,10 @@ namespace SVNE.Core {
         public override void Startup() {
             xRatio = ((float)SVNE.window.Size.X / (float)SVNE.defaultWidth);
             yRatio = ((float)SVNE.window.Size.Y / (float)SVNE.defaultHeight);
-        }
+
+            mainMenu = new MainMenu();
+            gameMenu = new GameMenu();
+    }
 
         private void Window_Closed(object sender, EventArgs e) {
             Shutdown();
@@ -64,11 +68,13 @@ namespace SVNE.Core {
 
         public override void Render() {
             if (gameState == (int)States.MainMenu) {
-                mm.IsDisplaying(true);
-                Draw(mm);
+                mainMenu.IsDisplaying(true);
+                gameMenu.IsDisplaying(false);
+                Draw(mainMenu);
             }
             else if (gameState == (int)States.Playing) {
-                mm.IsDisplaying(false);
+                mainMenu.IsDisplaying(false);
+                gameMenu.IsDisplaying(true);
 
                 Draw(TimeLine.Background);
 
@@ -97,6 +103,8 @@ namespace SVNE.Core {
                 for (int i = 0; i < TimeLine.Objects.Count(); i++) {
                     Draw(TimeLine.Objects[i]);
                 }
+
+                Draw(gameMenu);
             }
 
             window.Display();

@@ -14,8 +14,6 @@ namespace SVNE.Core {
     class MainMenu : Drawable {
         public List<Clickable> MenuControls = new List<Clickable>();
 
-        public bool[] mouseDown;
-
         public MainMenu() {
             MenuControls.Add(new Button("Start", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Consolas.ttf"), 100, 100, Start));
             MenuControls.Add(new Button("Load", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Consolas.ttf"), 100, 200));

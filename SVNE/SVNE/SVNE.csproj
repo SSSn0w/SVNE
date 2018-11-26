@@ -74,6 +74,7 @@
     <Compile Include="src\Core\Function.cs" />
     <Compile Include="src\Core\Game.cs" />
     <Compile Include="src\Core\GameLoop.cs" />
+    <Compile Include="src\Core\GameMenu.cs" />
     <Compile Include="src\Core\Option.cs" />
     <Compile Include="src\Core\Scene.cs" />
     <Compile Include="src\Core\SceneJump.cs" />
