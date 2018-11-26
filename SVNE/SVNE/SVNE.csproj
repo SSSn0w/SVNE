@@ -76,6 +76,7 @@
     <Compile Include="src\Core\GameLoop.cs" />
     <Compile Include="src\Core\Option.cs" />
     <Compile Include="src\Core\Scene.cs" />
+    <Compile Include="src\Core\SceneJump.cs" />
     <Compile Include="src\Core\StateEvent.cs" />
     <Compile Include="src\Core\StoryOptions.cs" />
     <Compile Include="src\Core\TimeLine.cs" />

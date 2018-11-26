@@ -65,7 +65,7 @@ namespace SVNE.Transitions {
 
         public void StartEvent() {
             if(counter == 255) {
-                cover = new RectangleShape(new Vector2f(window.Size.X, window.Size.Y));
+                cover = new RectangleShape(new Vector2f(window.DefaultView.Size.X, window.DefaultView.Size.Y));
                 TimeLine.Objects.Add(cover);
                 cover = (RectangleShape)TimeLine.Objects[TimeLine.Objects.FindIndex(r => r.Equals(cover))];
             }
