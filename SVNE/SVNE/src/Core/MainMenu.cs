@@ -28,6 +28,7 @@ namespace SVNE.Core {
         public int Start() {
             TimeLine.Load();
             Game.gameState = (int)Game.States.Playing;
+            TimeLine.musicPlayer.Play();
 
             return 0;
         }

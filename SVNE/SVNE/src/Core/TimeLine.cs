@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using SFML.Graphics;
+using SFML.Audio;
 
 using SVNE.GUI;
 using SVNE.Animations;
@@ -22,12 +23,22 @@ namespace SVNE.Core {
         public static Character mystery = new Character("???");
         public static Character magilou = new Character("Magilou", "Assets/character.png", 0.2f);
 
+        public static Sound musicPlayer = new Sound();
+        public static SoundBuffer preloadedSound;
+        //public static Music musicPlayer;
+
         public static void Load() {
             timeLine = new List<Event>();
             Objects = new List<Drawable>();
             Options = new List<List<Clickable>>();
 
             timeLineCounter = 0;
+
+            //musicPlayer = new Music("Assets/guitar-on-the-water.wav");
+            //musicPlayer.Loop = true;
+            //preloadedSound = new SoundBuffer("Assets/guitar-on-the-water.wav");
+            preloadedSound = new SoundBuffer("Assets/rubber_biscuit.wav");
+            musicPlayer.SoundBuffer = preloadedSound;
 
             magilou.sprite.Color = new Color(255, 255, 255, 0);
             //timeLine.Add(new EventTrigger(new Function(() => magilou.ChangePos("right")), true));
@@ -38,7 +49,6 @@ namespace SVNE.Core {
             timeLine.Add(new DialogueBox(mystery, "So, what brings you here?", 20, new Animations.FadeIn(magilou, 2)));
             timeLine.Add(new DialogueBox("Me", "Uh...who are you again??", 20));
 
-            //Option set 1 (0)
             StoryOptions.Add(new List<Option>() { new Option("Scene 1", "Scene1"), new Option("Scene 2", "Scene2"), new Option("Scene 3", "Scene3") });
             timeLine.Add(new EventTrigger(new Function(() => StoryOptions.Display(0)), false));
 

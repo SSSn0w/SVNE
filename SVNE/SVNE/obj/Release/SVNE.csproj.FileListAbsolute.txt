@@ -1,0 +1,17 @@
+C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\bin\Release\csfml-audio-2.dll
+C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\bin\Release\csfml-graphics-2.dll
+C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\bin\Release\csfml-network-2.dll
+C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\bin\Release\csfml-system-2.dll
+C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\bin\Release\csfml-window-2.dll
+C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\bin\Release\SVNE.exe.config
+C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\bin\Release\SVNE.exe
+C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\bin\Release\SVNE.pdb
+C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\bin\Release\sfmlnet-audio-2.dll
+C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\bin\Release\sfmlnet-graphics-2.dll
+C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\bin\Release\sfmlnet-system-2.dll
+C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\bin\Release\sfmlnet-window-2.dll
+C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\obj\Release\SVNE.Properties.Resources.resources
+C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\obj\Release\SVNE.csproj.GenerateResource.Cache
+C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\obj\Release\SVNE.csproj.CoreCompileInputs.cache
+C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\obj\Release\SVNE.exe
+C:\Users\lachl\Desktop\Programming\SVNE\SVNE\SVNE\obj\Release\SVNE.pdb
