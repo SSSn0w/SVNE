@@ -23,6 +23,8 @@ namespace SVNE.Core {
         public static MainMenu mainMenu;
         public static GameMenu gameMenu;
 
+        public static List<SoundBuffer> Sounds;
+
         public Game(RenderWindow window) {
             this.window = window;
             this.window.Closed += Window_Closed;
@@ -35,6 +37,8 @@ namespace SVNE.Core {
 
             mainMenu = new MainMenu();
             gameMenu = new GameMenu();
+
+            LoadSounds();
     }
 
         private void Window_Closed(object sender, EventArgs e) {
@@ -112,6 +116,10 @@ namespace SVNE.Core {
 
         public void Draw(Drawable gameObject) {
             window.Draw(gameObject);
+        }
+
+        public void LoadSounds() {
+            //Sounds.Add(new SoundBuffer("Assets/Be Happy.wav"));
         }
     }
 }

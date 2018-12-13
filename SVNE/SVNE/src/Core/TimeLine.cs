@@ -35,9 +35,10 @@ namespace SVNE.Core {
             timeLineCounter = 0;
 
             //musicPlayer = new Music("Assets/guitar-on-the-water.wav");
-            //musicPlayer.Loop = true;
+            musicPlayer.Loop = true;
             //preloadedSound = new SoundBuffer("Assets/guitar-on-the-water.wav");
-            preloadedSound = new SoundBuffer("Assets/rubber_biscuit.wav");
+            //preloadedSound = Game.Sounds[0];
+            preloadedSound = new SoundBuffer("Assets/Be Happy2.wav");
             musicPlayer.SoundBuffer = preloadedSound;
 
             magilou.sprite.Color = new Color(255, 255, 255, 0);
