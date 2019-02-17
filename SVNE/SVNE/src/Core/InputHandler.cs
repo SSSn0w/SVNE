@@ -57,10 +57,52 @@ namespace SVNE.Core {
                         }
                         else {
                             mouseOnClickable = false;
+                            mouseDown[controlCounter] = false;
                         }
 
                         if (Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
                             control.MouseDown(window);
+                            mouseDown[controlCounter] = true;
+                        }
+                        else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseDown[controlCounter] && mouseOnClickable) {
+                            control.MouseUp(window);
+                            mouseDown[controlCounter] = false;
+                        }
+                        else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
+                            control.Hover(window);
+                        }
+                        else if (!mouseOnClickable && !(control is Slider)) {
+                            control.Reset();
+                        }
+
+                        controlCounter++;
+                    }
+                }
+                else if (Game.gameState == (int)Game.States.OptionsMenu) {
+                    controlCounter = 0;
+
+                    foreach (Clickable control in Game.optionsMenu.MenuControls) {
+                        if (!control.MouseInBounds(window)) {
+                            mouseDown[controlCounter] = false;
+                        }
+
+                        controlCounter++;
+                    }
+
+                    controlCounter = 0;
+
+                    foreach (Clickable control in Game.optionsMenu.MenuControls) {
+                        if (control.MouseInBounds(window) && control.IsDisplayed) {
+                            mouseOnClickable = true;
+                        }
+                        else {
+                            mouseOnClickable = false;
+                            mouseDown[controlCounter] = false;
+                        }
+
+                        if (Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
+                            control.MouseDown(window);
+                            mouseDown[controlCounter] = true;
                         }
                         else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseDown[controlCounter] && mouseOnClickable) {
                             control.MouseUp(window);

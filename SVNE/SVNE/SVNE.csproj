@@ -76,6 +76,7 @@
     <Compile Include="src\Core\GameLoop.cs" />
     <Compile Include="src\Core\GameMenu.cs" />
     <Compile Include="src\Core\Option.cs" />
+    <Compile Include="src\Core\OptionsMenu.cs" />
     <Compile Include="src\Core\Scene.cs" />
     <Compile Include="src\Core\SceneJump.cs" />
     <Compile Include="src\Core\StateEvent.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="src\GUI\Clickable.cs" />
     <Compile Include="src\GUI\DialogueBox.cs" />
     <Compile Include="src\GUI\Button.cs" />
+    <Compile Include="src\GUI\DropDown.cs" />
     <Compile Include="src\GUI\Label.cs" />
     <Compile Include="src\GUI\Slider.cs" />
     <Compile Include="src\GUI\TextBox.cs" />

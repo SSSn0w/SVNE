@@ -17,11 +17,12 @@ namespace SVNE.Core {
         public static float xRatio;
         public static float yRatio;
 
-        public enum States { MainMenu, Paused, Playing, Quit };
+        public enum States { MainMenu, OptionsMenu, Paused, Playing, Quit };
         public static int gameState = (int)States.MainMenu;
 
         public static MainMenu mainMenu;
         public static GameMenu gameMenu;
+        public static OptionsMenu optionsMenu;
 
         public static List<SoundBuffer> Sounds;
 
@@ -37,6 +38,7 @@ namespace SVNE.Core {
 
             mainMenu = new MainMenu();
             gameMenu = new GameMenu();
+            optionsMenu = new OptionsMenu();
 
             LoadSounds();
     }
@@ -74,11 +76,19 @@ namespace SVNE.Core {
             if (gameState == (int)States.MainMenu) {
                 mainMenu.IsDisplaying(true);
                 gameMenu.IsDisplaying(false);
+                optionsMenu.IsDisplaying(false);
                 Draw(mainMenu);
+            }
+            else if (gameState == (int)States.OptionsMenu) {
+                mainMenu.IsDisplaying(false);
+                gameMenu.IsDisplaying(false);
+                optionsMenu.IsDisplaying(true);
+                Draw(optionsMenu);
             }
             else if (gameState == (int)States.Playing) {
                 mainMenu.IsDisplaying(false);
                 gameMenu.IsDisplaying(true);
+                optionsMenu.IsDisplaying(false);
 
                 Draw(TimeLine.Background);
 

@@ -150,6 +150,29 @@ namespace SVNE.GUI
 
         public void Draw(RenderTarget target, RenderStates states)
         {
+            if (grabbed && Mouse.IsButtonPressed(Mouse.Button.Left)) {
+                float mouseX = Mouse.GetPosition(Core.SVNE.window).X / Game.xRatio;
+                float mouseY = Mouse.GetPosition(Core.SVNE.window).Y / Game.yRatio;
+
+                x = (int)(mouseX - (handle.Size.X / 2));
+                handle.Position = new Vector2f(mouseX - (handle.Size.X / 2), handle.Position.Y);
+
+                if (handle.Position.X <= bar.Position.X) {
+                    x = (int)(bar.Position.X);
+                    handle.Position = new Vector2f(bar.Position.X, handle.Position.Y);
+                }
+
+                if (handle.Position.X >= (bar.Position.X + bar.Size.X) - handle.Size.X) {
+                    x = (int)((bar.Position.X + bar.Size.X) - handle.Size.X);
+                    handle.Position = new Vector2f((bar.Position.X + bar.Size.X) - handle.Size.X, handle.Position.Y);
+                }
+
+                GetPosition();
+            }
+            else {
+                Reset();
+            }
+
             target.Draw(bar, states);
             target.Draw(handle, states);
         }

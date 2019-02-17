@@ -21,8 +21,6 @@ namespace SVNE.Core {
             MenuControls.Add(new Button("About", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Consolas.ttf"), 100, 400));
             MenuControls.Add(new Button("Help", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Consolas.ttf"), 100, 500));
             MenuControls.Add(new Button("Quit", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Consolas.ttf"), 100, 600, Quit));
-            //MenuControls.Add(new Slider(new RectangleShape(new Vector2f(300, 10)), new RectangleShape(new Vector2f(20, 20))));
-            MenuControls.Add(new Slider(new RectangleShape(new Vector2f(300, 40)), new RectangleShape(new Vector2f(20, 40))));
         }
 
         public int Start() {
@@ -34,11 +32,7 @@ namespace SVNE.Core {
         }
 
         public int Preferences() {
-            //To-do: Add more resolutions
-
-            SVNE.window.Size = new Vector2u(640, 360);
-            Game.xRatio = ((float)SVNE.window.Size.X / (float)SVNE.defaultWidth);
-            Game.yRatio = ((float)SVNE.window.Size.Y / (float)SVNE.defaultHeight);
+            Game.gameState = (int)Game.States.OptionsMenu;
 
             return 0;
         }
