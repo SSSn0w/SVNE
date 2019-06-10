@@ -65,7 +65,7 @@ namespace SVNE.Core {
                 }
             }
             else if(gameState == (int)States.MainMenu) {
-                
+                TimeLine.musicPlayer.Stop();
             }
             else if(gameState == (int)States.Quit) {
                 Shutdown();
