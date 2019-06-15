@@ -25,8 +25,12 @@ namespace SVNE.GUI
         public bool grabbed = false;
         public bool isDisplaying;
 
-        public Slider(RectangleShape bar, RectangleShape handle) : base()
-        {
+        public int defaultPos = 0;
+        public int handlePos = 0;
+
+        public Func<int> action = () => 0;
+
+        public Slider(RectangleShape bar, RectangleShape handle) : base() {
             this.bar = bar;
             this.handle = handle;
 
@@ -41,26 +45,58 @@ namespace SVNE.GUI
             height = (int)handle.Size.Y;
         }
 
-        public int GetX
-        {
+        public Slider(RectangleShape bar, RectangleShape handle, Func<int> action) : base() {
+            this.bar = bar;
+            this.handle = handle;
+
+            this.bar.Position = new Vector2f(300, 100);
+            this.handle.Position = new Vector2f(300, 100 - ((handle.Size.Y - bar.Size.Y) / 2));
+            this.bar.FillColor = new Color(103, 163, 225, 255);
+            this.handle.FillColor = new Color(0, 102, 203, 255);
+
+            this.action = action;
+
+            x = (int)handle.Position.X;
+            y = (int)handle.Position.Y;
+            width = (int)handle.Size.X;
+            height = (int)handle.Size.Y;
+        }
+
+        public Slider(RectangleShape bar, RectangleShape handle, int defaultPos, Func<int> action) : base() {
+            this.bar = bar;
+            this.handle = handle;
+
+            this.defaultPos = defaultPos;
+
+            this.bar.Position = new Vector2f(300, 100);
+            this.handle.Position = new Vector2f(300 + ((bar.Size.X / 100) * defaultPos), 100 - ((handle.Size.Y - bar.Size.Y) / 2));
+            this.bar.FillColor = new Color(103, 163, 225, 255);
+            this.handle.FillColor = new Color(0, 102, 203, 255);
+
+            this.action = action;
+
+            x = (int)handle.Position.X;
+            y = (int)handle.Position.Y;
+            width = (int)handle.Size.X;
+            height = (int)handle.Size.Y;
+        }
+
+        public int GetX {
             get { return x; }
             set { x = value; }
         }
 
-        public int GetY
-        {
+        public int GetY {
             get { return y; }
             set { y = value; }
         }
 
-        public int GetWidth
-        {
+        public int GetWidth {
             get { return width; }
             set { width = value; }
         }
 
-        public int GetHeight
-        {
+        public int GetHeight {
             get { return height; }
             set { height = value; }
         }
@@ -121,7 +157,7 @@ namespace SVNE.GUI
                     handle.Position = new Vector2f((bar.Position.X + bar.Size.X) - handle.Size.X, handle.Position.Y);
                 }
 
-                GetPosition();
+                action();
 
                 return true;
             }
@@ -144,8 +180,10 @@ namespace SVNE.GUI
 
         }
 
-        public void GetPosition() {
-            Console.WriteLine((handle.Position.X - bar.Position.X) / (bar.Size.X / 100));
+        public int GetPosition() {
+            handlePos = (int)((handle.Position.X - bar.Position.X) / ((bar.Size.X - handle.Size.X) / 100));
+
+            return (int)((handle.Position.X - bar.Position.X) / (bar.Size.X / 100));
         }
 
         public void Draw(RenderTarget target, RenderStates states)

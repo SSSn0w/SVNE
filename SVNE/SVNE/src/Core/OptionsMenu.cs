@@ -19,7 +19,7 @@ namespace SVNE.Core {
             MenuControls.Add(new Button("Normal Resolution", new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0), 30, new Font("Assets/Consolas.ttf"), 100, 200, Big));
             MenuControls.Add(new Button("Small Resolution", new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0), 30, new Font("Assets/Consolas.ttf"), 100, 300, Small));
             MenuControls.Add(new Button("Menu", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Consolas.ttf"), 100, 600, MainMenu));
-            MenuControls.Add(new Slider(new RectangleShape(new Vector2f(300, 40)), new RectangleShape(new Vector2f(20, 40))));
+            MenuControls.Add(new Slider(new RectangleShape(new Vector2f(300, 40)), new RectangleShape(new Vector2f(20, 40)), 100, ChangeVolume));
         }
 
         public int MainMenu() {
@@ -40,6 +40,14 @@ namespace SVNE.Core {
             SVNE.window.Size = new Vector2u(640, 360);
             Game.xRatio = ((float)SVNE.window.Size.X / (float)SVNE.defaultWidth);
             Game.yRatio = ((float)SVNE.window.Size.Y / (float)SVNE.defaultHeight);
+
+            return 0;
+        }
+
+        public int ChangeVolume() {
+            Slider volumeSlider = (Slider)MenuControls[4];
+
+            TimeLine.musicPlayer.Volume = volumeSlider.GetPosition();
 
             return 0;
         }
