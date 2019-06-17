@@ -13,6 +13,7 @@ namespace SVNE.GUI {
         int GetWidth { get; set; }
         int GetHeight { get; set; }
         bool IsDisplayed { get; set; }
+        bool IsMouseDown { get; set; }
         bool MouseInBounds(RenderWindow window);
         bool MouseDown(RenderWindow window);
         bool MouseUp(RenderWindow window);

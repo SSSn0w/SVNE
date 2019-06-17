@@ -12,26 +12,17 @@ using SVNE.GUI;
 namespace SVNE.Core {
     static class InputHandler {
         public static bool mouseOnClickable = false;
-        public static bool[] mouseDown = new bool[100];
         public static bool mouseDownBackground = false;
-        public static int controlCounter = 0;
         public static bool hideControls = false;
 
         public static void OnMousePressed(object sender, MouseButtonEventArgs e) {
             if (e.Button == Mouse.Button.Left) {
-                int i = 0;
-
                 if (Game.gameState == (int)Game.States.MainMenu) {
                     foreach (Clickable control in Game.mainMenu.MenuControls) {
                         if (control.MouseInBounds(SVNE.window)) {
-                            mouseDown[i] = true;
+                            control.IsMouseDown = true;
                         }
-
-                        i++;
                     }
-                }
-                else if(Game.gameState == (int)Game.States.Playing) {
-                    mouseDown[0] = true;
                 }
             }
         }
@@ -39,17 +30,11 @@ namespace SVNE.Core {
         public static void HandleMouse(RenderWindow window) {
             if (window.HasFocus()) {
                 if (Game.gameState == (int)Game.States.MainMenu) {
-                    controlCounter = 0;
-
                     foreach (Clickable control in Game.mainMenu.MenuControls) {
                         if (!control.MouseInBounds(window)) {
-                            mouseDown[controlCounter] = false;
+                            control.IsMouseDown = false;
                         }
-
-                        controlCounter++;
                     }
-
-                    controlCounter = 0;
 
                     foreach (Clickable control in Game.mainMenu.MenuControls) {
                         if (control.MouseInBounds(window) && control.IsDisplayed) {
@@ -57,16 +42,16 @@ namespace SVNE.Core {
                         }
                         else {
                             mouseOnClickable = false;
-                            mouseDown[controlCounter] = false;
+                            control.IsMouseDown = false;
                         }
 
                         if (Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
                             control.MouseDown(window);
-                            mouseDown[controlCounter] = true;
+                            control.IsMouseDown = true;
                         }
-                        else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseDown[controlCounter] && mouseOnClickable) {
+                        else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && control.IsMouseDown && mouseOnClickable) {
                             control.MouseUp(window);
-                            mouseDown[controlCounter] = false;
+                            control.IsMouseDown = false;
                         }
                         else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
                             control.Hover(window);
@@ -75,21 +60,20 @@ namespace SVNE.Core {
                             control.Reset();
                         }
 
-                        controlCounter++;
+                        if (!Mouse.IsButtonPressed(Mouse.Button.Left)) {
+                            if (control is Slider) {
+                                Slider slider = (Slider)control;
+                                slider.grabbed = false;
+                            }
+                        }
                     }
                 }
                 else if (Game.gameState == (int)Game.States.OptionsMenu) {
-                    controlCounter = 0;
-
                     foreach (Clickable control in Game.optionsMenu.MenuControls) {
                         if (!control.MouseInBounds(window)) {
-                            mouseDown[controlCounter] = false;
+                            control.IsMouseDown = false;
                         }
-
-                        controlCounter++;
                     }
-
-                    controlCounter = 0;
 
                     foreach (Clickable control in Game.optionsMenu.MenuControls) {
                         if (control.MouseInBounds(window) && control.IsDisplayed) {
@@ -97,16 +81,16 @@ namespace SVNE.Core {
                         }
                         else {
                             mouseOnClickable = false;
-                            mouseDown[controlCounter] = false;
+                            control.IsMouseDown = false;
                         }
 
                         if (Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
                             control.MouseDown(window);
-                            mouseDown[controlCounter] = true;
+                            control.IsMouseDown = true;
                         }
-                        else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseDown[controlCounter] && mouseOnClickable) {
+                        else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && control.IsMouseDown && mouseOnClickable) {
                             control.MouseUp(window);
-                            mouseDown[controlCounter] = false;
+                            control.IsMouseDown = false;
                         }
                         else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
                             control.Hover(window);
@@ -115,13 +99,16 @@ namespace SVNE.Core {
                             control.Reset();
                         }
 
-                        controlCounter++;
+                        if (!Mouse.IsButtonPressed(Mouse.Button.Left)) {
+                            if (control is Slider) {
+                                Slider slider = (Slider)control;
+                                slider.grabbed = false;
+                            }
+                        }
                     }
                 }
                 else if (Game.gameState == (int)Game.States.Playing) {
                     bool lockBackground = false;
-
-                    controlCounter = 0;
 
                     //Story Pathway Option Buttons
                     int listCount = 0;
@@ -139,19 +126,19 @@ namespace SVNE.Core {
                                 }
                                 else {
                                     mouseOnClickable = false;
-                                    mouseDown[controlCounter] = false;
+                                    control.IsMouseDown = false;
                                 }
 
                                 if (Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
                                     control.MouseDown(window);
-                                    mouseDown[controlCounter] = true;
+                                    control.IsMouseDown = true;
                                 }
-                                else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseDown[controlCounter] && mouseOnClickable) {
+                                else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && control.IsMouseDown && mouseOnClickable) {
                                     control.MouseUp(window);
                                     hideControls = true;
                                     lockBackground = false;
                                     mouseOnClickable = false;
-                                    mouseDown[controlCounter] = false;
+                                    control.IsMouseDown = false;
                                 }
                                 else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
                                     control.Hover(window);
@@ -163,16 +150,12 @@ namespace SVNE.Core {
                             else {
                                 
                             }
-
-                            controlCounter++;
                         }
 
                         listCount++;
                     }
 
-                    //Game Menu Options
-                    controlCounter = 50; //Maybe change later
-
+                    //In-Game Menu Options
                     foreach (Clickable control in Game.gameMenu.MenuControls) {
                         if (control.IsDisplayed) {
                             if (control.MouseInBounds(window) && control.IsDisplayed) {
@@ -181,17 +164,17 @@ namespace SVNE.Core {
                             }
                             else {
                                 mouseOnClickable = false;
-                                mouseDown[controlCounter] = false;
+                                control.IsMouseDown = false;
                             }
 
                             if (Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
                                 control.MouseDown(window);
-                                mouseDown[controlCounter] = true;
+                                control.IsMouseDown = true;
                             }
-                            else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseDown[controlCounter] && mouseOnClickable) {
+                            else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && control.IsMouseDown && mouseOnClickable) {
                                 control.MouseUp(window);
                                 mouseOnClickable = false;
-                                mouseDown[controlCounter] = false;
+                                control.IsMouseDown = false;
                                 lockBackground = false;
                             }
                             else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
@@ -200,9 +183,14 @@ namespace SVNE.Core {
                             else if (!mouseOnClickable && !(control is Slider)) {
                                 control.Reset();
                             }
-                        }
 
-                        controlCounter++;
+                            if (!Mouse.IsButtonPressed(Mouse.Button.Left)) {
+                                if (control is Slider) {
+                                    Slider slider = (Slider)control;
+                                    slider.grabbed = false;
+                                }
+                            }
+                        }
                     }
 
                     //Move TimeLine forward on screen click if no options are up

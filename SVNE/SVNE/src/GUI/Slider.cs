@@ -24,6 +24,7 @@ namespace SVNE.GUI
 
         public bool grabbed = false;
         public bool isDisplaying;
+        public bool mouseDown = false;
 
         public int defaultPos = 0;
         public int handlePos = 0;
@@ -104,6 +105,11 @@ namespace SVNE.GUI
         public bool IsDisplayed {
             get { return isDisplaying; }
             set { isDisplaying = value; }
+        }
+
+        public bool IsMouseDown {
+            get { return mouseDown; }
+            set { mouseDown = value; }
         }
 
         public bool MouseInBounds(RenderWindow window) {

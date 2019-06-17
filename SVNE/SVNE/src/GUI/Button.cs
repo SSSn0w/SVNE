@@ -20,6 +20,8 @@ namespace SVNE.GUI {
         public int y;
         public int width;
         public int height;
+        public bool mouseDown = false;
+        public bool changeCursor = true;
         public Func<int> action = () => 0;
 
         public Color notPressedColor;
@@ -126,6 +128,21 @@ namespace SVNE.GUI {
             this.y = this.y + height / 2;
         }
 
+        public Button(string text, bool changeCursor, Color notPressedColor, Color pressedColor, Color hoverColor, uint charSize, Font font, int x, int y) {
+            this.notPressedColor = notPressedColor;
+            this.pressedColor = pressedColor;
+            this.hoverColor = hoverColor;
+            this.charSize = charSize;
+            this.font = font;
+            this.changeCursor = changeCursor;
+            this.x = x;
+            this.y = y;
+            this.text = new Text(text, font, charSize);
+            width = (int)this.text.GetGlobalBounds().Width;
+            height = (int)this.text.GetGlobalBounds().Height;
+            this.y = this.y + height / 2;
+        }
+
         public Button(string text, Color notPressedColor, Color pressedColor, Color hoverColor, uint charSize, Font font, int x, int y, Func<int> action) {
             this.notPressedColor = notPressedColor;
             this.pressedColor = pressedColor;
@@ -197,13 +214,18 @@ namespace SVNE.GUI {
             set { isDisplaying = value; }
         }
 
+        public bool IsMouseDown {
+            get { return mouseDown; }
+            set { mouseDown = value; }
+        }
+
         public bool MouseInBounds(RenderWindow window) {
             if(Mouse.GetPosition(window).X >= GetX * Game.xRatio &&
                Mouse.GetPosition(window).X <= GetX * Game.xRatio + GetWidth * Game.xRatio &&
                Mouse.GetPosition(window).Y >= GetY * Game.yRatio &&
                Mouse.GetPosition(window).Y <= GetY * Game.yRatio + GetHeight * Game.yRatio) {
 
-                if(isDisplaying) {
+                if(isDisplaying && changeCursor) {
                     System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Hand;
                 }
 
