@@ -24,7 +24,7 @@ namespace SVNE.Core {
         public static GameMenu gameMenu;
         public static OptionsMenu optionsMenu;
 
-        public static List<SoundBuffer> Sounds;
+        public static List<SoundBuffer> Sounds = new List<SoundBuffer>();
 
         public Game(RenderWindow window) {
             this.window = window;
@@ -129,7 +129,8 @@ namespace SVNE.Core {
         }
 
         public void LoadSounds() {
-            //Sounds.Add(new SoundBuffer("Assets/Be Happy.wav"));
+            TimeLine.musicPlayer = new Music("Assets/kamado_tanjiro_no_uta.wav");
+            //Sounds.Add(new SoundBuffer("Assets/kamado_tanjiro_no_uta.wav"));
         }
     }
 }

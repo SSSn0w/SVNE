@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
+using SFML.Audio;
 
 using SVNE.GUI;
 
@@ -26,6 +27,8 @@ namespace SVNE.Core {
         public int Start() {
             TimeLine.Load();
             Game.gameState = (int)Game.States.Playing;
+            TimeLine.musicPlayer.Loop = true;
+            //TimeLine.musicPlayer.SoundBuffer = Game.Sounds[0];
             TimeLine.musicPlayer.Play();
 
             return 0;

@@ -23,9 +23,8 @@ namespace SVNE.Core {
         public static Character mystery = new Character("???");
         public static Character magilou = new Character("Magilou", "Assets/character.png", 0.2f);
 
-        public static Sound musicPlayer = new Sound();
-        public static SoundBuffer preloadedSound;
-        //public static Music musicPlayer;
+        //public static Sound musicPlayer = new Sound();
+        public static Music musicPlayer;
 
         public static void Load() {
             timeLine = new List<Event>();
@@ -33,13 +32,6 @@ namespace SVNE.Core {
             Options = new List<List<Clickable>>();
 
             timeLineCounter = 0;
-
-            //musicPlayer = new Music("Assets/guitar-on-the-water.wav");
-            musicPlayer.Loop = true;
-            //preloadedSound = new SoundBuffer("Assets/guitar-on-the-water.wav");
-            //preloadedSound = Game.Sounds[0];
-            preloadedSound = new SoundBuffer("Assets/badtime.wav");
-            musicPlayer.SoundBuffer = preloadedSound;
 
             magilou.sprite.Color = new Color(255, 255, 255, 0);
             //timeLine.Add(new EventTrigger(new Function(() => magilou.ChangePos("right")), true));
