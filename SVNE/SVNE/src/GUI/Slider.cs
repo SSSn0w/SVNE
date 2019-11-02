@@ -12,8 +12,7 @@ using SVNE.Core;
 
 namespace SVNE.GUI
 {
-    class Slider : Clickable
-    {
+    class Slider : Clickable {
         public RectangleShape bar;
         public RectangleShape handle;
 
@@ -133,15 +132,13 @@ namespace SVNE.GUI
             }
         }
 
-        public bool Hover(RenderWindow window)
-        {
+        public bool Hover(RenderWindow window) {
             grabbed = false;
 
             return false;
         }
 
-        public bool MouseDown(RenderWindow window)
-        {
+        public bool MouseDown(RenderWindow window) {
             if (MouseInBounds(window) && Mouse.IsButtonPressed(Mouse.Button.Left)) {
                 grabbed = true;
             }
@@ -174,15 +171,13 @@ namespace SVNE.GUI
             }
         }
 
-        public bool MouseUp(RenderWindow window)
-        {
+        public bool MouseUp(RenderWindow window) {
             grabbed = false;
 
             return true;
         }
 
-        public void Reset()
-        {
+        public void Reset() {
 
         }
 
@@ -192,8 +187,7 @@ namespace SVNE.GUI
             return (int)((handle.Position.X - bar.Position.X) / (bar.Size.X / 100));
         }
 
-        public void Draw(RenderTarget target, RenderStates states)
-        {
+        public void Draw(RenderTarget target, RenderStates states) {
             if (grabbed && Mouse.IsButtonPressed(Mouse.Button.Left)) {
                 float mouseX = Mouse.GetPosition(Core.SVNE.window).X / Game.xRatio;
                 float mouseY = Mouse.GetPosition(Core.SVNE.window).Y / Game.yRatio;
