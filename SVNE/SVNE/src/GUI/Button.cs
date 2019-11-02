@@ -30,6 +30,7 @@ namespace SVNE.GUI {
         public uint charSize;
         public Font font;
         public Text text;
+        public Sprite background;
 
         public bool hideAfterClick = false;
 
@@ -189,22 +190,39 @@ namespace SVNE.GUI {
             this.y = this.y + height / 2;
         }
 
-        public int GetX {
+        public Button(string text, Texture background, Color notPressedColor, Color pressedColor, Color hoverColor, uint charSize, Font font, int x, int y, Func<int> action, bool hideAfterClick) {
+            this.notPressedColor = notPressedColor;
+            this.pressedColor = pressedColor;
+            this.hoverColor = hoverColor;
+            this.charSize = charSize;
+            this.font = font;
+            this.action = action;
+            this.hideAfterClick = hideAfterClick;
+            this.x = x;
+            this.y = y;
+            this.text = new Text(text, font, charSize);
+            width = (int)this.text.GetGlobalBounds().Width;
+            height = (int)this.text.GetGlobalBounds().Height;
+            this.y = this.y + height / 2;
+            this.background = new Sprite(background);
+        }
+
+        public int X {
             get { return x; }
             set { x = value; }
         }
 
-        public int GetY {
+        public int Y {
             get { return y; }
             set { y = value; }
         }
 
-        public int GetWidth {
+        public int Width {
             get { return width; }
             set { width = value; }
         }
 
-        public int GetHeight {
+        public int Height {
             get { return height; }
             set { height = value; }
         }
@@ -220,19 +238,37 @@ namespace SVNE.GUI {
         }
 
         public bool MouseInBounds(RenderWindow window) {
-            if(Mouse.GetPosition(window).X >= GetX * Game.xRatio &&
-               Mouse.GetPosition(window).X <= GetX * Game.xRatio + GetWidth * Game.xRatio &&
-               Mouse.GetPosition(window).Y >= GetY * Game.yRatio &&
-               Mouse.GetPosition(window).Y <= GetY * Game.yRatio + GetHeight * Game.yRatio) {
+            if (background == null) {
+                if (Mouse.GetPosition(window).X >= X * Game.xRatio &&
+                   Mouse.GetPosition(window).X <= X * Game.xRatio + Width * Game.xRatio &&
+                   Mouse.GetPosition(window).Y >= Y * Game.yRatio &&
+                   Mouse.GetPosition(window).Y <= Y * Game.yRatio + Height * Game.yRatio) {
 
-                if(isDisplaying && changeCursor) {
-                    System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Hand;
+                    if (isDisplaying && changeCursor) {
+                        System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Hand;
+                    }
+
+                    return true;
                 }
-
-                return true;
+                else {
+                    return false;
+                }
             }
             else {
-                return false;
+                if (Mouse.GetPosition(window).X >= (x - width * 1.5f) * Game.xRatio &&
+                   Mouse.GetPosition(window).X <= (x + width * 1.5f) * Game.xRatio + Width * Game.xRatio &&
+                   Mouse.GetPosition(window).Y >= (y - height * 1.5f) * Game.yRatio &&
+                   Mouse.GetPosition(window).Y <= (y + height * 1.5f) * Game.yRatio + Height * Game.yRatio) {
+
+                    if (isDisplaying && changeCursor) {
+                        System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Hand;
+                    }
+
+                    return true;
+                }
+                else {
+                    return false;
+                }
             }
         }
 
@@ -303,11 +339,16 @@ namespace SVNE.GUI {
 
         public void Draw(RenderTarget target, RenderStates states) {
             if (sprite != null) {
-
                 sprite.Position = new Vector2f(x, y);
                 target.Draw(sprite, states);
             }
             else {
+                if(background != null) {
+                    background.Position = new Vector2f(x - width * 1.5f, y - height * 1.5f);
+                    background.Scale = new Vector2f(width * 4 / background.GetLocalBounds().Width, height * 4 / background.GetLocalBounds().Height);
+                    target.Draw(background, states);
+                }
+
                 text.Position = new Vector2f(x, (y - (height / 2)));
                 target.Draw(text, states);
             }

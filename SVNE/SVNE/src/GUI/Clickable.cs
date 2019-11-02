@@ -8,10 +8,10 @@ using SFML.Graphics;
 
 namespace SVNE.GUI {
     interface Clickable : Drawable {
-        int GetX { get; set; }
-        int GetY { get; set; }
-        int GetWidth { get; set; }
-        int GetHeight { get; set; }
+        int X { get; set; }
+        int Y { get; set; }
+        int Width { get; set; }
+        int Height { get; set; }
         bool IsDisplayed { get; set; }
         bool IsMouseDown { get; set; }
         bool MouseInBounds(RenderWindow window);

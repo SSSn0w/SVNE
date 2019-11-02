@@ -82,22 +82,22 @@ namespace SVNE.GUI
             height = (int)handle.Size.Y;
         }
 
-        public int GetX {
+        public int X {
             get { return x; }
             set { x = value; }
         }
 
-        public int GetY {
+        public int Y {
             get { return y; }
             set { y = value; }
         }
 
-        public int GetWidth {
+        public int Width {
             get { return width; }
             set { width = value; }
         }
 
-        public int GetHeight {
+        public int Height {
             get { return height; }
             set { height = value; }
         }
@@ -113,10 +113,10 @@ namespace SVNE.GUI
         }
 
         public bool MouseInBounds(RenderWindow window) {
-            if (Mouse.GetPosition(window).X >= GetX * Game.xRatio &&
-               Mouse.GetPosition(window).X <= GetX * Game.xRatio + GetWidth * Game.xRatio &&
-               Mouse.GetPosition(window).Y >= GetY * Game.yRatio &&
-               Mouse.GetPosition(window).Y <= GetY * Game.yRatio + GetHeight * Game.yRatio ||
+            if (Mouse.GetPosition(window).X >= X * Game.xRatio &&
+               Mouse.GetPosition(window).X <= X * Game.xRatio + Width * Game.xRatio &&
+               Mouse.GetPosition(window).Y >= Y * Game.yRatio &&
+               Mouse.GetPosition(window).Y <= Y * Game.yRatio + Height * Game.yRatio ||
                Mouse.GetPosition(window).X >= bar.Position.X * Game.xRatio &&
                Mouse.GetPosition(window).X <= bar.Position.X * Game.xRatio + bar.Size.X * Game.xRatio &&
                Mouse.GetPosition(window).Y >= bar.Position.Y * Game.yRatio &&

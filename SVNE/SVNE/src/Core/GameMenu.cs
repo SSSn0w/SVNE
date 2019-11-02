@@ -26,19 +26,19 @@ namespace SVNE.Core {
 
             for (int i = 0; i < MenuControls.Count(); i++) {
                 if(i == 0) {
-                    MenuControls[i].GetX = 0;
-                    totalWidth += MenuControls[i].GetWidth;
+                    MenuControls[i].X = 0;
+                    totalWidth += MenuControls[i].Width;
                 }
                 else {
-                    MenuControls[i].GetX = MenuControls[i - 1].GetX + 50 + MenuControls[i - 1].GetWidth;
-                    totalWidth += 50 + MenuControls[i].GetWidth;
+                    MenuControls[i].X = MenuControls[i - 1].X + 50 + MenuControls[i - 1].Width;
+                    totalWidth += 50 + MenuControls[i].Width;
                 }
             }
 
 
 
             foreach (Clickable control in MenuControls) {
-                control.GetX += (int)((SVNE.window.DefaultView.Size.X / 2) - (totalWidth / 2));
+                control.X += (int)((SVNE.window.DefaultView.Size.X / 2) - (totalWidth / 2));
             }
         }
 
