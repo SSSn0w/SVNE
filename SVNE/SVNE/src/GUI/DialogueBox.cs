@@ -24,11 +24,11 @@ namespace SVNE.GUI {
         public int width;
         public int height;
 
-        public Texture texture = new Texture("Assets/dialogue_box.png");
+        public Texture texture = new Texture("Assets/UI/dialogue_box.png");
         public Sprite sprite;
         public uint charSize;
         public float letterHeight;
-        public Font font = new Font("Assets/Consolas.ttf");
+        public Font font = new Font("Assets/Fonts/Consolas.ttf");
         public Text text;
         public Text title;
         public int marginTop = 100;

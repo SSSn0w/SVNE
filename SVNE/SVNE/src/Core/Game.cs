@@ -129,7 +129,7 @@ namespace SVNE.Core {
         }
 
         public void LoadSounds() {
-            TimeLine.musicPlayer = new Music("Assets/kamado_tanjiro_no_uta.wav");
+            TimeLine.musicPlayer = new Music("Assets/Music/kamado_tanjiro_no_uta.wav");
             //Sounds.Add(new SoundBuffer("Assets/kamado_tanjiro_no_uta.wav"));
         }
     }

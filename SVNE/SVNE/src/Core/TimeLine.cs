@@ -11,6 +11,8 @@ using SVNE.GUI;
 using SVNE.Animations;
 
 namespace SVNE.Core {
+    //LOAD ALL OF THIS FROM FILE EVENTUALLY
+
     static class TimeLine {
         public static List<Event> timeLine;
         public static int timeLineCounter = 0;
@@ -18,10 +20,10 @@ namespace SVNE.Core {
         public static List<Drawable> Objects;
         public static List<List<Clickable>> Options;
 
-        public static Sprite Background = new Sprite(new Texture("Assets/background.jpg"));
+        public static Sprite Background = new Sprite(new Texture("Assets/Backgrounds/background.jpg"));
 
         public static Character mystery = new Character("???");
-        public static Character magilou = new Character("Magilou", "Assets/character.png", 0.2f);
+        public static Character magilou = new Character("Magilou", "Assets/Characters/Magilou/character.png", 0.2f);
 
         //public static Sound musicPlayer = new Sound();
         public static Music musicPlayer;
@@ -36,7 +38,7 @@ namespace SVNE.Core {
             magilou.sprite.Color = new Color(255, 255, 255, 0);
             //timeLine.Add(new EventTrigger(new Function(() => magilou.ChangePos("right")), true));
 
-            timeLine.Add(new Scene("Scene1", timeLine.Count(), "Assets/background.jpg"));
+            timeLine.Add(new Scene("Scene1", timeLine.Count(), "Assets/Backgrounds/background.jpg"));
 
             timeLine.Add(new EventTrigger(new Transitions.FadeFromBlack(3, SVNE.window), true));
             timeLine.Add(new DialogueBox(mystery, "So, what brings you here?", 20, new Animations.FadeIn(magilou, 2)));
@@ -47,14 +49,14 @@ namespace SVNE.Core {
 
             timeLine.Add(new DialogueBox(mystery, "Me? Why, I am the great Magilou of course!!", 20));
 
-            timeLine.Add(new Scene("Scene2", timeLine.Count(), "Assets/background.jpg"));
+            timeLine.Add(new Scene("Scene2", timeLine.Count(), "Assets/Backgrounds/background.jpg"));
 
             timeLine.Add(new DialogueBox(magilou, "Now answer the question!", 20));
             timeLine.Add(new DialogueBox("Me", "Oh, uh, nothing really. I was just taking a look around and saw this cool mansion so I invited myself in.", 20));
             timeLine.Add(new DialogueBox(magilou, "Isn't that trespassing though?", 20, new Animations.Shake(magilou, 10, 5, 1)));
             timeLine.Add(new DialogueBox("Me", ".....", 20));
 
-            timeLine.Add(new Scene("Scene3", timeLine.Count(), "Assets/background.jpg"));
+            timeLine.Add(new Scene("Scene3", timeLine.Count(), "Assets/Backgrounds/background.jpg"));
 
             timeLine.Add(new DialogueBox(magilou, "Hmm, as I thought. Get out of here before the others get here.", 20));
             timeLine.Add(new DialogueBox("Me", "The others?", 20));

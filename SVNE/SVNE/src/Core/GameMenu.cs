@@ -15,12 +15,12 @@ namespace SVNE.Core {
         public List<Clickable> MenuControls = new List<Clickable>();
 
         public GameMenu() {
-            MenuControls.Add(new Button("auto", new Color(255, 255, 255), new Color(0, 0, 0), new Color(0, 255, 0), 20, new Font("Assets/Consolas.ttf"), 0, 680));
-            MenuControls.Add(new Button("skip", new Color(255, 255, 255), new Color(0, 0, 0), new Color(0, 255, 0), 20, new Font("Assets/Consolas.ttf"), 0, 680));
-            MenuControls.Add(new Button("save", new Color(255, 255, 255), new Color(0, 0, 0), new Color(0, 255, 0), 20, new Font("Assets/Consolas.ttf"), 0, 680));
-            MenuControls.Add(new Button("load", new Color(255, 255, 255), new Color(0, 0, 0), new Color(0, 255, 0), 20, new Font("Assets/Consolas.ttf"), 0, 680));
-            MenuControls.Add(new Button("options", new Color(255, 255, 255), new Color(0, 0, 0), new Color(0, 255, 0), 20, new Font("Assets/Consolas.ttf"), 0, 680));
-            MenuControls.Add(new Button("quit", new Color(255, 255, 255), new Color(0, 0, 0), new Color(0, 255, 0), 20, new Font("Assets/Consolas.ttf"), 0, 680, Quit));
+            MenuControls.Add(new Button("auto", new Color(255, 255, 255), new Color(0, 0, 0), new Color(0, 255, 0), 20, new Font("Assets/Fonts/Consolas.ttf"), 0, 680));
+            MenuControls.Add(new Button("skip", new Color(255, 255, 255), new Color(0, 0, 0), new Color(0, 255, 0), 20, new Font("Assets/Fonts/Consolas.ttf"), 0, 680));
+            MenuControls.Add(new Button("save", new Color(255, 255, 255), new Color(0, 0, 0), new Color(0, 255, 0), 20, new Font("Assets/Fonts/Consolas.ttf"), 0, 680));
+            MenuControls.Add(new Button("load", new Color(255, 255, 255), new Color(0, 0, 0), new Color(0, 255, 0), 20, new Font("Assets/Fonts/Consolas.ttf"), 0, 680));
+            MenuControls.Add(new Button("options", new Color(255, 255, 255), new Color(0, 0, 0), new Color(0, 255, 0), 20, new Font("Assets/Fonts/Consolas.ttf"), 0, 680));
+            MenuControls.Add(new Button("quit", new Color(255, 255, 255), new Color(0, 0, 0), new Color(0, 255, 0), 20, new Font("Assets/Fonts/Consolas.ttf"), 0, 680, Quit));
 
             int totalWidth = 0;
 
