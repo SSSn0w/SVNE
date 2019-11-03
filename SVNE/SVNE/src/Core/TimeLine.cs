@@ -36,6 +36,7 @@ namespace SVNE.Core {
             timeLineCounter = 0;
 
             magilou.sprite.Color = new Color(255, 255, 255, 0);
+            Objects.Add(magilou);
             //timeLine.Add(new EventTrigger(new Function(() => magilou.ChangePos("right")), true));
 
             timeLine.Add(new Scene("Scene1", timeLine.Count(), "Assets/Backgrounds/background.jpg"));

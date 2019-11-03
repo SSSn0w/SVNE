@@ -11,10 +11,16 @@ using SFML.Window;
 using SVNE.GUI;
 
 namespace SVNE.Core {
-    class OptionsMenu : Drawable {
+    class OptionsMenu : Menu {
         public List<Clickable> MenuControls = new List<Clickable>();
 
+        public List<Clickable> Controls {
+            get { return MenuControls; }
+        }
+
         public OptionsMenu() {
+            //LOAD ALL OF THIS FROM FILE EVENTUALLY
+
             MenuControls.Add(new Button("Volume", false, new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0), 30, new Font("Assets/Fonts/Consolas.ttf"), 100, 100));
             MenuControls.Add(new Button("1280 x 720", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Fonts/Consolas.ttf"), 100, 200, Big));
             MenuControls.Add(new Button("640 x 360", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Fonts/Consolas.ttf"), 100, 300, Small));

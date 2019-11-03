@@ -29,80 +29,43 @@ namespace SVNE.Core {
 
         public static void HandleMouse(RenderWindow window) {
             if (window.HasFocus()) {
-                if (Game.gameState == (int)Game.States.MainMenu) {
-                    foreach (Clickable control in Game.mainMenu.MenuControls) {
-                        if (!control.MouseInBounds(window)) {
-                            control.IsMouseDown = false;
-                        }
-                    }
-
-                    foreach (Clickable control in Game.mainMenu.MenuControls) {
-                        if (control.MouseInBounds(window) && control.IsDisplayed) {
-                            mouseOnClickable = true;
-                        }
-                        else {
-                            mouseOnClickable = false;
-                            control.IsMouseDown = false;
-                        }
-
-                        if (Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
-                            control.MouseDown(window);
-                            control.IsMouseDown = true;
-                        }
-                        else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && control.IsMouseDown && mouseOnClickable) {
-                            control.MouseUp(window);
-                            control.IsMouseDown = false;
-                        }
-                        else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
-                            control.Hover(window);
-                        }
-                        else if (!mouseOnClickable && !(control is Slider)) {
-                            control.Reset();
-                        }
-
-                        if (!Mouse.IsButtonPressed(Mouse.Button.Left)) {
-                            if (control is Slider) {
-                                Slider slider = (Slider)control;
-                                slider.grabbed = false;
+                if (Game.gameState == (int)Game.States.MainMenu || Game.gameState == (int)Game.States.OptionsMenu || Game.gameState == (int)Game.States.LoadMenu || Game.gameState == (int)Game.States.SaveMenu || Game.gameState == (int)Game.States.Paused) {
+                    foreach (Menu menu in Game.Menus) {
+                        foreach (Clickable control in menu.Controls) {
+                            if (!control.MouseInBounds(window)) {
+                                control.IsMouseDown = false;
                             }
                         }
-                    }
-                }
-                else if (Game.gameState == (int)Game.States.OptionsMenu) {
-                    foreach (Clickable control in Game.optionsMenu.MenuControls) {
-                        if (!control.MouseInBounds(window)) {
-                            control.IsMouseDown = false;
-                        }
-                    }
 
-                    foreach (Clickable control in Game.optionsMenu.MenuControls) {
-                        if (control.MouseInBounds(window) && control.IsDisplayed) {
-                            mouseOnClickable = true;
-                        }
-                        else {
-                            mouseOnClickable = false;
-                            control.IsMouseDown = false;
-                        }
+                        foreach (Clickable control in menu.Controls) {
+                            if (control.MouseInBounds(window) && control.IsDisplayed) {
+                                mouseOnClickable = true;
+                            }
+                            else {
+                                mouseOnClickable = false;
+                                control.IsMouseDown = false;
+                            }
 
-                        if (Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
-                            control.MouseDown(window);
-                            control.IsMouseDown = true;
-                        }
-                        else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && control.IsMouseDown && mouseOnClickable) {
-                            control.MouseUp(window);
-                            control.IsMouseDown = false;
-                        }
-                        else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
-                            control.Hover(window);
-                        }
-                        else if (!mouseOnClickable && !(control is Slider)) {
-                            control.Reset();
-                        }
+                            if (Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
+                                control.MouseDown(window);
+                                control.IsMouseDown = true;
+                            }
+                            else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && control.IsMouseDown && mouseOnClickable) {
+                                control.MouseUp(window);
+                                control.IsMouseDown = false;
+                            }
+                            else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
+                                control.Hover(window);
+                            }
+                            else if (!mouseOnClickable && !(control is Slider)) {
+                                control.Reset();
+                            }
 
-                        if (!Mouse.IsButtonPressed(Mouse.Button.Left)) {
-                            if (control is Slider) {
-                                Slider slider = (Slider)control;
-                                slider.grabbed = false;
+                            if (!Mouse.IsButtonPressed(Mouse.Button.Left)) {
+                                if (control is Slider) {
+                                    Slider slider = (Slider)control;
+                                    slider.grabbed = false;
+                                }
                             }
                         }
                     }

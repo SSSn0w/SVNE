@@ -12,12 +12,18 @@ using SFML.Audio;
 using SVNE.GUI;
 
 namespace SVNE.Core {
-    class MainMenu : Drawable {
+    class MainMenu : Menu {
         public List<Clickable> MenuControls = new List<Clickable>();
 
+        public List<Clickable> Controls {
+            get { return MenuControls; }
+        }
+
         public MainMenu() {
+            //LOAD ALL OF THIS FROM FILE EVENTUALLY
+
             MenuControls.Add(new Button("Start", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Fonts/Consolas.ttf"), 100, 100, Start));
-            MenuControls.Add(new Button("Load", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Fonts/Consolas.ttf"), 100, 200));
+            MenuControls.Add(new Button("Load", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Fonts/Consolas.ttf"), 100, 200, Load));
             MenuControls.Add(new Button("Preferences", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Fonts/Consolas.ttf"), 100, 300, Preferences));
             MenuControls.Add(new Button("About", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Fonts/Consolas.ttf"), 100, 400));
             MenuControls.Add(new Button("Help", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Fonts/Consolas.ttf"), 100, 500));
@@ -30,6 +36,12 @@ namespace SVNE.Core {
             TimeLine.musicPlayer.Loop = true;
             //TimeLine.musicPlayer.SoundBuffer = Game.Sounds[0];
             TimeLine.musicPlayer.Play();
+
+            return 0;
+        }
+
+        public int Load() {
+            Game.gameState = (int)Game.States.LoadMenu;
 
             return 0;
         }

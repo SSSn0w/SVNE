@@ -17,12 +17,15 @@ namespace SVNE.Core {
         public static float xRatio;
         public static float yRatio;
 
-        public enum States { MainMenu, OptionsMenu, Paused, Playing, Quit };
+        public enum States { MainMenu, OptionsMenu, SaveMenu, LoadMenu, Paused, Playing, Quit };
         public static int gameState = (int)States.MainMenu;
+
+        public static List<Menu> Menus = new List<Menu>();
 
         public static MainMenu mainMenu;
         public static GameMenu gameMenu;
         public static OptionsMenu optionsMenu;
+        public static GameSlotMenu gameSlotMenu;
 
         public static List<SoundBuffer> Sounds = new List<SoundBuffer>();
 
@@ -39,6 +42,12 @@ namespace SVNE.Core {
             mainMenu = new MainMenu();
             gameMenu = new GameMenu();
             optionsMenu = new OptionsMenu();
+            gameSlotMenu = new GameSlotMenu();
+
+            Menus.Add(mainMenu);
+            Menus.Add(gameMenu);
+            Menus.Add(optionsMenu);
+            Menus.Add(gameSlotMenu);
 
             LoadSounds();
     }
@@ -67,6 +76,12 @@ namespace SVNE.Core {
             else if(gameState == (int)States.MainMenu) {
                 TimeLine.musicPlayer.Stop();
             }
+            else if (gameState == (int)States.LoadMenu) {
+                
+            }
+            else if (gameState == (int)States.SaveMenu) {
+
+            }
             else if(gameState == (int)States.Quit) {
                 Shutdown();
             }
@@ -74,25 +89,39 @@ namespace SVNE.Core {
 
         public override void Render() {
             if (gameState == (int)States.MainMenu) {
+                StopDisplaying();
                 mainMenu.IsDisplaying(true);
-                gameMenu.IsDisplaying(false);
-                optionsMenu.IsDisplaying(false);
+
                 Draw(mainMenu);
             }
             else if (gameState == (int)States.OptionsMenu) {
-                mainMenu.IsDisplaying(false);
-                gameMenu.IsDisplaying(false);
+                StopDisplaying();
                 optionsMenu.IsDisplaying(true);
+
                 Draw(optionsMenu);
             }
-            else if (gameState == (int)States.Playing) {
-                mainMenu.IsDisplaying(false);
+            else if (gameState == (int)States.LoadMenu) {
+                StopDisplaying();
+                gameSlotMenu.IsDisplaying(true);
+
+                Draw(gameSlotMenu);
+            }
+            else if (gameState == (int)States.SaveMenu) {
+                StopDisplaying();
+                gameSlotMenu.IsDisplaying(true);
                 gameMenu.IsDisplaying(true);
-                optionsMenu.IsDisplaying(false);
+
+                Draw(gameSlotMenu);
+            }
+            else if (gameState == (int)States.Playing) {
+                StopDisplaying();
+                gameMenu.IsDisplaying(true);
 
                 Draw(TimeLine.Background);
 
-                Draw(TimeLine.magilou);
+                for (int i = 0; i < TimeLine.Objects.Count(); i++) {
+                    Draw(TimeLine.Objects[i]);
+                }
 
                 try {
                     if (TimeLine.timeLine[TimeLine.timeLineCounter] is Drawable) {
@@ -114,10 +143,6 @@ namespace SVNE.Core {
                     listCount++;
                 }
 
-                for (int i = 0; i < TimeLine.Objects.Count(); i++) {
-                    Draw(TimeLine.Objects[i]);
-                }
-
                 Draw(gameMenu);
             }
 
@@ -128,7 +153,16 @@ namespace SVNE.Core {
             window.Draw(gameObject);
         }
 
+        public void StopDisplaying() {
+            mainMenu.IsDisplaying(false);
+            gameMenu.IsDisplaying(false);
+            optionsMenu.IsDisplaying(false);
+            gameSlotMenu.IsDisplaying(false);
+        }
+
         public void LoadSounds() {
+            //LOAD ALL OF THIS FROM FILE EVENTUALLY
+
             TimeLine.musicPlayer = new Music("Assets/Music/kamado_tanjiro_no_uta.wav");
             //Sounds.Add(new SoundBuffer("Assets/kamado_tanjiro_no_uta.wav"));
         }

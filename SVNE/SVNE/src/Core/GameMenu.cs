@@ -11,13 +11,19 @@ using SFML.Window;
 using SVNE.GUI;
 
 namespace SVNE.Core {
-    class GameMenu : Drawable {
+    class GameMenu : Menu {
         public List<Clickable> MenuControls = new List<Clickable>();
 
+        public List<Clickable> Controls {
+            get { return MenuControls; }
+        }
+
         public GameMenu() {
+            //LOAD ALL OF THIS FROM FILE EVENTUALLY
+
             MenuControls.Add(new Button("auto", new Color(255, 255, 255), new Color(0, 0, 0), new Color(0, 255, 0), 20, new Font("Assets/Fonts/Consolas.ttf"), 0, 680));
             MenuControls.Add(new Button("skip", new Color(255, 255, 255), new Color(0, 0, 0), new Color(0, 255, 0), 20, new Font("Assets/Fonts/Consolas.ttf"), 0, 680));
-            MenuControls.Add(new Button("save", new Color(255, 255, 255), new Color(0, 0, 0), new Color(0, 255, 0), 20, new Font("Assets/Fonts/Consolas.ttf"), 0, 680));
+            MenuControls.Add(new Button("save", new Color(255, 255, 255), new Color(0, 0, 0), new Color(0, 255, 0), 20, new Font("Assets/Fonts/Consolas.ttf"), 0, 680, Save));
             MenuControls.Add(new Button("load", new Color(255, 255, 255), new Color(0, 0, 0), new Color(0, 255, 0), 20, new Font("Assets/Fonts/Consolas.ttf"), 0, 680));
             MenuControls.Add(new Button("options", new Color(255, 255, 255), new Color(0, 0, 0), new Color(0, 255, 0), 20, new Font("Assets/Fonts/Consolas.ttf"), 0, 680));
             MenuControls.Add(new Button("quit", new Color(255, 255, 255), new Color(0, 0, 0), new Color(0, 255, 0), 20, new Font("Assets/Fonts/Consolas.ttf"), 0, 680, Quit));
@@ -45,6 +51,12 @@ namespace SVNE.Core {
         public int Quit() {
             Game.gameState = (int)Game.States.MainMenu;
             TimeLine.musicPlayer.Stop();
+
+            return 0;
+        }
+
+        public int Save() {
+            Game.gameState = (int)Game.States.SaveMenu;
 
             return 0;
         }
