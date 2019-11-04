@@ -14,11 +14,16 @@ using SVNE.GUI;
 namespace SVNE.Core {
     class GameSlotMenu : Menu {
         public List<Clickable> MenuControls = new List<Clickable>();
-        public int[,] SlotTexture = new int[,] { { 0, 1, 0, 1 }, { 1, 0, 1, 0 } };
-        //public int[,] SlotTexture = new int[,] { { 1, 0, 1, 0 }, { 1, 0, 1, 0 }, { 1, 0, 1, 0 } };
+
         public Texture defaultTexture = new Texture("Assets/UI/default_slot.png");
         public Texture otherTexture = new Texture("Assets/UI/default_slot2.png"); //temp
 
+        public Image screenShot;
+        private int slot = 1;
+        public int selectedSlot = 0;
+
+        private static int columns = 2;
+        private static int rows = 4;
         private static int tileWidth = (int)SVNE.window.Size.X / 3;
         private static int tileHeight = (int)SVNE.window.Size.Y / 5;
         private static int tileGap = tileWidth / 16;
@@ -26,56 +31,78 @@ namespace SVNE.Core {
         public static int VERTICAL = 0;
         public static int HORIZONTAL = 1;
 
-        public int Layout = VERTICAL;
+        public int Layout = HORIZONTAL;
 
         public List<Clickable> Controls {
             get { return MenuControls; }
         }
 
         public GameSlotMenu() {
+            InitControls();
+        }
+
+        public void InitControls() {
             int xPos;
             int yPos;
 
             if (Layout == VERTICAL) {
-                for (int i = 0; i < SlotTexture.GetLength(0); i++) {
+                for (int i = 0; i < rows; i++) {
                     xPos = tileWidth * i + (tileGap * i);
-                    xPos += ((int)SVNE.window.Size.X - (tileWidth * SlotTexture.GetLength(0) + (tileGap * (SlotTexture.GetLength(0) - 1)))) / 2;
+                    xPos += ((int)SVNE.window.Size.X - (tileWidth * rows + (tileGap * (rows - 1)))) / 2;
 
-                    for (int j = 0; j < SlotTexture.GetLength(1); j++) {
+                    for (int j = 0; j < columns; j++) {
                         yPos = tileHeight * j + (tileGap * j);
-                        yPos += ((int)SVNE.window.Size.Y - (tileHeight * SlotTexture.GetLength(1) + (tileGap * (SlotTexture.GetLength(1) - 1)))) / 2;
+                        yPos += ((int)SVNE.window.Size.Y - (tileHeight * columns + (tileGap * (columns - 1)))) / 2;
 
-                        if (SlotTexture[i, j] == 0) {
-                            MenuControls.Add(new Button(defaultTexture, otherTexture, xPos, yPos, tileWidth, tileHeight, SlotAction));
+                        Texture slotTex;
+
+                        try {
+                            slotTex = new Texture("Data/" + slot + ".png");
                         }
-                        else if (SlotTexture[i, j] == 1) {
-                            //Change texture to game snapshot
-                            MenuControls.Add(new Button(otherTexture, defaultTexture, xPos, yPos, tileWidth, tileHeight, SlotAction));
+                        catch (Exception e) {
+                            Console.WriteLine("Save thumbnail not found...");
+                            slotTex = slotTex = new Texture("Data/no-image.jpg");
                         }
+
+                        MenuControls.Add(new Button(slotTex, otherTexture, xPos, yPos, tileWidth, tileHeight, SlotAction));
+
+                        slot++;
                     }
                 }
             }
             else if (Layout == HORIZONTAL) {
-                for (int i = 0; i < SlotTexture.GetLength(0); i++) {
+                for (int i = 0; i < rows; i++) {
                     yPos = tileHeight * i + (tileGap * i);
-                    yPos += ((int)SVNE.window.Size.Y - (tileHeight * SlotTexture.GetLength(0) + (tileGap * (SlotTexture.GetLength(0) - 1)))) / 2;
+                    yPos += ((int)SVNE.window.Size.Y - (tileHeight * rows + (tileGap * (rows - 1)))) / 2;
 
-                    for (int j = 0; j < SlotTexture.GetLength(1); j++) {
+                    for (int j = 0; j < columns; j++) {
                         xPos = tileWidth * j + (tileGap * j);
-                        xPos += ((int)SVNE.window.Size.X - (tileWidth * SlotTexture.GetLength(1) + (tileGap * (SlotTexture.GetLength(1) - 1)))) / 2;
+                        xPos += ((int)SVNE.window.Size.X - (tileWidth * columns + (tileGap * (columns - 1)))) / 2;
 
-                        if (SlotTexture[i, j] == 0) {
-                            MenuControls.Add(new Button(defaultTexture, otherTexture, xPos, yPos, tileWidth, tileHeight, SlotAction));
+                        Texture slotTex;
+
+                        try {
+                            slotTex = new Texture("Data/" + slot + ".png");
                         }
-                        else if (SlotTexture[i, j] == 1) {
-                            //Change texture to game snapshot
-                            MenuControls.Add(new Button(otherTexture, defaultTexture, xPos, yPos, tileWidth, tileHeight, SlotAction));
+                        catch (Exception e) {
+                            Console.WriteLine("Save thumbnail not found...");
+                            slotTex = slotTex = new Texture("Data/no-image.jpg");
                         }
+
+                        MenuControls.Add(new Button(slotTex, otherTexture, xPos, yPos, tileWidth, tileHeight, SlotAction));
+
+                        slot++;
                     }
                 }
             }
 
             MenuControls.Add(new Button("Back", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Fonts/Consolas.ttf"), 100, 600, Back));
+        }
+
+        public void RefreshControls() {
+            MenuControls.Clear();
+            slot = 1;
+            InitControls();
         }
 
         public int SlotAction() {
@@ -85,6 +112,8 @@ namespace SVNE.Core {
 
             if (Game.gameState == (int)Game.States.SaveMenu) {
                 Console.WriteLine("saving game in slot...");
+                screenShot.SaveToFile("Data/" + (selectedSlot + 1) + ".png");
+                RefreshControls();
             }
 
             return 0;
@@ -113,6 +142,9 @@ namespace SVNE.Core {
 
             foreach (Clickable control in MenuControls) {
                 if (control.IsDisplayed) {
+                    if(control.IsMouseDown) {
+                        selectedSlot = MenuControls.IndexOf(control);
+                    }
                     target.Draw(control, states);
                 }
             }

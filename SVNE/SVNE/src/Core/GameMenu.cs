@@ -56,6 +56,7 @@ namespace SVNE.Core {
         }
 
         public int Save() {
+            Game.gameSlotMenu.screenShot = SVNE.window.Capture();
             Game.gameState = (int)Game.States.SaveMenu;
 
             return 0;

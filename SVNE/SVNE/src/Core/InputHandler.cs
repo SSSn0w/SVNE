@@ -37,7 +37,7 @@ namespace SVNE.Core {
                             }
                         }
 
-                        foreach (Clickable control in menu.Controls) {
+                        foreach (Clickable control in menu.Controls.ToList()) {
                             if (control.MouseInBounds(window) && control.IsDisplayed) {
                                 mouseOnClickable = true;
                             }
