@@ -10,6 +10,7 @@ using SFML.Window;
 using SFML.Audio;
 
 using SVNE.GUI;
+using System.IO;
 
 namespace SVNE.Core {
     class GameSlotMenu : Menu {
@@ -108,11 +109,37 @@ namespace SVNE.Core {
         public int SlotAction() {
             if (Game.gameState == (int)Game.States.LoadMenu) {
                 Console.WriteLine("loading game in slot...");
+
+                TimeLine.timeLineCounter = int.Parse(File.ReadAllText("Data/" + (selectedSlot + 1) + ".save"));
+                TimeLine.Load();
+
+                for (int i = 0; i < TimeLine.timeLineCounter; i++) {
+                    try {
+                        if (TimeLine.timeLine[i].GetEvent() is Transitions.Transition) {
+                            
+                        }
+                        else {
+                            TimeLine.timeLine[i].EndEvent();
+                        }
+                    }
+                    catch (Exception e) {
+                        //Console.WriteLine(e + " No more dialogue to be displayed");
+                    }
+                }
+
+                Game.gameState = (int)Game.States.Playing;
+                TimeLine.musicPlayer.Loop = true;
+                //TimeLine.musicPlayer.SoundBuffer = Game.Sounds[0];
+                //TimeLine.musicPlayer.Play();
             }
 
             if (Game.gameState == (int)Game.States.SaveMenu) {
                 Console.WriteLine("saving game in slot...");
+
                 screenShot.SaveToFile("Data/" + (selectedSlot + 1) + ".png");
+                string gamePos = TimeLine.timeLineCounter.ToString();
+                File.WriteAllText("Data/" + (selectedSlot + 1) + ".save", gamePos);
+
                 RefreshControls();
             }
 

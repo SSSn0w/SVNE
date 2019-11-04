@@ -31,11 +31,12 @@ namespace SVNE.Core {
         }
 
         public int Start() {
+            TimeLine.timeLineCounter = 0;
             TimeLine.Load();
             Game.gameState = (int)Game.States.Playing;
             TimeLine.musicPlayer.Loop = true;
             //TimeLine.musicPlayer.SoundBuffer = Game.Sounds[0];
-            TimeLine.musicPlayer.Play();
+            //TimeLine.musicPlayer.Play();
 
             return 0;
         }
