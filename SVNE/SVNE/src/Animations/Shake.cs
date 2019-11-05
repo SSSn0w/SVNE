@@ -78,7 +78,7 @@ namespace SVNE.Animations {
 
         public void Animate() {
             if (counter >= time) {
-                clock.Dispose();
+               
             }
             else {
                 if (clock.ElapsedTime.AsSeconds() > tick) {

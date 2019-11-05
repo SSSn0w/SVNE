@@ -75,7 +75,7 @@ namespace SVNE.Core {
 
                     //Story Pathway Option Buttons
                     int listCount = 0;
-                    foreach (List<Clickable> list in TimeLine.Options) {
+                    foreach (List<Clickable> list in TimeLine.Options.ToList()) {
                         foreach (Clickable control in TimeLine.Options[listCount]) {
                             if (hideControls) {
                                 control.IsDisplayed = false;
@@ -163,10 +163,11 @@ namespace SVNE.Core {
                     else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseDownBackground) {
                         try {
                             if (TimeLine.timeLine[TimeLine.timeLineCounter].GetEvent() is Transitions.Transition) {
-                                Console.WriteLine("is non-skippable transition");
+                                //Console.WriteLine("is non-skippable transition");
+                                TimeLine.timeLine[TimeLine.timeLineCounter].EndEvent();
                             }
                             else {
-                                Console.WriteLine("is skippable event");
+                                //Console.WriteLine("is skippable event");
                                 TimeLine.timeLine[TimeLine.timeLineCounter].EndEvent();
                             }
                         } catch (Exception e) {

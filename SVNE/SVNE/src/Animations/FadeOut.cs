@@ -62,13 +62,12 @@ namespace SVNE.Animations {
         }
 
         public void Default() {
-            clock.Dispose();
             sprite.Color = new Color(255, 255, 255, endAlpha);
         }
 
         public void Animate() {
             if (counter <= endAlpha) {
-                clock.Dispose();
+                
             }
             else {
                 if (clock.ElapsedTime.AsSeconds() > 0.01f) {

@@ -62,7 +62,7 @@ namespace SVNE.Core {
                         }
                         catch (Exception e) {
                             Console.WriteLine("Save thumbnail not found...");
-                            slotTex = slotTex = new Texture("Data/no-image.jpg");
+                            slotTex = slotTex = new Texture("Assets/UI/no-image.jpg");
                         }
 
                         MenuControls.Add(new Button(slotTex, otherTexture, xPos, yPos, tileWidth, tileHeight, SlotAction));
@@ -87,7 +87,7 @@ namespace SVNE.Core {
                         }
                         catch (Exception e) {
                             Console.WriteLine("Save thumbnail not found...");
-                            slotTex = slotTex = new Texture("Data/no-image.jpg");
+                            slotTex = slotTex = new Texture("Assets/UI/no-image.jpg");
                         }
 
                         MenuControls.Add(new Button(slotTex, otherTexture, xPos, yPos, tileWidth, tileHeight, SlotAction));
@@ -110,40 +110,109 @@ namespace SVNE.Core {
             if (Game.gameState == (int)Game.States.LoadMenu) {
                 Console.WriteLine("loading game in slot...");
 
-                TimeLine.timeLineCounter = int.Parse(File.ReadAllText("Data/" + (selectedSlot + 1) + ".save"));
-                TimeLine.Load();
+                try {
+                    TimeLine.LoadVariables();
 
-                for (int i = 0; i < TimeLine.timeLineCounter; i++) {
-                    try {
-                        if (TimeLine.timeLine[i].GetEvent() is Transitions.Transition) {
-                            
+                    GameSave gameSave = ReadFromBinaryFile<GameSave>("Data/" + (selectedSlot + 1) + ".save");
+                    TimeLine.timeLineCounter = gameSave.timeLinePos - 1;
+
+                    TimeLine.currentBackground = gameSave.background;
+                    TimeLine.Background = new Sprite(new Texture(gameSave.background));
+
+                    List<Character> characters = new List<Character>();
+                    foreach (CharacterState character in gameSave.characters) {
+                        if (character.Hidden) {
+                            characters.Add(new Character(character.Name, character.ResPath, character.Scale, new Color(255, 255, 255, 0)));
+                            //characters.Add(new Character(character.Name, character.ResPath, character.Scale, new Color(255, 255, 255, 255)));
                         }
                         else {
-                            TimeLine.timeLine[i].EndEvent();
+                            characters.Add(new Character(character.Name, character.ResPath, character.Scale, new Color(255, 255, 255, 255)));
                         }
                     }
-                    catch (Exception e) {
-                        //Console.WriteLine(e + " No more dialogue to be displayed");
-                    }
-                }
+                    TimeLine.Characters = characters;
 
-                Game.gameState = (int)Game.States.Playing;
-                TimeLine.musicPlayer.Loop = true;
-                //TimeLine.musicPlayer.SoundBuffer = Game.Sounds[0];
-                //TimeLine.musicPlayer.Play();
+                    TimeLine.currentSong = gameSave.currentSong;
+                    TimeLine.musicPlayer = new Music(gameSave.currentSong);
+
+                    for (int i = 0; i < TimeLine.timeLineCounter; i++) {
+                        try {
+                            if (Game.storyOptionsOpen) {
+                                Game.storyOptionsOpen = false;
+                                for (int j = 0; j < TimeLine.Options.Count(); j++) {
+                                    foreach (Clickable control in TimeLine.Options[j]) {
+                                        control.IsDisplayed = false;
+                                    }
+                                }
+                            }
+                            else {
+                                if (TimeLine.timeLine[i] is DialogueBox) {
+                                    TimeLine.timeLine[i].StartEvent();
+                                    //TimeLine.timeLine[i].EndEvent();
+                                }
+                            }
+                        }
+                        catch (Exception e) {
+                            //Console.WriteLine(e + " No more dialogue to be displayed");
+                        }
+                    }
+
+                    TimeLine.Load();
+
+                    Game.gameState = (int)Game.States.Playing;
+                    TimeLine.musicPlayer.Loop = true;
+                    //TimeLine.musicPlayer.SoundBuffer = Game.Sounds[0];
+                    //TimeLine.musicPlayer.Play();
+                }
+                catch (Exception e) {
+                    TimeLine.Load();
+
+                    Game.gameState = (int)Game.States.Playing;
+                    TimeLine.musicPlayer.Loop = true;
+                    //TimeLine.musicPlayer.SoundBuffer = Game.Sounds[0];
+                    //TimeLine.musicPlayer.Play();
+                }
             }
 
             if (Game.gameState == (int)Game.States.SaveMenu) {
                 Console.WriteLine("saving game in slot...");
 
                 screenShot.SaveToFile("Data/" + (selectedSlot + 1) + ".png");
-                string gamePos = TimeLine.timeLineCounter.ToString();
-                File.WriteAllText("Data/" + (selectedSlot + 1) + ".save", gamePos);
+
+                List<CharacterState> characters = new List<CharacterState>();
+                foreach (Character character in TimeLine.Characters) {
+                    bool hidden = false;
+
+                    if(character.sprite.Color.A == 0) {
+                        hidden = true;
+                    }
+                    else {
+                        hidden = false;
+                    }
+
+                    characters.Add(new CharacterState(character, hidden));
+                }
+
+                GameSave gameSave = new GameSave(TimeLine.timeLineCounter, TimeLine.currentBackground, characters, TimeLine.currentSong);
+                WriteToBinaryFile<GameSave>("Data/" + (selectedSlot + 1) + ".save", gameSave);
 
                 RefreshControls();
             }
 
             return 0;
+        }
+
+        public static void WriteToBinaryFile<T>(string filePath, T objectToWrite, bool append = false) {
+            using (Stream stream = File.Open(filePath, append ? FileMode.Append : FileMode.Create)) {
+                var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                binaryFormatter.Serialize(stream, objectToWrite);
+            }
+        }
+
+        public static T ReadFromBinaryFile<T>(string filePath) {
+            using (Stream stream = File.Open(filePath, FileMode.Open)) {
+                var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                return (T)binaryFormatter.Deserialize(stream);
+            }
         }
 
         public int Back() {

@@ -32,6 +32,7 @@ namespace SVNE.Core {
 
         public int Start() {
             TimeLine.timeLineCounter = 0;
+            TimeLine.LoadVariables();
             TimeLine.Load();
             Game.gameState = (int)Game.States.Playing;
             TimeLine.musicPlayer.Loop = true;

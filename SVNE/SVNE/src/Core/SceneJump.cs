@@ -15,7 +15,9 @@ namespace SVNE.Core {
         }
 
         public void Jump() {
-            foreach (Event _event in TimeLine.timeLine) {
+            Game.storyOptionsOpen = false;
+
+            foreach (Event _event in TimeLine.timeLine.ToList()) {
                 if (_event is Scene) {
                     Scene scene = (Scene)_event;
                     if (options[i].JumpToScene.Equals(scene.Title)) {

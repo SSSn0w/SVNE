@@ -32,6 +32,8 @@ namespace SVNE.Core {
         }
 
         public static int Display(int optionIndex) {
+            Game.storyOptionsOpen = true;
+
             TimeLine.timeLineCounter--;
             InputHandler.hideControls = false;
 

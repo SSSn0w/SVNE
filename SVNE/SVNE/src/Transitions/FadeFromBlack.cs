@@ -43,16 +43,12 @@ namespace SVNE.Transitions {
         }
 
         public void Default() {
-            clock.Dispose();
             cover.FillColor = new Color(0, 0, 0, endAlpha);
-
-            var itemToRemove = TimeLine.Objects.Single(r => r.Equals(cover));
-            TimeLine.Objects.Remove(itemToRemove);
         }
 
         public void Animate() {
             if (counter <= endAlpha) {
-                clock.Dispose();
+                
             }
             else {
                 if (clock.ElapsedTime.AsSeconds() > 0.01f) {
@@ -64,7 +60,7 @@ namespace SVNE.Transitions {
         }
 
         public void StartEvent() {
-            if(counter == 255) {
+            if (counter == 255) {
                 cover = new RectangleShape(new Vector2f(window.DefaultView.Size.X, window.DefaultView.Size.Y));
                 TimeLine.Objects.Add(cover);
                 cover = (RectangleShape)TimeLine.Objects[TimeLine.Objects.FindIndex(r => r.Equals(cover))];

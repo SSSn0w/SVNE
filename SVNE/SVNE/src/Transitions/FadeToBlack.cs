@@ -43,16 +43,12 @@ namespace SVNE.Transitions {
         }
 
         public void Default() {
-            clock.Dispose();
             cover.FillColor = new Color(0, 0, 0, endAlpha);
-
-            var itemToRemove = TimeLine.Objects.Single(r => r.Equals(cover));
-            TimeLine.Objects.Remove(itemToRemove);
         }
 
         public void Animate() {
             if (counter >= endAlpha) {
-                clock.Dispose();
+                
             }
             else {
                 if (clock.ElapsedTime.AsSeconds() > 0.01f) {

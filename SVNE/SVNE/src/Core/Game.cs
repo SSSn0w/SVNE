@@ -29,6 +29,8 @@ namespace SVNE.Core {
 
         public static List<SoundBuffer> Sounds = new List<SoundBuffer>();
 
+        public static bool storyOptionsOpen = false;
+
         public Game(RenderWindow window) {
             this.window = window;
             this.window.Closed += Window_Closed;
@@ -70,7 +72,7 @@ namespace SVNE.Core {
                 try {
                     TimeLine.timeLine[TimeLine.timeLineCounter].StartEvent();
                 } catch (Exception e) {
-                    //Console.WriteLine(e + " No more dialogue");
+                    //Console.WriteLine(e + "Can't start event");
                 }
             }
             else if(gameState == (int)States.MainMenu) {
@@ -123,6 +125,10 @@ namespace SVNE.Core {
                     Draw(TimeLine.Objects[i]);
                 }
 
+                for (int i = 0; i < TimeLine.Characters.Count(); i++) {
+                    Draw(TimeLine.Characters[0]);
+                }
+
                 try {
                     if (TimeLine.timeLine[TimeLine.timeLineCounter] is Drawable) {
                         Drawable drawable = TimeLine.timeLine[TimeLine.timeLineCounter] as Drawable;
@@ -162,8 +168,6 @@ namespace SVNE.Core {
 
         public void LoadSounds() {
             //LOAD ALL OF THIS FROM FILE EVENTUALLY
-
-            TimeLine.musicPlayer = new Music("Assets/Music/kamado_tanjiro_no_uta.wav");
             //Sounds.Add(new SoundBuffer("Assets/kamado_tanjiro_no_uta.wav"));
         }
     }

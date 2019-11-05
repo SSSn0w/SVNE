@@ -69,12 +69,15 @@
     <Compile Include="src\Animations\Shake.cs" />
     <Compile Include="src\Animations\Slide.cs" />
     <Compile Include="src\Core\Character.cs" />
+    <Compile Include="src\Core\CharacterState.cs" />
+    <Compile Include="src\Core\Constants.cs" />
     <Compile Include="src\Core\Event.cs" />
     <Compile Include="src\Core\EventTrigger.cs" />
     <Compile Include="src\Core\Function.cs" />
     <Compile Include="src\Core\Game.cs" />
     <Compile Include="src\Core\GameLoop.cs" />
     <Compile Include="src\Core\GameMenu.cs" />
+    <Compile Include="src\Core\GameSave.cs" />
     <Compile Include="src\Core\Menu.cs" />
     <Compile Include="src\Core\Option.cs" />
     <Compile Include="src\Core\OptionsMenu.cs" />
