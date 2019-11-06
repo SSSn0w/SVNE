@@ -165,8 +165,6 @@ namespace SVNE.GUI {
                 while(counter < Dialogue.Length * 2) {
                     AnimateDialogue();
                 }
-
-                clock.Dispose();
             }
             else {
                 if (clock.ElapsedTime.AsSeconds() > 0.08f) {

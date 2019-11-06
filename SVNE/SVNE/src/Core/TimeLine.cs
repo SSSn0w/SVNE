@@ -36,6 +36,7 @@ namespace SVNE.Core {
         public static void LoadVariables() {
             magilou = new Character("Magilou", "Assets/Characters/Magilou/character.png", 0.2f, Constants.OPACITY_MIN);
 
+            currentBackground = "Assets/Backgrounds/background.jpg";
             Background = new Sprite(new Texture(currentBackground));
 
             //musicPlayer = new Music(currentSong);
@@ -49,6 +50,8 @@ namespace SVNE.Core {
         }
 
         public static void Load() {
+            Background.Scale = new Vector2f(SVNE.window.Size.X / Background.GetGlobalBounds().Width, SVNE.window.Size.Y / Background.GetGlobalBounds().Height);
+
             StoryOptions.Add(new List<Option>() { new Option("Scene 1", "Scene1"), new Option("Scene 2", "Scene2"), new Option("Scene 3", "Scene3") }); //0
             StoryOptions.Add(new List<Option>() { new Option("Scene 1 a", "Scene1"), new Option("Scene 2 a", "Scene2"), new Option("Scene 3 a", "Scene3") }); //1
 
@@ -57,6 +60,7 @@ namespace SVNE.Core {
             timeLine.Add(new Scene("Scene1", timeLine.Count(), currentBackground));
 
             //timeLine.Add(new EventTrigger(new Function(() => GetChar("Magilou").ChangePos("center")), true));
+            //timeLine.Add(new EventTrigger(new Function(() => GetChar("Magilou").ChangeColour(Constants.OPACITY_MIN)), true));
 
             timeLine.Add(new EventTrigger(new Transitions.FadeFromBlack(3, SVNE.window), true));
             timeLine.Add(new DialogueBox("???", "So, what brings you here?", charSize, new Animations.FadeIn(GetChar("Magilou"), 2)));

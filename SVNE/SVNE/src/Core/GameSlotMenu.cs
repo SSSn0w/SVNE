@@ -114,7 +114,7 @@ namespace SVNE.Core {
                     TimeLine.LoadVariables();
 
                     GameSave gameSave = ReadFromBinaryFile<GameSave>("Data/" + (selectedSlot + 1) + ".save");
-                    TimeLine.timeLineCounter = gameSave.timeLinePos - 1;
+                    TimeLine.timeLineCounter = gameSave.timeLinePos;
 
                     TimeLine.currentBackground = gameSave.background;
                     TimeLine.Background = new Sprite(new Texture(gameSave.background));
@@ -123,7 +123,6 @@ namespace SVNE.Core {
                     foreach (CharacterState character in gameSave.characters) {
                         if (character.Hidden) {
                             characters.Add(new Character(character.Name, character.ResPath, character.Scale, new Color(255, 255, 255, 0)));
-                            //characters.Add(new Character(character.Name, character.ResPath, character.Scale, new Color(255, 255, 255, 255)));
                         }
                         else {
                             characters.Add(new Character(character.Name, character.ResPath, character.Scale, new Color(255, 255, 255, 255)));
@@ -142,12 +141,6 @@ namespace SVNE.Core {
                                     foreach (Clickable control in TimeLine.Options[j]) {
                                         control.IsDisplayed = false;
                                     }
-                                }
-                            }
-                            else {
-                                if (TimeLine.timeLine[i] is DialogueBox) {
-                                    TimeLine.timeLine[i].StartEvent();
-                                    //TimeLine.timeLine[i].EndEvent();
                                 }
                             }
                         }

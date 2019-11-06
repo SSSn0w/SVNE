@@ -23,6 +23,7 @@ namespace SVNE.Core {
                     if (options[i].JumpToScene.Equals(scene.Title)) {
 
                         if(scene.Position <= TimeLine.timeLineCounter) {
+                            TimeLine.LoadVariables();
                             TimeLine.Load();
                         }
 
