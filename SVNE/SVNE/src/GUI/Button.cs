@@ -61,6 +61,19 @@ namespace SVNE.GUI {
             sprite = new Sprite(notPressed, new IntRect(x, y, width, height));
         }
 
+        public Button(Sprite notPressed, Sprite pressed, int x, int y, int width, int height, Func<int> action) {
+            this.notPressed = notPressed;
+            this.pressed = pressed;
+            this.x = x;
+            this.y = y;
+            this.width = width;
+            this.height = height;
+            this.action = action;
+            this.notPressed.Texture.Repeated = true;
+            this.pressed.Texture.Repeated = true;
+            sprite = notPressed;
+        }
+
         public Button(Texture notPressed, Texture pressed, Texture hover, int x, int y, int width, int height) {
             this.notPressed = new Sprite(notPressed, new IntRect(x, y, width, height));
             this.pressed = new Sprite(pressed, new IntRect(x, y, width, height));
@@ -86,6 +99,20 @@ namespace SVNE.GUI {
             this.notPressed.Texture.Repeated = true;
             this.pressed.Texture.Repeated = true;
             sprite = new Sprite(notPressed, new IntRect(x, y, width, height));
+        }
+
+        public Button(Sprite notPressed, Sprite pressed, Sprite hover, int x, int y, int width, int height, Func<int> action) {
+            this.notPressed = notPressed;
+            this.pressed = pressed;
+            this.hover = hover;
+            this.x = x;
+            this.y = y;
+            this.width = width;
+            this.height = height;
+            this.action = action;
+            this.notPressed.Texture.Repeated = true;
+            this.pressed.Texture.Repeated = true;
+            sprite = notPressed;
         }
 
         public Button(string text, Color notPressedColor, Color pressedColor, uint charSize, Font font, int x, int y) {

@@ -51,7 +51,6 @@ D:\Programming\SVNE\SVNE\SVNE\bin\Debug\sfmlnet-window-2.dll
 D:\Programming\SVNE\SVNE\SVNE\obj\Debug\SVNE.csprojAssemblyReference.cache
 D:\Programming\SVNE\SVNE\SVNE\obj\Debug\SVNE.Properties.Resources.resources
 D:\Programming\SVNE\SVNE\SVNE\obj\Debug\SVNE.csproj.GenerateResource.cache
-D:\Programming\SVNE\SVNE\SVNE\obj\Debug\SVNE.csproj.CoreCompileInputs.cache
 D:\Programming\SVNE\SVNE\SVNE\obj\Debug\SVNE.csproj.CopyComplete
 D:\Programming\SVNE\SVNE\SVNE\obj\Debug\SVNE.exe
 D:\Programming\SVNE\SVNE\SVNE\obj\Debug\SVNE.pdb

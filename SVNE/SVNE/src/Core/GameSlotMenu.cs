@@ -23,16 +23,11 @@ namespace SVNE.Core {
         private int slot = 1;
         public int selectedSlot = 0;
 
-        private static int columns = 2;
-        private static int rows = 4;
-        private static int tileWidth = (int)SVNE.window.Size.X / 3;
-        private static int tileHeight = (int)SVNE.window.Size.Y / 5;
+        private static int columns = 3;
+        private static int rows = 2;
+        private static int tileWidth = (int)(SVNE.window.Size.X / 3.5);
+        private static int tileHeight = (int)(SVNE.window.Size.Y / 3.5);
         private static int tileGap = tileWidth / 16;
-
-        public static int VERTICAL = 0;
-        public static int HORIZONTAL = 1;
-
-        public int Layout = HORIZONTAL;
 
         public List<Clickable> Controls {
             get { return MenuControls; }
@@ -46,54 +41,34 @@ namespace SVNE.Core {
             int xPos;
             int yPos;
 
-            if (Layout == VERTICAL) {
-                for (int i = 0; i < rows; i++) {
-                    xPos = tileWidth * i + (tileGap * i);
-                    xPos += ((int)SVNE.window.Size.X - (tileWidth * rows + (tileGap * (rows - 1)))) / 2;
+            for (int i = 0; i < rows; i++) {
+                yPos = tileHeight * i + (tileGap * i);
+                yPos += ((int)SVNE.window.Size.Y - (tileHeight * rows + (tileGap * (rows - 1)))) / 2;
 
-                    for (int j = 0; j < columns; j++) {
-                        yPos = tileHeight * j + (tileGap * j);
-                        yPos += ((int)SVNE.window.Size.Y - (tileHeight * columns + (tileGap * (columns - 1)))) / 2;
+                for (int j = 0; j < columns; j++) {
+                    xPos = tileWidth * j + (tileGap * j);
+                    xPos += ((int)SVNE.window.Size.X - (tileWidth * columns + (tileGap * (columns - 1)))) / 2;
 
-                        Texture slotTex;
+                    Texture slotTex;
 
-                        try {
-                            slotTex = new Texture("Data/" + slot + ".png");
-                        }
-                        catch (Exception e) {
-                            Console.WriteLine("Save thumbnail not found...");
-                            slotTex = slotTex = new Texture("Assets/UI/no-image.jpg");
-                        }
-
-                        MenuControls.Add(new Button(slotTex, otherTexture, xPos, yPos, tileWidth, tileHeight, SlotAction));
-
-                        slot++;
+                    try {
+                        slotTex = new Texture("Data/" + slot + ".png");
                     }
-                }
-            }
-            else if (Layout == HORIZONTAL) {
-                for (int i = 0; i < rows; i++) {
-                    yPos = tileHeight * i + (tileGap * i);
-                    yPos += ((int)SVNE.window.Size.Y - (tileHeight * rows + (tileGap * (rows - 1)))) / 2;
-
-                    for (int j = 0; j < columns; j++) {
-                        xPos = tileWidth * j + (tileGap * j);
-                        xPos += ((int)SVNE.window.Size.X - (tileWidth * columns + (tileGap * (columns - 1)))) / 2;
-
-                        Texture slotTex;
-
-                        try {
-                            slotTex = new Texture("Data/" + slot + ".png");
-                        }
-                        catch (Exception e) {
-                            Console.WriteLine("Save thumbnail not found...");
-                            slotTex = slotTex = new Texture("Assets/UI/no-image.jpg");
-                        }
-
-                        MenuControls.Add(new Button(slotTex, otherTexture, xPos, yPos, tileWidth, tileHeight, SlotAction));
-
-                        slot++;
+                    catch (Exception e) {
+                        Console.WriteLine("Save thumbnail not found...");
+                        slotTex = new Texture("Assets/UI/no-image.jpg");
                     }
+
+                    MenuControls.Add(new Button(new Sprite(slotTex), new Sprite(slotTex), xPos, yPos, tileWidth, tileHeight, SlotAction));
+
+                    Sprite slotSpriteIdle = MenuControls.Cast<Button>().Last().notPressed;
+                    slotSpriteIdle.Scale = new Vector2f((float)tileWidth / slotSpriteIdle.Texture.Size.X, (float)tileHeight / slotSpriteIdle.Texture.Size.Y);
+
+                    Sprite slotSpritePressed = MenuControls.Cast<Button>().Last().pressed;
+                    slotSpritePressed.Scale = new Vector2f((float)tileWidth / slotSpritePressed.Texture.Size.X, (float)tileHeight / slotSpritePressed.Texture.Size.Y);
+                    slotSpritePressed.Color = new Color(100, 100, 100);
+
+                    slot++;
                 }
             }
 
@@ -157,12 +132,7 @@ namespace SVNE.Core {
                     //TimeLine.musicPlayer.Play();
                 }
                 catch (Exception e) {
-                    TimeLine.Load();
-
-                    Game.gameState = (int)Game.States.Playing;
-                    TimeLine.musicPlayer.Loop = true;
-                    //TimeLine.musicPlayer.SoundBuffer = Game.Sounds[0];
-                    //TimeLine.musicPlayer.Play();
+                    
                 }
             }
 
