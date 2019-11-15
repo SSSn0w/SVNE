@@ -26,7 +26,7 @@ namespace SVNE.Core {
         }
 
         public void StartEvent() {
-            Background.Scale = new Vector2f(SVNE.window.Size.X / Background.GetGlobalBounds().Width, SVNE.window.Size.Y / Background.GetGlobalBounds().Height);
+            //Background.Scale = new Vector2f(SVNE.window.Size.X / Background.GetGlobalBounds().Width, SVNE.window.Size.Y / Background.GetGlobalBounds().Height);
             TimeLine.Background = Background;
 
             EndEvent();

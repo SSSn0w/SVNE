@@ -14,10 +14,10 @@ namespace SVNE.GUI {
         int Height { get; set; }
         bool IsDisplayed { get; set; }
         bool IsMouseDown { get; set; }
-        bool MouseInBounds(RenderWindow window);
-        bool MouseDown(RenderWindow window);
-        bool MouseUp(RenderWindow window);
-        bool Hover(RenderWindow window);
+        bool MouseInBounds();
+        bool MouseDown();
+        bool MouseUp();
+        bool Hover();
         void Reset();
     }
 }

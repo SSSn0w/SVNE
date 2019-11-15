@@ -44,7 +44,7 @@ namespace SVNE.Core {
 
 
             foreach (Clickable control in MenuControls) {
-                control.X += (int)((SVNE.window.DefaultView.Size.X / 2) - (totalWidth / 2));
+                //control.X += (int)((SVNE.window.DefaultView.Size.X / 2) - (totalWidth / 2));
             }
         }
 
@@ -56,7 +56,7 @@ namespace SVNE.Core {
         }
 
         public int Save() {
-            Game.gameSlotMenu.screenShot = SVNE.window.Capture();
+            //Game.gameSlotMenu.screenShot = SVNE.window.Capture();
             Game.gameState = (int)Game.States.SaveMenu;
 
             return 0;

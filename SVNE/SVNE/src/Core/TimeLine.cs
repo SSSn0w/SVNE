@@ -50,7 +50,7 @@ namespace SVNE.Core {
         }
 
         public static void Load() {
-            Background.Scale = new Vector2f(SVNE.window.Size.X / Background.GetGlobalBounds().Width, SVNE.window.Size.Y / Background.GetGlobalBounds().Height);
+            //Background.Scale = new Vector2f(SVNE.window.Size.X / Background.GetGlobalBounds().Width, SVNE.window.Size.Y / Background.GetGlobalBounds().Height);
 
             StoryOptions.Add(new List<Option>() { new Option("Scene 1", "Scene1"), new Option("Scene 2", "Scene2"), new Option("Scene 3", "Scene3") }); //0
             StoryOptions.Add(new List<Option>() { new Option("Scene 1 a", "Scene1"), new Option("Scene 2 a", "Scene2"), new Option("Scene 3 a", "Scene3") }); //1
@@ -62,7 +62,7 @@ namespace SVNE.Core {
             //timeLine.Add(new EventTrigger(new Function(() => GetChar("Magilou").ChangePos("center")), true));
             //timeLine.Add(new EventTrigger(new Function(() => GetChar("Magilou").ChangeColour(Constants.OPACITY_MIN)), true));
 
-            timeLine.Add(new EventTrigger(new Transitions.FadeFromBlack(3, SVNE.window), true));
+            //timeLine.Add(new EventTrigger(new Transitions.FadeFromBlack(3, SVNE.window), true));
             timeLine.Add(new DialogueBox("???", "So, what brings you here?", charSize, new Animations.FadeIn(GetChar("Magilou"), 2)));
             timeLine.Add(new DialogueBox("Me", "Uh...who are you again??", charSize));
 
@@ -87,7 +87,7 @@ namespace SVNE.Core {
 
             timeLine.Add(new DialogueBox(GetChar("Magilou"), "Yes. The others. Now scram!!", charSize));
             timeLine.Add(new DialogueBox("Me", "Sure thing boss!", charSize, new Animations.FadeOut(GetChar("Magilou"), 2)));
-            timeLine.Add(new EventTrigger(new Transitions.FadeToBlack(3, SVNE.window), true));
+            //timeLine.Add(new EventTrigger(new Transitions.FadeToBlack(3, SVNE.window), true));
             timeLine.Add(new EventTrigger(new StateEvent((int)Game.States.MainMenu)));
         }
 

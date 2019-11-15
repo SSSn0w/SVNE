@@ -35,17 +35,17 @@ namespace SVNE.Core {
         }
 
         public int Big() {
-            SVNE.window.Size = new Vector2u(1280, 720);
-            Game.xRatio = ((float)SVNE.window.Size.X / (float)SVNE.defaultWidth);
-            Game.yRatio = ((float)SVNE.window.Size.Y / (float)SVNE.defaultHeight);
+            //SVNE.window.Size = new Vector2u(1280, 720);
+            //Game.xRatio = ((float)SVNE.window.Size.X / (float)SVNE.defaultWidth);
+            //Game.yRatio = ((float)SVNE.window.Size.Y / (float)SVNE.defaultHeight);
 
             return 0;
         }
 
         public int Small() {
-            SVNE.window.Size = new Vector2u(640, 360);
-            Game.xRatio = ((float)SVNE.window.Size.X / (float)SVNE.defaultWidth);
-            Game.yRatio = ((float)SVNE.window.Size.Y / (float)SVNE.defaultHeight);
+            //SVNE.window.Size = new Vector2u(640, 360);
+            //Game.xRatio = ((float)SVNE.window.Size.X / (float)SVNE.defaultWidth);
+            //Game.yRatio = ((float)SVNE.window.Size.Y / (float)SVNE.defaultHeight);
 
             return 0;
         }
@@ -65,7 +65,7 @@ namespace SVNE.Core {
         }
 
         public void Draw(RenderTarget target, RenderStates states) {
-            target.Draw(new RectangleShape(SVNE.window.DefaultView.Size), states);
+            //target.Draw(new RectangleShape(SVNE.window.DefaultView.Size), states);
 
             foreach (Clickable control in MenuControls) {
                 if (control.IsDisplayed) {

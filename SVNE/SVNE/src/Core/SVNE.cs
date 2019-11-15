@@ -4,28 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using SFML.Audio;
-using SFML.Graphics;
-using SFML.Window;
-using SFML.System;
+using OpenTK.Graphics;
 
 namespace SVNE.Core {
     class SVNE {
-        public static uint defaultWidth = 1280;
-        public static uint defaultHeight = 720;
-
-        private static ContextSettings settings = new ContextSettings(0, 0, 16);
-
-        public static RenderWindow window = new RenderWindow(new VideoMode(defaultWidth, defaultHeight), "SVNE", Styles.Titlebar | Styles.Close, settings);
-        public static View view = window.GetView();
+        public static int defaultWidth = 1280;
+        public static int defaultHeight = 720;
 
         public static Game game;
 
         public static void Main() {
-            game = new Game(window);
-
-            while (window.IsOpen) {
-                game.Run(window, 1f / 60f);
+            using (Game game = new Game(defaultWidth, defaultHeight, "SVNE")) {
+                game.Run();// 60.0);
             }
         }
     }

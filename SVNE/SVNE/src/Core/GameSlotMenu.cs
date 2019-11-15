@@ -25,8 +25,8 @@ namespace SVNE.Core {
 
         private static int columns = 3;
         private static int rows = 2;
-        private static int tileWidth = (int)(SVNE.window.Size.X / 3.5);
-        private static int tileHeight = (int)(SVNE.window.Size.Y / 3.5);
+        private static int tileWidth = 0;// (int)(SVNE.window.Size.X / 3.5);
+        private static int tileHeight = 0;// (int)(SVNE.window.Size.Y / 3.5);
         private static int tileGap = tileWidth / 16;
 
         public List<Clickable> Controls {
@@ -43,11 +43,11 @@ namespace SVNE.Core {
 
             for (int i = 0; i < rows; i++) {
                 yPos = tileHeight * i + (tileGap * i);
-                yPos += ((int)SVNE.window.Size.Y - (tileHeight * rows + (tileGap * (rows - 1)))) / 2;
+                //yPos += ((int)SVNE.window.Size.Y - (tileHeight * rows + (tileGap * (rows - 1)))) / 2;
 
                 for (int j = 0; j < columns; j++) {
                     xPos = tileWidth * j + (tileGap * j);
-                    xPos += ((int)SVNE.window.Size.X - (tileWidth * columns + (tileGap * (columns - 1)))) / 2;
+                    //xPos += ((int)SVNE.window.Size.X - (tileWidth * columns + (tileGap * (columns - 1)))) / 2;
 
                     Texture slotTex;
 
@@ -197,7 +197,7 @@ namespace SVNE.Core {
         }
 
         public void Draw(RenderTarget target, RenderStates states) {
-            target.Draw(new RectangleShape(SVNE.window.DefaultView.Size), states);
+            //target.Draw(new RectangleShape(SVNE.window.DefaultView.Size), states);
 
             foreach (Clickable control in MenuControls) {
                 if (control.IsDisplayed) {

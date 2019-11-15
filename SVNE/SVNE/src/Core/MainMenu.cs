@@ -67,7 +67,7 @@ namespace SVNE.Core {
         }
 
         public void Draw(RenderTarget target, RenderStates states) {
-            target.Draw(new RectangleShape(SVNE.window.DefaultView.Size), states);
+            //target.Draw(new RectangleShape(SVNE.window.DefaultView.Size), states);
 
             foreach (Clickable control in MenuControls) {
                 if (control.IsDisplayed) {

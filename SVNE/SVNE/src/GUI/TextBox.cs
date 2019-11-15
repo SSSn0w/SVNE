@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using SFML.Graphics;
 
 namespace SVNE.GUI {
-    class TextBox : Clickable {
+    class TextBox {
         public int x;
         public int y;
         public int width;

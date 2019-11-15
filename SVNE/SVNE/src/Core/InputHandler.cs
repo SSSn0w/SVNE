@@ -18,19 +18,19 @@ namespace SVNE.Core {
         public static void OnMousePressed(object sender, MouseButtonEventArgs e) {
             if (e.Button == Mouse.Button.Left) {
                 if (Game.gameState == (int)Game.States.MainMenu) {
-                    foreach (Clickable control in Game.mainMenu.MenuControls) {
+                    /*foreach (Clickable control in Game.mainMenu.MenuControls) {
                         if (control.MouseInBounds(SVNE.window)) {
                             control.IsMouseDown = true;
                         }
-                    }
+                    }*/
                 }
             }
         }
 
-        public static void HandleMouse(RenderWindow window) {
-            if (window.HasFocus()) {
+        public static void HandleMouse() {
+            if (true){//window.HasFocus()) {
                 if (Game.gameState == (int)Game.States.MainMenu || Game.gameState == (int)Game.States.OptionsMenu || Game.gameState == (int)Game.States.LoadMenu || Game.gameState == (int)Game.States.SaveMenu || Game.gameState == (int)Game.States.Paused) {
-                    foreach (Menu menu in Game.Menus) {
+                    /*foreach (Menu menu in Game.Menus) {
                         foreach (Clickable control in menu.Controls) {
                             if (!control.MouseInBounds(window)) {
                                 control.IsMouseDown = false;
@@ -68,7 +68,7 @@ namespace SVNE.Core {
                                 }
                             }
                         }
-                    }
+                    }*/
                 }
                 else if (Game.gameState == (int)Game.States.Playing) {
                     bool lockBackground = false;
@@ -84,7 +84,7 @@ namespace SVNE.Core {
                             else if (control.IsDisplayed) {
                                 lockBackground = true;
 
-                                if (control.MouseInBounds(window) && control.IsDisplayed) {
+                                if (control.MouseInBounds() && control.IsDisplayed) {
                                     mouseOnClickable = true;
                                 }
                                 else {
@@ -93,18 +93,18 @@ namespace SVNE.Core {
                                 }
 
                                 if (Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
-                                    control.MouseDown(window);
+                                    control.MouseDown();
                                     control.IsMouseDown = true;
                                 }
                                 else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && control.IsMouseDown && mouseOnClickable) {
-                                    control.MouseUp(window);
+                                    control.MouseUp();
                                     hideControls = true;
                                     lockBackground = false;
                                     mouseOnClickable = false;
                                     control.IsMouseDown = false;
                                 }
                                 else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
-                                    control.Hover(window);
+                                    control.Hover();
                                 }
                                 else if (!mouseOnClickable && !(control is Slider)) {
                                     control.Reset();
@@ -119,7 +119,7 @@ namespace SVNE.Core {
                     }
 
                     //In-Game Menu Options
-                    foreach (Clickable control in Game.gameMenu.MenuControls) {
+                    /*foreach (Clickable control in Game.gameMenu.MenuControls) {
                         if (control.IsDisplayed) {
                             if (control.MouseInBounds(window) && control.IsDisplayed) {
                                 mouseOnClickable = true;
@@ -154,7 +154,7 @@ namespace SVNE.Core {
                                 }
                             }
                         }
-                    }
+                    }*/
 
                     //Move TimeLine forward on screen click if no options are up
                     if (Mouse.IsButtonPressed(Mouse.Button.Left) && !mouseOnClickable && !lockBackground) {

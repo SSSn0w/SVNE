@@ -59,7 +59,7 @@ namespace SVNE.Core {
 
         public int ChangePos(string position) {
             if(position.Equals("center")) {
-                sprite.Position = new Vector2f(((SVNE.window.Size.X / 2) - ((sprite.GetGlobalBounds().Width * Game.xRatio) / 2)) / Game.xRatio, (SVNE.window.Size.Y - (sprite.GetGlobalBounds().Height * Game.yRatio)) / Game.xRatio);
+                //sprite.Position = new Vector2f(((SVNE.window.Size.X / 2) - ((sprite.GetGlobalBounds().Width * Game.xRatio) / 2)) / Game.xRatio, (SVNE.window.Size.Y - (sprite.GetGlobalBounds().Height * Game.yRatio)) / Game.xRatio);
             }
             else if(position.Equals("truecenter")) {
 
@@ -68,10 +68,10 @@ namespace SVNE.Core {
 
             }
             else if (position.Equals("left")) {
-                sprite.Position = new Vector2f(0, (SVNE.window.Size.Y - (sprite.GetGlobalBounds().Height * Game.yRatio)) / Game.xRatio);
+                //sprite.Position = new Vector2f(0, (SVNE.window.Size.Y - (sprite.GetGlobalBounds().Height * Game.yRatio)) / Game.xRatio);
             }
             else if (position.Equals("right")) {
-                sprite.Position = new Vector2f((SVNE.window.Size.X - (sprite.GetGlobalBounds().Width * Game.xRatio)) / Game.xRatio, (SVNE.window.Size.Y - (sprite.GetGlobalBounds().Height * Game.yRatio)) / Game.xRatio);
+                //sprite.Position = new Vector2f((SVNE.window.Size.X - (sprite.GetGlobalBounds().Width * Game.xRatio)) / Game.xRatio, (SVNE.window.Size.Y - (sprite.GetGlobalBounds().Height * Game.yRatio)) / Game.xRatio);
             }
             else if (position.Equals("topleft")) {
 

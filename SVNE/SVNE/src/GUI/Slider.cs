@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 using SFML.Graphics;
 using SFML.System;
-using SFML.Window;
+
+using OpenTK.Input;
 
 using SVNE.Core;
 
@@ -111,18 +112,20 @@ namespace SVNE.GUI
             set { mouseDown = value; }
         }
 
-        public bool MouseInBounds(RenderWindow window) {
-            if (Mouse.GetPosition(window).X >= X * Game.xRatio &&
-               Mouse.GetPosition(window).X <= X * Game.xRatio + Width * Game.xRatio &&
-               Mouse.GetPosition(window).Y >= Y * Game.yRatio &&
-               Mouse.GetPosition(window).Y <= Y * Game.yRatio + Height * Game.yRatio ||
-               Mouse.GetPosition(window).X >= bar.Position.X * Game.xRatio &&
-               Mouse.GetPosition(window).X <= bar.Position.X * Game.xRatio + bar.Size.X * Game.xRatio &&
-               Mouse.GetPosition(window).Y >= bar.Position.Y * Game.yRatio &&
-               Mouse.GetPosition(window).Y <= bar.Position.Y * Game.yRatio + bar.Size.Y * Game.yRatio) {
+        public bool MouseInBounds() {
+            MouseState mState = Mouse.GetState();
+
+            if (mState.X >= X * Game.xRatio &&
+               mState.X <= X * Game.xRatio + Width * Game.xRatio &&
+               mState.Y >= Y * Game.yRatio &&
+               mState.Y <= Y * Game.yRatio + Height * Game.yRatio ||
+               mState.X >= bar.Position.X * Game.xRatio &&
+               mState.X <= bar.Position.X * Game.xRatio + bar.Size.X * Game.xRatio &&
+               mState.Y >= bar.Position.Y * Game.yRatio &&
+               mState.Y <= bar.Position.Y * Game.yRatio + bar.Size.Y * Game.yRatio) {
 
                 if (isDisplaying) {
-                    System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Hand;
+                    //System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Hand;
                 }
 
                 return true;
@@ -132,20 +135,22 @@ namespace SVNE.GUI
             }
         }
 
-        public bool Hover(RenderWindow window) {
+        public bool Hover() {
             grabbed = false;
 
             return false;
         }
 
-        public bool MouseDown(RenderWindow window) {
-            if (MouseInBounds(window) && Mouse.IsButtonPressed(Mouse.Button.Left)) {
+        public bool MouseDown() {
+            MouseState mState = Mouse.GetState();
+
+            if (MouseInBounds() && mState.IsButtonDown(MouseButton.Left)) {
                 grabbed = true;
             }
 
             if(grabbed) {
-                float mouseX = Mouse.GetPosition(window).X / Game.xRatio;
-                float mouseY = Mouse.GetPosition(window).Y / Game.yRatio;
+                float mouseX = mState.X / Game.xRatio;
+                float mouseY = mState.Y / Game.yRatio;
 
                 x = (int)(mouseX - (handle.Size.X / 2));
                 handle.Position = new Vector2f(mouseX - (handle.Size.X / 2), handle.Position.Y);
@@ -171,7 +176,7 @@ namespace SVNE.GUI
             }
         }
 
-        public bool MouseUp(RenderWindow window) {
+        public bool MouseUp() {
             grabbed = false;
 
             return true;
@@ -188,9 +193,13 @@ namespace SVNE.GUI
         }
 
         public void Draw(RenderTarget target, RenderStates states) {
-            if (grabbed && Mouse.IsButtonPressed(Mouse.Button.Left)) {
-                float mouseX = Mouse.GetPosition(Core.SVNE.window).X / Game.xRatio;
-                float mouseY = Mouse.GetPosition(Core.SVNE.window).Y / Game.yRatio;
+            MouseState mState = Mouse.GetState();
+
+            if (grabbed && mState.IsButtonDown(MouseButton.Left)) {
+                //float mouseX = Mouse.GetPosition(Core.SVNE.window).X / Game.xRatio;
+                //float mouseY = Mouse.GetPosition(Core.SVNE.window).Y / Game.yRatio;
+                float mouseX = 0;
+                float mouseY = 0;
 
                 x = (int)(mouseX - (handle.Size.X / 2));
                 handle.Position = new Vector2f(mouseX - (handle.Size.X / 2), handle.Position.Y);

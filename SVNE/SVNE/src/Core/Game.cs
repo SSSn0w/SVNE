@@ -3,19 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
-using SFML.Audio;
-using SFML.Graphics;
-using SFML.Window;
-using SFML.System;
+using OpenTK;
+using OpenTK.Graphics;
+using OpenTK.Graphics.OpenGL;
+
+using ManagedBass;
 
 using SVNE.GUI;
+using SVNE.IO;
 
 namespace SVNE.Core {
-    class Game : GameLoop {
-        public RenderWindow window;
+    class Game : GameWindow {
+       // public RenderWindow window;
         public static float xRatio;
         public static float yRatio;
+
+        int VertexBufferObject;
 
         public enum States { MainMenu, OptionsMenu, SaveMenu, LoadMenu, Paused, Playing, Quit };
         public static int gameState = (int)States.MainMenu;
@@ -27,21 +32,33 @@ namespace SVNE.Core {
         public static OptionsMenu optionsMenu;
         public static GameSlotMenu gameSlotMenu;
 
-        public static List<SoundBuffer> Sounds = new List<SoundBuffer>();
+        //public static List<SoundBuffer> Sounds = new List<SoundBuffer>();
 
         public static bool storyOptionsOpen = false;
 
-        public Game(RenderWindow window) {
-            this.window = window;
+        int texture;
+
+        TextRenderer renderer;
+        Font consolas = new Font("Assets/Fonts/Consolas.ttf", 50);
+
+        public Game(int width, int height, string title) : base(width, height, new GraphicsMode(32, 24, 0, 16), title) { //FSAA 16
+            /*this.window = window;
             this.window.Closed += Window_Closed;
-            this.window.MouseButtonReleased += InputHandler.OnMousePressed;
+            this.window.MouseButtonReleased += InputHandler.OnMousePressed;*/
         }
 
-        public override void Startup() {
-            xRatio = ((float)SVNE.window.Size.X / (float)SVNE.defaultWidth);
-            yRatio = ((float)SVNE.window.Size.Y / (float)SVNE.defaultHeight);
+        protected override void OnLoad(EventArgs e) {
+            /*xRatio = ((float)SVNE.window.Size.X / (float)SVNE.defaultWidth);
+            yRatio = ((float)SVNE.window.Size.Y / (float)SVNE.defaultHeight);*/
 
-            mainMenu = new MainMenu();
+            GL.Enable(EnableCap.Blend);
+            GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+            GL.Enable(EnableCap.Multisample);
+
+            VertexBufferObject = GL.GenBuffer();
+            GL.ClearColor(Color.CornflowerBlue);
+
+            /*mainMenu = new MainMenu();
             gameMenu = new GameMenu();
             optionsMenu = new OptionsMenu();
             gameSlotMenu = new GameSlotMenu();
@@ -49,34 +66,51 @@ namespace SVNE.Core {
             Menus.Add(mainMenu);
             Menus.Add(gameMenu);
             Menus.Add(optionsMenu);
-            Menus.Add(gameSlotMenu);
+            Menus.Add(gameSlotMenu);*/
 
             LoadSounds();
-    }
 
-        private void Window_Closed(object sender, EventArgs e) {
-            Shutdown();
+            texture = LoadAsset.LoadTexture("Assets/Characters/Magilou/character.png");
+
+            renderer = new TextRenderer(Width, Height);
+            PointF position = PointF.Empty;
+
+            renderer.Clear(Color.Empty);
+            renderer.DrawString("The quick brown fox jumps over the lazy dog", consolas, Brushes.White, position);
+            position.Y += consolas.Height;
+
+            base.OnLoad(e);
         }
 
-        public override void Shutdown() {
-            Stop();
-            window.Close();
+        protected override void OnUnload(EventArgs e) {
+            GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
+            GL.DeleteBuffer(VertexBufferObject);
+
+            renderer.Dispose();
+
+            base.OnUnload(e);
         }
 
-        public override void Update() {
-            window.DispatchEvents();
+        protected override void OnUpdateFrame(FrameEventArgs e) {
+            /*KeyboardState input = Keyboard.GetState();
 
-            InputHandler.HandleMouse(window);
+            if (input.IsKeyDown(Key.Escape)) {
+                Exit();
+            }
+
+            base.OnUpdateFrame(e);*/
+
+            InputHandler.HandleMouse();
 
             if (gameState == (int)States.Playing) {
-                try {
+                /*try {
                     TimeLine.timeLine[TimeLine.timeLineCounter].StartEvent();
-                } catch (Exception e) {
+                } catch (Exception ex) {
                     //Console.WriteLine(e + "Can't start event");
-                }
+                }*/
             }
             else if(gameState == (int)States.MainMenu) {
-                TimeLine.musicPlayer.Stop();
+                //TimeLine.musicPlayer.Stop();
             }
             else if (gameState == (int)States.LoadMenu) {
                 
@@ -85,12 +119,14 @@ namespace SVNE.Core {
 
             }
             else if(gameState == (int)States.Quit) {
-                Shutdown();
+                //Shutdown();
             }
+
+            base.OnUpdateFrame(e);
         }
 
-        public override void Render() {
-            if (gameState == (int)States.MainMenu) {
+        protected override void OnRenderFrame(FrameEventArgs e) {
+            /*if (gameState == (int)States.MainMenu) {
                 StopDisplaying();
                 mainMenu.IsDisplaying(true);
 
@@ -152,18 +188,31 @@ namespace SVNE.Core {
                 Draw(gameMenu);
             }
 
-            window.Display();
+            window.Display();*/
+
+            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+
+            Functions.Draw(texture, 0, 0, 400, 600);
+            Functions.DrawText(renderer.Texture);
+
+            SwapBuffers();
+            base.OnRenderFrame(e);
         }
 
-        public void Draw(Drawable gameObject) {
-            window.Draw(gameObject);
+        protected override void OnResize(EventArgs e) {
+            GL.Viewport(0, 0, Width, Height);
+            base.OnResize(e);
         }
+
+        /*public void Draw(Drawable gameObject) {
+            window.Draw(gameObject);
+        }*/
 
         public void StopDisplaying() {
-            mainMenu.IsDisplaying(false);
+           /* mainMenu.IsDisplaying(false);
             gameMenu.IsDisplaying(false);
             optionsMenu.IsDisplaying(false);
-            gameSlotMenu.IsDisplaying(false);
+            gameSlotMenu.IsDisplaying(false);*/
         }
 
         public void LoadSounds() {

@@ -24,7 +24,7 @@ namespace SVNE.Core {
                     return 0;
                 }, true));
 
-                list[i].X = (int)SVNE.window.Size.X / 2 - list[i].Width / 2;
+                //list[i].X = (int)SVNE.window.Size.X / 2 - list[i].Width / 2;
                 //list[i].background.Position = new Vector2f(x - width * 1.5f, y - height * 1.5f);
             }
 
