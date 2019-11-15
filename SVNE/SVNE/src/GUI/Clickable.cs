@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using SFML.Graphics;
+using SVNE.Core;
 
 namespace SVNE.GUI {
     interface Clickable : Drawable {

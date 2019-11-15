@@ -72,7 +72,7 @@ namespace SVNE.Core {
                 }
             }
 
-            MenuControls.Add(new Button("Back", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Fonts/Consolas.ttf"), 100, 600, Back));
+            //MenuControls.Add(new Button("Back", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Fonts/Consolas.ttf"), 100, 600, Back));
         }
 
         public void RefreshControls() {
@@ -196,7 +196,7 @@ namespace SVNE.Core {
             }
         }
 
-        public void Draw(RenderTarget target, RenderStates states) {
+        public void Draw() {
             //target.Draw(new RectangleShape(SVNE.window.DefaultView.Size), states);
 
             foreach (Clickable control in MenuControls) {
@@ -204,7 +204,7 @@ namespace SVNE.Core {
                     if(control.IsMouseDown) {
                         selectedSlot = MenuControls.IndexOf(control);
                     }
-                    target.Draw(control, states);
+                    //target.Draw(control, states);
                 }
             }
         }

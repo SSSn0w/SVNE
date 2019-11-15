@@ -8,6 +8,7 @@ using System.Drawing;
 using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
+using OpenTK.Input;
 
 using ManagedBass;
 
@@ -20,7 +21,15 @@ namespace SVNE.Core {
         public static float xRatio;
         public static float yRatio;
 
+        public static Point windowLocation;
+        public static Point mousePos;
+
         int VertexBufferObject;
+
+        int texture;
+
+        public static TextRenderer textRenderer;
+        Font consolas = new Font("Assets/Fonts/Consolas.ttf", 50);
 
         public enum States { MainMenu, OptionsMenu, SaveMenu, LoadMenu, Paused, Playing, Quit };
         public static int gameState = (int)States.MainMenu;
@@ -36,11 +45,6 @@ namespace SVNE.Core {
 
         public static bool storyOptionsOpen = false;
 
-        int texture;
-
-        TextRenderer renderer;
-        Font consolas = new Font("Assets/Fonts/Consolas.ttf", 50);
-
         public Game(int width, int height, string title) : base(width, height, new GraphicsMode(32, 24, 0, 16), title) { //FSAA 16
             /*this.window = window;
             this.window.Closed += Window_Closed;
@@ -48,8 +52,10 @@ namespace SVNE.Core {
         }
 
         protected override void OnLoad(EventArgs e) {
-            /*xRatio = ((float)SVNE.window.Size.X / (float)SVNE.defaultWidth);
-            yRatio = ((float)SVNE.window.Size.Y / (float)SVNE.defaultHeight);*/
+            xRatio = (Size.Width / SVNE.defaultWidth);
+            yRatio = (Size.Height / SVNE.defaultHeight);
+
+            windowLocation = Location;
 
             GL.Enable(EnableCap.Blend);
             GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
@@ -57,6 +63,17 @@ namespace SVNE.Core {
 
             VertexBufferObject = GL.GenBuffer();
             GL.ClearColor(Color.CornflowerBlue);
+
+            texture = LoadAsset.LoadTexture("Assets/Characters/Magilou/character.png");
+
+            textRenderer = new TextRenderer(Width, Height);
+
+            textRenderer.Clear(Color.Empty);
+            /*PointF position = PointF.Empty;
+            textRenderer.DrawString("The quick brown fox jumps over the lazy dog", consolas, Brushes.Black, position);
+            position.Y += consolas.Height;*/
+
+            mainMenu = new MainMenu();
 
             /*mainMenu = new MainMenu();
             gameMenu = new GameMenu();
@@ -68,16 +85,9 @@ namespace SVNE.Core {
             Menus.Add(optionsMenu);
             Menus.Add(gameSlotMenu);*/
 
+            Menus.Add(mainMenu);
+
             LoadSounds();
-
-            texture = LoadAsset.LoadTexture("Assets/Characters/Magilou/character.png");
-
-            renderer = new TextRenderer(Width, Height);
-            PointF position = PointF.Empty;
-
-            renderer.Clear(Color.Empty);
-            renderer.DrawString("The quick brown fox jumps over the lazy dog", consolas, Brushes.White, position);
-            position.Y += consolas.Height;
 
             base.OnLoad(e);
         }
@@ -86,12 +96,14 @@ namespace SVNE.Core {
             GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
             GL.DeleteBuffer(VertexBufferObject);
 
-            renderer.Dispose();
+            textRenderer.Dispose();
 
             base.OnUnload(e);
         }
 
         protected override void OnUpdateFrame(FrameEventArgs e) {
+            windowLocation = Location;
+
             /*KeyboardState input = Keyboard.GetState();
 
             if (input.IsKeyDown(Key.Escape)) {
@@ -120,57 +132,58 @@ namespace SVNE.Core {
             }
             else if(gameState == (int)States.Quit) {
                 //Shutdown();
+                Close();
             }
 
             base.OnUpdateFrame(e);
         }
 
         protected override void OnRenderFrame(FrameEventArgs e) {
-            /*if (gameState == (int)States.MainMenu) {
+            if (gameState == (int)States.MainMenu) {
                 StopDisplaying();
                 mainMenu.IsDisplaying(true);
 
-                Draw(mainMenu);
+                //Draw(mainMenu);
             }
             else if (gameState == (int)States.OptionsMenu) {
                 StopDisplaying();
                 optionsMenu.IsDisplaying(true);
 
-                Draw(optionsMenu);
+                //Draw(optionsMenu);
             }
             else if (gameState == (int)States.LoadMenu) {
                 StopDisplaying();
                 gameSlotMenu.IsDisplaying(true);
 
-                Draw(gameSlotMenu);
+                //Draw(gameSlotMenu);
             }
             else if (gameState == (int)States.SaveMenu) {
                 StopDisplaying();
                 gameSlotMenu.IsDisplaying(true);
                 gameMenu.IsDisplaying(true);
 
-                Draw(gameSlotMenu);
+                //Draw(gameSlotMenu);
             }
             else if (gameState == (int)States.Playing) {
                 StopDisplaying();
                 gameMenu.IsDisplaying(true);
 
-                Draw(TimeLine.Background);
+                //Draw(TimeLine.Background);
 
                 for (int i = 0; i < TimeLine.Objects.Count(); i++) {
-                    Draw(TimeLine.Objects[i]);
+                    //Draw(TimeLine.Objects[i]);
                 }
 
                 for (int i = 0; i < TimeLine.Characters.Count(); i++) {
-                    Draw(TimeLine.Characters[0]);
+                    //Draw(TimeLine.Characters[0]);
                 }
 
                 try {
                     if (TimeLine.timeLine[TimeLine.timeLineCounter] is Drawable) {
                         Drawable drawable = TimeLine.timeLine[TimeLine.timeLineCounter] as Drawable;
-                        Draw(drawable);
+                        //Draw(drawable);
                     }
-                } catch (Exception e) {
+                } catch (Exception ex) {
                     //Console.WriteLine(e + " No more dialogue");
                 }
 
@@ -178,30 +191,42 @@ namespace SVNE.Core {
                 foreach(List<Clickable> list in TimeLine.Options) {
                     foreach (Clickable control in TimeLine.Options[listCount]) {
                         if (control.IsDisplayed) {
-                            Draw(control);
+                            //Draw(control);
                         }
                     }
 
                     listCount++;
                 }
 
-                Draw(gameMenu);
+                //Draw(gameMenu);
             }
 
-            window.Display();*/
+            //window.Display();
 
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
             Functions.Draw(texture, 0, 0, 400, 600);
-            Functions.DrawText(renderer.Texture);
+
+            mainMenu.Draw();
 
             SwapBuffers();
             base.OnRenderFrame(e);
         }
 
         protected override void OnResize(EventArgs e) {
+            xRatio = (Size.Width / SVNE.defaultWidth);
+            yRatio = (Size.Height / SVNE.defaultHeight);
+
             GL.Viewport(0, 0, Width, Height);
             base.OnResize(e);
+        }
+        
+        protected override void OnMouseMove(MouseMoveEventArgs e) {
+            mousePos = new Point(e.X, e.Y);
+        }
+
+        protected override void OnMouseLeave(EventArgs e) {
+            mousePos = new Point(0, 0);
         }
 
         /*public void Draw(Drawable gameObject) {
@@ -209,10 +234,10 @@ namespace SVNE.Core {
         }*/
 
         public void StopDisplaying() {
-           /* mainMenu.IsDisplaying(false);
-            gameMenu.IsDisplaying(false);
-            optionsMenu.IsDisplaying(false);
-            gameSlotMenu.IsDisplaying(false);*/
+            mainMenu.IsDisplaying(false);
+            //gameMenu.IsDisplaying(false);
+            //optionsMenu.IsDisplaying(false);
+            //gameSlotMenu.IsDisplaying(false);
         }
 
         public void LoadSounds() {

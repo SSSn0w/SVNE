@@ -104,8 +104,8 @@ namespace SVNE.Core {
             return 0;
         }
 
-        public void Draw(RenderTarget target, RenderStates states) {
-            target.Draw(sprite, states);
+        public void Draw() {
+            //target.Draw(sprite, states);
         }
     }
 }

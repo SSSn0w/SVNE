@@ -192,7 +192,7 @@ namespace SVNE.GUI
             return (int)((handle.Position.X - bar.Position.X) / (bar.Size.X / 100));
         }
 
-        public void Draw(RenderTarget target, RenderStates states) {
+        public void Draw() {
             MouseState mState = Mouse.GetState();
 
             if (grabbed && mState.IsButtonDown(MouseButton.Left)) {
@@ -220,8 +220,8 @@ namespace SVNE.GUI
                 Reset();
             }
 
-            target.Draw(bar, states);
-            target.Draw(handle, states);
+            //target.Draw(bar, states);
+            //target.Draw(handle, states);
         }
     }
 }

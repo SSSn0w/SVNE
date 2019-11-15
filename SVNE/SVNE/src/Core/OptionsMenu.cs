@@ -21,11 +21,11 @@ namespace SVNE.Core {
         public OptionsMenu() {
             //LOAD ALL OF THIS FROM FILE EVENTUALLY
 
-            MenuControls.Add(new Button("Volume", false, new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0), 30, new Font("Assets/Fonts/Consolas.ttf"), 100, 100));
+            /*MenuControls.Add(new Button("Volume", false, new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0), 30, new Font("Assets/Fonts/Consolas.ttf"), 100, 100));
             MenuControls.Add(new Button("1280 x 720", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Fonts/Consolas.ttf"), 100, 200, Big));
             MenuControls.Add(new Button("640 x 360", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Fonts/Consolas.ttf"), 100, 300, Small));
             MenuControls.Add(new Button("Menu", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Fonts/Consolas.ttf"), 100, 600, MainMenu));
-            MenuControls.Add(new Slider(new RectangleShape(new Vector2f(300, 40)), new RectangleShape(new Vector2f(20, 40)), 100, ChangeVolume));
+            MenuControls.Add(new Slider(new RectangleShape(new Vector2f(300, 40)), new RectangleShape(new Vector2f(20, 40)), 100, ChangeVolume));*/
         }
 
         public int MainMenu() {
@@ -64,12 +64,12 @@ namespace SVNE.Core {
             }
         }
 
-        public void Draw(RenderTarget target, RenderStates states) {
+        public void Draw() {
             //target.Draw(new RectangleShape(SVNE.window.DefaultView.Size), states);
 
             foreach (Clickable control in MenuControls) {
                 if (control.IsDisplayed) {
-                    target.Draw(control, states);
+                    //target.Draw(control, states);
                 }
             }
         }

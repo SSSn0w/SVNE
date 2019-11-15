@@ -13,7 +13,7 @@ using SVNE.Core;
 using SVNE.Animations;
 
 namespace SVNE.GUI {
-    class DialogueBox : Event, Drawable {
+    class DialogueBox : Event{//, Drawable {
         public string Title;
         public Character character;
         public char[] Dialogue;

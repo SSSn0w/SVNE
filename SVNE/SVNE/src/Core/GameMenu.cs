@@ -21,12 +21,12 @@ namespace SVNE.Core {
         public GameMenu() {
             //LOAD ALL OF THIS FROM FILE EVENTUALLY
 
-            MenuControls.Add(new Button("auto", new Color(255, 255, 255), new Color(0, 0, 0), new Color(0, 255, 0), 20, new Font("Assets/Fonts/Consolas.ttf"), 0, 680));
+            /*MenuControls.Add(new Button("auto", new Color(255, 255, 255), new Color(0, 0, 0), new Color(0, 255, 0), 20, new Font("Assets/Fonts/Consolas.ttf"), 0, 680));
             MenuControls.Add(new Button("skip", new Color(255, 255, 255), new Color(0, 0, 0), new Color(0, 255, 0), 20, new Font("Assets/Fonts/Consolas.ttf"), 0, 680));
             MenuControls.Add(new Button("save", new Color(255, 255, 255), new Color(0, 0, 0), new Color(0, 255, 0), 20, new Font("Assets/Fonts/Consolas.ttf"), 0, 680, Save));
             MenuControls.Add(new Button("load", new Color(255, 255, 255), new Color(0, 0, 0), new Color(0, 255, 0), 20, new Font("Assets/Fonts/Consolas.ttf"), 0, 680));
             MenuControls.Add(new Button("options", new Color(255, 255, 255), new Color(0, 0, 0), new Color(0, 255, 0), 20, new Font("Assets/Fonts/Consolas.ttf"), 0, 680));
-            MenuControls.Add(new Button("quit", new Color(255, 255, 255), new Color(0, 0, 0), new Color(0, 255, 0), 20, new Font("Assets/Fonts/Consolas.ttf"), 0, 680, Quit));
+            MenuControls.Add(new Button("quit", new Color(255, 255, 255), new Color(0, 0, 0), new Color(0, 255, 0), 20, new Font("Assets/Fonts/Consolas.ttf"), 0, 680, Quit));*/
 
             int totalWidth = 0;
 
@@ -68,10 +68,10 @@ namespace SVNE.Core {
             }
         }
 
-        public void Draw(RenderTarget target, RenderStates states) {
+        public void Draw() {
             foreach (Clickable control in MenuControls) {
                 if (control.IsDisplayed) {
-                    target.Draw(control, states);
+                    //target.Draw(control, states);
                 }
             }
         }

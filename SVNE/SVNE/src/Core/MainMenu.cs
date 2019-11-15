@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using SFML.Graphics;
-using SFML.System;
-using SFML.Window;
-using SFML.Audio;
+using OpenTK.Graphics.OpenGL;
 
 using SVNE.GUI;
 
@@ -22,12 +20,12 @@ namespace SVNE.Core {
         public MainMenu() {
             //LOAD ALL OF THIS FROM FILE EVENTUALLY
 
-            MenuControls.Add(new Button("Start", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Fonts/Consolas.ttf"), 100, 100, Start));
-            MenuControls.Add(new Button("Load", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Fonts/Consolas.ttf"), 100, 200, Load));
-            MenuControls.Add(new Button("Preferences", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Fonts/Consolas.ttf"), 100, 300, Preferences));
-            MenuControls.Add(new Button("About", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Fonts/Consolas.ttf"), 100, 400));
-            MenuControls.Add(new Button("Help", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Fonts/Consolas.ttf"), 100, 500));
-            MenuControls.Add(new Button("Quit", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Fonts/Consolas.ttf"), 100, 600, Quit));
+            MenuControls.Add(new Button("Start", Brushes.Black, Brushes.White, Brushes.Green, new Font("Assets/Fonts/Consolas.ttf", 30), 100, 100, Start));
+            MenuControls.Add(new Button("Load", Brushes.Black, Brushes.White, Brushes.Green, new Font("Assets/Fonts/Consolas.ttf", 30), 100, 200, Load));
+            MenuControls.Add(new Button("Preferences", Brushes.Black, Brushes.White, Brushes.Green, new Font("Assets/Fonts/Consolas.ttf", 30), 100, 300, Preferences));
+            MenuControls.Add(new Button("About", Brushes.Black, Brushes.White, Brushes.Green, new Font("Assets/Fonts/Consolas.ttf", 30), 100, 400));
+            MenuControls.Add(new Button("Help", Brushes.Black, Brushes.White, Brushes.Green, new Font("Assets/Fonts/Consolas.ttf", 30), 100, 500));
+            MenuControls.Add(new Button("Quit", Brushes.Black, Brushes.White, Brushes.Green, new Font("Assets/Fonts/Consolas.ttf", 30), 100, 600, Quit));
         }
 
         public int Start() {
@@ -66,12 +64,12 @@ namespace SVNE.Core {
             }
         }
 
-        public void Draw(RenderTarget target, RenderStates states) {
-            //target.Draw(new RectangleShape(SVNE.window.DefaultView.Size), states);
+        public void Draw() {
+            GL.ClearColor(Color.White);
 
             foreach (Clickable control in MenuControls) {
-                if (control.IsDisplayed) {
-                    target.Draw(control, states);
+                if (true) {//control.IsDisplayed) {
+                    control.Draw();
                 }
             }
         }

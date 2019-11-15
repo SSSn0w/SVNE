@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 using SFML.Graphics;
-using SFML.Window;
+
+using OpenTK.Input;
 
 using SVNE.GUI;
 
@@ -15,30 +16,32 @@ namespace SVNE.Core {
         public static bool mouseDownBackground = false;
         public static bool hideControls = false;
 
-        public static void OnMousePressed(object sender, MouseButtonEventArgs e) {
+        /*public static void OnMousePressed(object sender, MouseButtonEventArgs e) {
             if (e.Button == Mouse.Button.Left) {
                 if (Game.gameState == (int)Game.States.MainMenu) {
                     /*foreach (Clickable control in Game.mainMenu.MenuControls) {
                         if (control.MouseInBounds(SVNE.window)) {
                             control.IsMouseDown = true;
                         }
-                    }*/
+                    }
                 }
             }
-        }
+        }*/
 
         public static void HandleMouse() {
+            MouseState mState = Mouse.GetState();
+
             if (true){//window.HasFocus()) {
                 if (Game.gameState == (int)Game.States.MainMenu || Game.gameState == (int)Game.States.OptionsMenu || Game.gameState == (int)Game.States.LoadMenu || Game.gameState == (int)Game.States.SaveMenu || Game.gameState == (int)Game.States.Paused) {
-                    /*foreach (Menu menu in Game.Menus) {
+                    foreach (Menu menu in Game.Menus) {
                         foreach (Clickable control in menu.Controls) {
-                            if (!control.MouseInBounds(window)) {
+                            if (!control.MouseInBounds()) {
                                 control.IsMouseDown = false;
                             }
                         }
 
                         foreach (Clickable control in menu.Controls.ToList()) {
-                            if (control.MouseInBounds(window) && control.IsDisplayed) {
+                            if (control.MouseInBounds() && control.IsDisplayed) {
                                 mouseOnClickable = true;
                             }
                             else {
@@ -46,29 +49,29 @@ namespace SVNE.Core {
                                 control.IsMouseDown = false;
                             }
 
-                            if (Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
-                                control.MouseDown(window);
+                            if (mState.IsButtonDown(MouseButton.Left) && mouseOnClickable) {
+                                control.MouseDown();
                                 control.IsMouseDown = true;
                             }
-                            else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && control.IsMouseDown && mouseOnClickable) {
-                                control.MouseUp(window);
+                            else if (!mState.IsButtonDown(MouseButton.Left) && control.IsMouseDown && mouseOnClickable) {
+                                control.MouseUp();
                                 control.IsMouseDown = false;
                             }
-                            else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
-                                control.Hover(window);
+                            else if (!mState.IsButtonDown(MouseButton.Left) && mouseOnClickable) {
+                                control.Hover();
                             }
                             else if (!mouseOnClickable && !(control is Slider)) {
                                 control.Reset();
                             }
 
-                            if (!Mouse.IsButtonPressed(Mouse.Button.Left)) {
+                            if (!mState.IsButtonDown(MouseButton.Left)) {
                                 if (control is Slider) {
                                     Slider slider = (Slider)control;
                                     slider.grabbed = false;
                                 }
                             }
                         }
-                    }*/
+                    }
                 }
                 else if (Game.gameState == (int)Game.States.Playing) {
                     bool lockBackground = false;
@@ -92,18 +95,18 @@ namespace SVNE.Core {
                                     control.IsMouseDown = false;
                                 }
 
-                                if (Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
+                                if (mState.IsButtonDown(MouseButton.Left) && mouseOnClickable) {
                                     control.MouseDown();
                                     control.IsMouseDown = true;
                                 }
-                                else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && control.IsMouseDown && mouseOnClickable) {
+                                else if (!mState.IsButtonDown(MouseButton.Left) && control.IsMouseDown && mouseOnClickable) {
                                     control.MouseUp();
                                     hideControls = true;
                                     lockBackground = false;
                                     mouseOnClickable = false;
                                     control.IsMouseDown = false;
                                 }
-                                else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
+                                else if (!mState.IsButtonDown(MouseButton.Left) && mouseOnClickable) {
                                     control.Hover();
                                 }
                                 else if (!mouseOnClickable && !(control is Slider)) {
@@ -130,24 +133,24 @@ namespace SVNE.Core {
                                 control.IsMouseDown = false;
                             }
 
-                            if (Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
+                            if (mState.IsButtonDown(MouseButton.Left) && mouseOnClickable) {
                                 control.MouseDown(window);
                                 control.IsMouseDown = true;
                             }
-                            else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && control.IsMouseDown && mouseOnClickable) {
+                            else if (!mState.IsButtonDown(MouseButton.Left) && control.IsMouseDown && mouseOnClickable) {
                                 control.MouseUp(window);
                                 mouseOnClickable = false;
                                 control.IsMouseDown = false;
                                 lockBackground = false;
                             }
-                            else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseOnClickable) {
+                            else if (!mState.IsButtonDown(MouseButton.Left) && mouseOnClickable) {
                                 control.Hover(window);
                             }
                             else if (!mouseOnClickable && !(control is Slider)) {
                                 control.Reset();
                             }
 
-                            if (!Mouse.IsButtonPressed(Mouse.Button.Left)) {
+                            if (!mState.IsButtonDown(MouseButton.Left)) {
                                 if (control is Slider) {
                                     Slider slider = (Slider)control;
                                     slider.grabbed = false;
@@ -157,10 +160,10 @@ namespace SVNE.Core {
                     }*/
 
                     //Move TimeLine forward on screen click if no options are up
-                    if (Mouse.IsButtonPressed(Mouse.Button.Left) && !mouseOnClickable && !lockBackground) {
+                    if (mState.IsButtonDown(MouseButton.Left) && !mouseOnClickable && !lockBackground) {
                         mouseDownBackground = true;
                     }
-                    else if (!Mouse.IsButtonPressed(Mouse.Button.Left) && mouseDownBackground) {
+                    else if (!mState.IsButtonDown(MouseButton.Left) && mouseDownBackground) {
                         try {
                             if (TimeLine.timeLine[TimeLine.timeLineCounter].GetEvent() is Transitions.Transition) {
                                 //Console.WriteLine("is non-skippable transition");

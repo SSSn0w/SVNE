@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Programming\\SVNE-OpenGL\\SVNE\\SVNE\\a\\SVNE\\SVNE\\SVNE.csproj": {}
+    "D:\\Programming\\SVNE-OpenGL\\SVNE\\SVNE\\SVNE.csproj": {}
   },
   "projects": {
-    "D:\\Programming\\SVNE-OpenGL\\SVNE\\SVNE\\a\\SVNE\\SVNE\\SVNE.csproj": {
+    "D:\\Programming\\SVNE-OpenGL\\SVNE\\SVNE\\SVNE.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Programming\\SVNE-OpenGL\\SVNE\\SVNE\\a\\SVNE\\SVNE\\SVNE.csproj",
+        "projectUniqueName": "D:\\Programming\\SVNE-OpenGL\\SVNE\\SVNE\\SVNE.csproj",
         "projectName": "SVNE",
-        "projectPath": "D:\\Programming\\SVNE-OpenGL\\SVNE\\SVNE\\a\\SVNE\\SVNE\\SVNE.csproj",
+        "projectPath": "D:\\Programming\\SVNE-OpenGL\\SVNE\\SVNE\\SVNE.csproj",
         "packagesPath": "C:\\Users\\lachl\\.nuget\\packages\\",
-        "outputPath": "D:\\Programming\\SVNE-OpenGL\\SVNE\\SVNE\\a\\SVNE\\SVNE\\obj\\",
+        "outputPath": "D:\\Programming\\SVNE-OpenGL\\SVNE\\SVNE\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",

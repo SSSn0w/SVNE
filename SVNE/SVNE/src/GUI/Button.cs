@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 using SFML.Graphics;
 using SFML.System;
 
+using OpenTK;
 using OpenTK.Input;
 
 using SVNE.Core;
@@ -25,13 +27,15 @@ namespace SVNE.GUI {
         public bool changeCursor = true;
         public Func<int> action = () => 0;
 
-        public Color notPressedColor;
-        public Color pressedColor;
-        public Color hoverColor;
+        public Brush notPressedColor;
+        public Brush pressedColor;
+        public Brush hoverColor;
         public uint charSize;
-        public Font font;
-        public Text text;
-        public Sprite background;
+        public System.Drawing.Font font;
+        public string text;
+        public Brush defaultColor;
+        public Brush textColor;
+        public int background;
 
         public bool hideAfterClick = false;
 
@@ -116,20 +120,20 @@ namespace SVNE.GUI {
             sprite = notPressed;
         }
 
-        public Button(string text, Color notPressedColor, Color pressedColor, uint charSize, Font font, int x, int y) {
+        public Button(string text, Brush notPressedColor, Brush pressedColor, uint charSize, System.Drawing.Font font, int x, int y) {
             this.notPressedColor = notPressedColor;
             this.pressedColor = pressedColor;
             this.charSize = charSize;
             this.font = font;
             this.x = x;
             this.y = y;
-            this.text = new Text(text, font, charSize);
-            width = (int)this.text.GetGlobalBounds().Width;
-            height = (int)this.text.GetGlobalBounds().Height;
+            //this.text = new Text(text, font, charSize);
+            //width = (int)this.text.GetGlobalBounds().Width;
+            //height = (int)this.text.GetGlobalBounds().Height;
             this.y = this.y + height / 2;
         }
 
-        public Button(string text, Color notPressedColor, Color pressedColor, uint charSize, Font font, int x, int y, Func<int> action) {
+        public Button(string text, Brush notPressedColor, Brush pressedColor, uint charSize, System.Drawing.Font font, int x, int y, Func<int> action) {
             this.notPressedColor = notPressedColor;
             this.pressedColor = pressedColor;
             this.charSize = charSize;
@@ -137,13 +141,13 @@ namespace SVNE.GUI {
             this.action = action;
             this.x = x;
             this.y = y;
-            this.text = new Text(text, font, charSize);
-            width = (int)this.text.GetGlobalBounds().Width;
-            height = (int)this.text.GetGlobalBounds().Height;
+            //this.text = new Text(text, font, charSize);
+            //width = (int)this.text.GetGlobalBounds().Width;
+            //height = (int)this.text.GetGlobalBounds().Height;
             this.y = this.y + height / 2;
         }
 
-        public Button(string text, Color notPressedColor, Color pressedColor, Color hoverColor, uint charSize, Font font, int x, int y) {
+        public Button(string text, Brush notPressedColor, Brush pressedColor, Brush hoverColor, uint charSize, System.Drawing.Font font, int x, int y) {
             this.notPressedColor = notPressedColor;
             this.pressedColor = pressedColor;
             this.hoverColor = hoverColor;
@@ -151,74 +155,53 @@ namespace SVNE.GUI {
             this.font = font;
             this.x = x;
             this.y = y;
-            this.text = new Text(text, font, charSize);
-            width = (int)this.text.GetGlobalBounds().Width;
-            height = (int)this.text.GetGlobalBounds().Height;
+            //this.text = new Text(text, font, charSize);
+            //width = (int)this.text.GetGlobalBounds().Width;
+            //height = (int)this.text.GetGlobalBounds().Height;
             this.y = this.y + height / 2;
         }
 
-        public Button(string text, bool changeCursor, Color notPressedColor, Color pressedColor, Color hoverColor, uint charSize, Font font, int x, int y) {
+        public Button(string text, Brush notPressedColor, Brush pressedColor, Brush hoverColor, System.Drawing.Font font, int x, int y) {
+            this.text = text;
+            this.defaultColor = notPressedColor;
+            this.textColor = notPressedColor;
             this.notPressedColor = notPressedColor;
             this.pressedColor = pressedColor;
             this.hoverColor = hoverColor;
-            this.charSize = charSize;
             this.font = font;
-            this.changeCursor = changeCursor;
             this.x = x;
             this.y = y;
-            this.text = new Text(text, font, charSize);
-            width = (int)this.text.GetGlobalBounds().Width;
-            height = (int)this.text.GetGlobalBounds().Height;
+            //this.text = new Text(text, font, charSize);
+            width = (int)Game.textRenderer.MeasureString(text, font).Width;
+            height = (int)Game.textRenderer.MeasureString(text, font).Height;
             this.y = this.y + height / 2;
         }
 
-        public Button(string text, Color notPressedColor, Color pressedColor, Color hoverColor, uint charSize, Font font, int x, int y, Func<int> action) {
-            this.notPressedColor = notPressedColor;
-            this.pressedColor = pressedColor;
-            this.hoverColor = hoverColor;
-            this.charSize = charSize;
-            this.font = font;
-            this.action = action;
-            this.x = x;
-            this.y = y;
-            this.text = new Text(text, font, charSize);
-            width = (int)this.text.GetGlobalBounds().Width;
-            height = (int)this.text.GetGlobalBounds().Height;
-            this.y = this.y + height / 2;
-        }
+        //====================================================================================================================================================================
+        //====================================================================================================================================================================
+        //====================================================================================================================================================================
 
-        public Button(string text, Color notPressedColor, Color pressedColor, Color hoverColor, uint charSize, Font font, int x, int y, Func<int> action, bool hideAfterClick) {
+        public Button(string text, Brush notPressedColor, Brush pressedColor, Brush hoverColor, System.Drawing.Font font, int x, int y, Func<int> action) {
+            this.text = text;
+            this.defaultColor = notPressedColor;
+            this.textColor = notPressedColor;
             this.notPressedColor = notPressedColor;
             this.pressedColor = pressedColor;
             this.hoverColor = hoverColor;
-            this.charSize = charSize;
             this.font = font;
             this.action = action;
-            this.hideAfterClick = hideAfterClick;
             this.x = x;
             this.y = y;
-            this.text = new Text(text, font, charSize);
-            width = (int)this.text.GetGlobalBounds().Width;
-            height = (int)this.text.GetGlobalBounds().Height;
+            //this.text = new Text(text, font, charSize);
+            width = (int)Game.textRenderer.MeasureString(text, font).Width;
+            height = (int)Game.textRenderer.MeasureString(text, font).Height;
             this.y = this.y + height / 2;
         }
 
-        public Button(string text, Color notPressedColor, Color pressedColor, Color hoverColor, uint charSize, Font font, int x, int y, bool hideAfterClick) {
-            this.notPressedColor = notPressedColor;
-            this.pressedColor = pressedColor;
-            this.hoverColor = hoverColor;
-            this.charSize = charSize;
-            this.font = font;
-            this.hideAfterClick = hideAfterClick;
-            this.x = x;
-            this.y = y;
-            this.text = new Text(text, font, charSize);
-            width = (int)this.text.GetGlobalBounds().Width;
-            height = (int)this.text.GetGlobalBounds().Height;
-            this.y = this.y + height / 2;
-        }
-
-        public Button(string text, Texture background, Color notPressedColor, Color pressedColor, Color hoverColor, uint charSize, Font font, int x, int y, Func<int> action, bool hideAfterClick) {
+        public Button(string text, Brush notPressedColor, Brush pressedColor, Brush hoverColor, uint charSize, System.Drawing.Font font, int x, int y, Func<int> action, bool hideAfterClick) {
+            this.text = text;
+            this.defaultColor = notPressedColor;
+            this.textColor = notPressedColor;
             this.notPressedColor = notPressedColor;
             this.pressedColor = pressedColor;
             this.hoverColor = hoverColor;
@@ -228,11 +211,48 @@ namespace SVNE.GUI {
             this.hideAfterClick = hideAfterClick;
             this.x = x;
             this.y = y;
-            this.text = new Text(text, font, charSize);
-            width = (int)this.text.GetGlobalBounds().Width;
-            height = (int)this.text.GetGlobalBounds().Height;
+            //this.text = new Text(text, font, charSize);
+            width = (int)Game.textRenderer.MeasureString(text, font).Width;
+            height = (int)Game.textRenderer.MeasureString(text, font).Height;
             this.y = this.y + height / 2;
-            this.background = new Sprite(background);
+        }
+
+        public Button(string text, Brush notPressedColor, Brush pressedColor, Brush hoverColor, uint charSize, System.Drawing.Font font, int x, int y, bool hideAfterClick) {
+            this.text = text;
+            this.defaultColor = notPressedColor;
+            this.textColor = notPressedColor;
+            this.notPressedColor = notPressedColor;
+            this.pressedColor = pressedColor;
+            this.hoverColor = hoverColor;
+            this.charSize = charSize;
+            this.font = font;
+            this.hideAfterClick = hideAfterClick;
+            this.x = x;
+            this.y = y;
+            //this.text = new Text(text, font, charSize);
+            width = (int)Game.textRenderer.MeasureString(text, font).Width;
+            height = (int)Game.textRenderer.MeasureString(text, font).Height;
+            this.y = this.y + height / 2;
+        }
+
+        public Button(string text, int background, Brush notPressedColor, Brush pressedColor, Brush hoverColor, uint charSize, System.Drawing.Font font, int x, int y, Func<int> action, bool hideAfterClick) {
+            this.text = text;
+            this.defaultColor = notPressedColor;
+            this.textColor = notPressedColor;
+            this.notPressedColor = notPressedColor;
+            this.pressedColor = pressedColor;
+            this.hoverColor = hoverColor;
+            this.charSize = charSize;
+            this.font = font;
+            this.action = action;
+            this.hideAfterClick = hideAfterClick;
+            this.x = x;
+            this.y = y;
+            //this.text = new Text(text, font, charSize);
+            width = (int)Game.textRenderer.MeasureString(text, font).Width;
+            height = (int)Game.textRenderer.MeasureString(text, font).Height;
+            this.y = this.y + height / 2;
+            this.background = background;
         }
 
         public int X {
@@ -266,7 +286,7 @@ namespace SVNE.GUI {
         }
 
         public bool MouseInBounds() {
-            MouseState mState = Mouse.GetState();
+            Point mState = Game.mousePos;
 
             if (background == null) {
                 if (mState.X >= X * Game.xRatio &&
@@ -277,7 +297,7 @@ namespace SVNE.GUI {
                     if (isDisplaying && changeCursor) {
                         //System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Hand;
                     }
-
+                    
                     return true;
                 }
                 else {
@@ -285,10 +305,10 @@ namespace SVNE.GUI {
                 }
             }
             else {
-                if (mState.X >= (x - width * 1.5f) * Game.xRatio &&
-                   mState.X <= (x + width * 1.5f) * Game.xRatio + Width * Game.xRatio &&
-                   mState.Y >= (y - height * 1.5f) * Game.yRatio &&
-                   mState.Y <= (y + height * 1.5f) * Game.yRatio + Height * Game.yRatio) {
+                if (mState.X >= (x - width) * Game.xRatio &&
+                   mState.X <= (x + width) * Game.xRatio + Width * Game.xRatio &&
+                   mState.Y >= (y - height) * Game.yRatio &&
+                   mState.Y <= (y + height) * Game.yRatio + Height * Game.yRatio) {
 
                     if (isDisplaying && changeCursor) {
                         //System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Hand;
@@ -303,14 +323,14 @@ namespace SVNE.GUI {
         }
 
         public bool MouseDown() {
-            MouseState mState = Mouse.GetState();
+            MouseState mState = Mouse.GetCursorState();
 
             if (MouseInBounds() && mState.IsButtonDown(MouseButton.Left)) {
                 if (sprite != null) {
                     sprite = pressed;
                 }
                 else {
-                    text.Color = pressedColor;
+                    textColor = pressedColor;
                 }
 
                 return true;
@@ -323,13 +343,13 @@ namespace SVNE.GUI {
         }
 
         public bool MouseUp() {
-            MouseState mState = Mouse.GetState();
+            MouseState mState = Mouse.GetCursorState();
 
             if (sprite != null) {
                 sprite = notPressed;
             }
             else {
-                text.Color = notPressedColor;
+                textColor = notPressedColor;
             }
 
             action();
@@ -348,8 +368,8 @@ namespace SVNE.GUI {
                     return true;
                 }
 
-                if (hoverColor != default(Color)) {
-                    text.Color = hoverColor;
+                if (hoverColor != defaultColor) {
+                    textColor = hoverColor;
                     return true;
                 }
 
@@ -367,14 +387,14 @@ namespace SVNE.GUI {
                 sprite = notPressed;
             }
             else {
-                text.Color = notPressedColor;
+                textColor = notPressedColor;
             }
         }
 
-        public void Draw(RenderTarget target, RenderStates states) {
-            if (sprite != null) {
+        public void Draw() {
+            /*if (sprite != null) {
                 sprite.Position = new Vector2f(x, y);
-                target.Draw(sprite, states);
+                //Draw(sprite);
             }
             else {
                 if(background != null) {
@@ -383,9 +403,15 @@ namespace SVNE.GUI {
                     target.Draw(background, states);
                 }
 
-                text.Position = new Vector2f(x, (y - (height / 2)));
-                target.Draw(text, states);
-            }
+                //text.Position = new Vector2f(x, (y - (height / 2)));
+            }*/
+
+            Game.textRenderer.Clear(System.Drawing.Color.Empty);
+
+            PointF position = new PointF(x, (y - (height / 2)));
+            Game.textRenderer.DrawString(text, font, textColor, position);
+
+            Functions.DrawText(Game.textRenderer.Texture);
         }
     }
 }

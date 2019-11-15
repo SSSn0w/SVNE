@@ -48,6 +48,10 @@ namespace SVNE.Core {
             dirty_region = Rectangle.Intersect(dirty_region, new Rectangle(0, 0, bmp.Width, bmp.Height));
         }
 
+        public SizeF MeasureString(string text, Font font) {
+            return gfx.MeasureString(text, font);
+        }
+
         public int Texture {
             get {
                 UploadBitmap();
