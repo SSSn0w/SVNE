@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Drawing.Text;
 
 using OpenTK;
 using OpenTK.Graphics;
@@ -29,7 +30,8 @@ namespace SVNE.Core {
         int texture;
 
         public static TextRenderer textRenderer;
-        Font consolas = new Font("Assets/Fonts/Consolas.ttf", 50);
+        string consolasPath = "Assets/Fonts/Consolas.ttf";
+        public static PrivateFontCollection Fonts = new PrivateFontCollection();
 
         public enum States { MainMenu, OptionsMenu, SaveMenu, LoadMenu, Paused, Playing, Quit };
         public static int gameState = (int)States.MainMenu;
@@ -65,6 +67,7 @@ namespace SVNE.Core {
             GL.ClearColor(Color.CornflowerBlue);
 
             texture = LoadAsset.LoadTexture("Assets/Characters/Magilou/character.png");
+            Fonts.AddFontFile(consolasPath);
 
             textRenderer = new TextRenderer(Width, Height);
 
@@ -205,7 +208,7 @@ namespace SVNE.Core {
 
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
-            Functions.Draw(texture, 0, 0, 400, 600);
+            //Functions.Draw(texture, 0, 0, 400, 600);
 
             mainMenu.Draw();
 

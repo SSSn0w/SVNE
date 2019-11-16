@@ -20,12 +20,12 @@ namespace SVNE.Core {
         public MainMenu() {
             //LOAD ALL OF THIS FROM FILE EVENTUALLY
 
-            MenuControls.Add(new Button("Start", Brushes.Black, Brushes.White, Brushes.Green, new Font("Assets/Fonts/Consolas.ttf", 30), 100, 100, Start));
-            MenuControls.Add(new Button("Load", Brushes.Black, Brushes.White, Brushes.Green, new Font("Assets/Fonts/Consolas.ttf", 30), 100, 200, Load));
-            MenuControls.Add(new Button("Preferences", Brushes.Black, Brushes.White, Brushes.Green, new Font("Assets/Fonts/Consolas.ttf", 30), 100, 300, Preferences));
-            MenuControls.Add(new Button("About", Brushes.Black, Brushes.White, Brushes.Green, new Font("Assets/Fonts/Consolas.ttf", 30), 100, 400));
-            MenuControls.Add(new Button("Help", Brushes.Black, Brushes.White, Brushes.Green, new Font("Assets/Fonts/Consolas.ttf", 30), 100, 500));
-            MenuControls.Add(new Button("Quit", Brushes.Black, Brushes.White, Brushes.Green, new Font("Assets/Fonts/Consolas.ttf", 30), 100, 600, Quit));
+            MenuControls.Add(new Button("Start", Brushes.Black, Brushes.White, Brushes.Green, new Font(Game.Fonts.Families[0], 30), 100, 100, Start));
+            MenuControls.Add(new Button("Load", Brushes.Black, Brushes.White, Brushes.Green, new Font(Game.Fonts.Families[0], 30), 100, 200, Load));
+            MenuControls.Add(new Button("Preferences", Brushes.Black, Brushes.White, Brushes.Green, new Font(Game.Fonts.Families[0], 30), 100, 300, Preferences));
+            MenuControls.Add(new Button("About", Brushes.Black, Brushes.White, Brushes.Green, new Font(Game.Fonts.Families[0], 30), 100, 400));
+            MenuControls.Add(new Button("Help", Brushes.Black, Brushes.White, Brushes.Green, new Font(Game.Fonts.Families[0], 30), 100, 500));
+            MenuControls.Add(new Button("Quit", Brushes.Black, Brushes.White, Brushes.Green, new Font(Game.Fonts.Families[0], 30), 100, 600, Quit));
         }
 
         public int Start() {

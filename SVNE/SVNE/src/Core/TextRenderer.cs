@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Text;
 
 using OpenTK;
@@ -19,7 +20,7 @@ namespace SVNE.Core {
             if (width <= 0)
                 throw new ArgumentOutOfRangeException("width");
             if (height <= 0)
-                throw new ArgumentOutOfRangeException("height ");
+                throw new ArgumentOutOfRangeException("height");
             if (GraphicsContext.CurrentContext == null)
                 throw new InvalidOperationException("No GraphicsContext is current on the calling thread.");
 
@@ -44,6 +45,8 @@ namespace SVNE.Core {
             gfx.DrawString(text, font, brush, point);
 
             SizeF size = gfx.MeasureString(text, font);
+            //gfx.DrawRectangle(new Pen(brush), point.X, point.Y, size.Width, size.Height);
+
             dirty_region = Rectangle.Round(RectangleF.Union(dirty_region, new RectangleF(point, size)));
             dirty_region = Rectangle.Intersect(dirty_region, new Rectangle(0, 0, bmp.Width, bmp.Height));
         }

@@ -288,11 +288,11 @@ namespace SVNE.GUI {
         public bool MouseInBounds() {
             Point mState = Game.mousePos;
 
-            if (background == null) {
+            if (background == 0) {
                 if (mState.X >= X * Game.xRatio &&
                    mState.X <= X * Game.xRatio + Width * Game.xRatio &&
-                   mState.Y >= Y * Game.yRatio &&
-                   mState.Y <= Y * Game.yRatio + Height * Game.yRatio) {
+                   mState.Y >= Y - (height / 2) * Game.yRatio &&
+                   mState.Y <= Y - (height / 2) * Game.yRatio + Height * Game.yRatio) {
 
                     if (isDisplaying && changeCursor) {
                         //System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Hand;
@@ -309,6 +309,8 @@ namespace SVNE.GUI {
                    mState.X <= (x + width) * Game.xRatio + Width * Game.xRatio &&
                    mState.Y >= (y - height) * Game.yRatio &&
                    mState.Y <= (y + height) * Game.yRatio + Height * Game.yRatio) {
+
+                    Console.WriteLine(mState.X + ", " + mState.Y);
 
                     if (isDisplaying && changeCursor) {
                         //System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Hand;
