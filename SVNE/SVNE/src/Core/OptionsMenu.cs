@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using SFML.Graphics;
-using SFML.System;
-using SFML.Window;
+using OpenTK.Graphics.OpenGL;
 
 using SVNE.GUI;
 
@@ -21,11 +20,11 @@ namespace SVNE.Core {
         public OptionsMenu() {
             //LOAD ALL OF THIS FROM FILE EVENTUALLY
 
-            /*MenuControls.Add(new Button("Volume", false, new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0), 30, new Font("Assets/Fonts/Consolas.ttf"), 100, 100));
-            MenuControls.Add(new Button("1280 x 720", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Fonts/Consolas.ttf"), 100, 200, Big));
-            MenuControls.Add(new Button("640 x 360", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Fonts/Consolas.ttf"), 100, 300, Small));
-            MenuControls.Add(new Button("Menu", new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 255, 0), 30, new Font("Assets/Fonts/Consolas.ttf"), 100, 600, MainMenu));
-            MenuControls.Add(new Slider(new RectangleShape(new Vector2f(300, 40)), new RectangleShape(new Vector2f(20, 40)), 100, ChangeVolume));*/
+            MenuControls.Add(new Button("Volume", false, Brushes.Black, Brushes.Black, Brushes.Black, new Font(Game.Fonts.Families[0], 30), 100, 100));
+            MenuControls.Add(new Button("1280 x 720", Brushes.Black, Brushes.White, Brushes.Green, new Font(Game.Fonts.Families[0], 30), 100, 200, Big));
+            MenuControls.Add(new Button("640 x 360", Brushes.Black, Brushes.White, Brushes.Green, new Font(Game.Fonts.Families[0], 30), 100, 300, Small));
+            MenuControls.Add(new Button("Menu", Brushes.Black, Brushes.White, Brushes.Green, new Font(Game.Fonts.Families[0], 30), 100, 600, MainMenu));
+            MenuControls.Add(new Slider(new Rectangle(0, 0, 300, 40), new Rectangle(0, 0, 20, 40), 100, ChangeVolume));
         }
 
         public int MainMenu() {
@@ -53,7 +52,7 @@ namespace SVNE.Core {
         public int ChangeVolume() {
             Slider volumeSlider = (Slider)MenuControls[4];
 
-            TimeLine.musicPlayer.Volume = volumeSlider.GetPosition();
+            //TimeLine.musicPlayer.Volume = volumeSlider.GetPosition();
 
             return 0;
         }
@@ -65,11 +64,11 @@ namespace SVNE.Core {
         }
 
         public void Draw() {
-            //target.Draw(new RectangleShape(SVNE.window.DefaultView.Size), states);
+            GL.ClearColor(Color.White);
 
             foreach (Clickable control in MenuControls) {
                 if (control.IsDisplayed) {
-                    //target.Draw(control, states);
+                    control.Draw();
                 }
             }
         }

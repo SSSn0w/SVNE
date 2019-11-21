@@ -9,14 +9,14 @@ using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 
 namespace SVNE.Core {
-    class TextRenderer {
+    class SysGraphicsRenderer {
         Bitmap bmp;
-        Graphics gfx;
+        public Graphics gfx;
         int texture;
         Rectangle dirty_region;
         bool disposed;
 
-        public TextRenderer(int width, int height) {
+        public SysGraphicsRenderer(int width, int height) {
             if (width <= 0)
                 throw new ArgumentOutOfRangeException("width");
             if (height <= 0)
@@ -49,6 +49,10 @@ namespace SVNE.Core {
 
             dirty_region = Rectangle.Round(RectangleF.Union(dirty_region, new RectangleF(point, size)));
             dirty_region = Rectangle.Intersect(dirty_region, new Rectangle(0, 0, bmp.Width, bmp.Height));
+        }
+
+        public void DrawRect(Brush color, float x, float y, float width, float height) {
+            gfx.FillRectangle(color, x, y, width, height);
         }
 
         public SizeF MeasureString(string text, Font font) {
@@ -97,8 +101,8 @@ namespace SVNE.Core {
             GC.SuppressFinalize(this);
         }
 
-        ~TextRenderer() {
-            Console.WriteLine("[Warning] Resource leaked: {0}.", typeof(TextRenderer));
+        ~SysGraphicsRenderer() {
+            Console.WriteLine("[Warning] Resource leaked: {0}.", typeof(SysGraphicsRenderer));
         }
 
     }

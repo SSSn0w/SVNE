@@ -10,6 +10,7 @@ using SFML.System;
 
 using OpenTK;
 using OpenTK.Input;
+using OpenTK.Graphics.OpenGL;
 
 using SVNE.Core;
 
@@ -119,31 +120,67 @@ namespace SVNE.GUI {
             this.pressed.Texture.Repeated = true;
             sprite = notPressed;
         }
-
-        public Button(string text, Brush notPressedColor, Brush pressedColor, uint charSize, System.Drawing.Font font, int x, int y) {
+        //==================================================================================
+        public Button(string text, Brush notPressedColor, Brush pressedColor, System.Drawing.Font font, int x, int y) {
+            this.text = text;
+            this.defaultColor = notPressedColor;
+            this.textColor = notPressedColor;
             this.notPressedColor = notPressedColor;
             this.pressedColor = pressedColor;
-            this.charSize = charSize;
             this.font = font;
             this.x = x;
             this.y = y;
             //this.text = new Text(text, font, charSize);
-            //width = (int)this.text.GetGlobalBounds().Width;
-            //height = (int)this.text.GetGlobalBounds().Height;
+            width = (int)Game.gfxRenderer.MeasureString(text, font).Width;
+            height = (int)Game.gfxRenderer.MeasureString(text, font).Height;
             this.y = this.y + height / 2;
         }
 
-        public Button(string text, Brush notPressedColor, Brush pressedColor, uint charSize, System.Drawing.Font font, int x, int y, Func<int> action) {
+        public Button(string text, Brush notPressedColor, Brush pressedColor, System.Drawing.Font font, int x, int y, Func<int> action) {
+            this.text = text;
+            this.defaultColor = notPressedColor;
+            this.textColor = notPressedColor;
             this.notPressedColor = notPressedColor;
             this.pressedColor = pressedColor;
-            this.charSize = charSize;
             this.font = font;
-            this.action = action;
             this.x = x;
             this.y = y;
             //this.text = new Text(text, font, charSize);
-            //width = (int)this.text.GetGlobalBounds().Width;
-            //height = (int)this.text.GetGlobalBounds().Height;
+            width = (int)Game.gfxRenderer.MeasureString(text, font).Width;
+            height = (int)Game.gfxRenderer.MeasureString(text, font).Height;
+            this.y = this.y + height / 2;
+        }
+
+        public Button(string text, bool changeCursor, Brush notPressedColor, Brush pressedColor, System.Drawing.Font font, int x, int y) {
+            this.text = text;
+            this.defaultColor = notPressedColor;
+            this.textColor = notPressedColor;
+            this.notPressedColor = notPressedColor;
+            this.pressedColor = pressedColor;
+            this.font = font;
+            this.changeCursor = changeCursor;
+            this.x = x;
+            this.y = y;
+            //this.text = new Text(text, font, charSize);
+            width = (int)Game.gfxRenderer.MeasureString(text, font).Width;
+            height = (int)Game.gfxRenderer.MeasureString(text, font).Height;
+            this.y = this.y + height / 2;
+        }
+
+        public Button(string text, bool changeCursor, Brush notPressedColor, Brush pressedColor, Brush hoverColor, System.Drawing.Font font, int x, int y) {
+            this.text = text;
+            this.defaultColor = notPressedColor;
+            this.textColor = notPressedColor;
+            this.notPressedColor = notPressedColor;
+            this.pressedColor = pressedColor;
+            this.hoverColor = hoverColor;
+            this.font = font;
+            this.changeCursor = changeCursor;
+            this.x = x;
+            this.y = y;
+            //this.text = new Text(text, font, charSize);
+            width = (int)Game.gfxRenderer.MeasureString(text, font).Width;
+            height = (int)Game.gfxRenderer.MeasureString(text, font).Height;
             this.y = this.y + height / 2;
         }
 
@@ -172,8 +209,8 @@ namespace SVNE.GUI {
             this.x = x;
             this.y = y;
             //this.text = new Text(text, font, charSize);
-            width = (int)Game.textRenderer.MeasureString(text, font).Width;
-            height = (int)Game.textRenderer.MeasureString(text, font).Height;
+            width = (int)Game.gfxRenderer.MeasureString(text, font).Width;
+            height = (int)Game.gfxRenderer.MeasureString(text, font).Height;
             this.y = this.y + height / 2;
         }
 
@@ -193,8 +230,8 @@ namespace SVNE.GUI {
             this.x = x;
             this.y = y;
             //this.text = new Text(text, font, charSize);
-            width = (int)Game.textRenderer.MeasureString(text, font).Width;
-            height = (int)Game.textRenderer.MeasureString(text, font).Height;
+            width = (int)Game.gfxRenderer.MeasureString(text, font).Width;
+            height = (int)Game.gfxRenderer.MeasureString(text, font).Height;
             this.y = this.y + height / 2;
         }
 
@@ -212,8 +249,8 @@ namespace SVNE.GUI {
             this.x = x;
             this.y = y;
             //this.text = new Text(text, font, charSize);
-            width = (int)Game.textRenderer.MeasureString(text, font).Width;
-            height = (int)Game.textRenderer.MeasureString(text, font).Height;
+            width = (int)Game.gfxRenderer.MeasureString(text, font).Width;
+            height = (int)Game.gfxRenderer.MeasureString(text, font).Height;
             this.y = this.y + height / 2;
         }
 
@@ -230,8 +267,8 @@ namespace SVNE.GUI {
             this.x = x;
             this.y = y;
             //this.text = new Text(text, font, charSize);
-            width = (int)Game.textRenderer.MeasureString(text, font).Width;
-            height = (int)Game.textRenderer.MeasureString(text, font).Height;
+            width = (int)Game.gfxRenderer.MeasureString(text, font).Width;
+            height = (int)Game.gfxRenderer.MeasureString(text, font).Height;
             this.y = this.y + height / 2;
         }
 
@@ -249,8 +286,8 @@ namespace SVNE.GUI {
             this.x = x;
             this.y = y;
             //this.text = new Text(text, font, charSize);
-            width = (int)Game.textRenderer.MeasureString(text, font).Width;
-            height = (int)Game.textRenderer.MeasureString(text, font).Height;
+            width = (int)Game.gfxRenderer.MeasureString(text, font).Width;
+            height = (int)Game.gfxRenderer.MeasureString(text, font).Height;
             this.y = this.y + height / 2;
             this.background = background;
         }
@@ -309,8 +346,6 @@ namespace SVNE.GUI {
                    mState.X <= (x + width) * Game.xRatio + Width * Game.xRatio &&
                    mState.Y >= (y - height) * Game.yRatio &&
                    mState.Y <= (y + height) * Game.yRatio + Height * Game.yRatio) {
-
-                    Console.WriteLine(mState.X + ", " + mState.Y);
 
                     if (isDisplaying && changeCursor) {
                         //System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Hand;
@@ -394,6 +429,8 @@ namespace SVNE.GUI {
         }
 
         public void Draw() {
+            GL.Color4(1.0, 1.0, 1.0, 1.0);
+
             /*if (sprite != null) {
                 sprite.Position = new Vector2f(x, y);
                 //Draw(sprite);
@@ -408,12 +445,12 @@ namespace SVNE.GUI {
                 //text.Position = new Vector2f(x, (y - (height / 2)));
             }*/
 
-            Game.textRenderer.Clear(System.Drawing.Color.Empty);
+            Game.gfxRenderer.Clear(System.Drawing.Color.Empty);
 
             PointF position = new PointF(x, (y - (height / 2)));
-            Game.textRenderer.DrawString(text, font, textColor, position);
+            Game.gfxRenderer.DrawString(text, font, textColor, position);
 
-            Functions.DrawText(Game.textRenderer.Texture);
+            Functions.DrawGFX(Game.gfxRenderer.Texture);
         }
     }
 }

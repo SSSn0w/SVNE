@@ -4,18 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using SFML.Graphics;
-using SFML.System;
-
 using OpenTK.Input;
 
 using SVNE.Core;
+using System.Drawing;
 
 namespace SVNE.GUI
 {
     class Slider : Clickable {
-        public RectangleShape bar;
-        public RectangleShape handle;
+        public Rectangle bar;
+        public Rectangle handle;
 
         public int x;
         public int y;
@@ -31,55 +29,61 @@ namespace SVNE.GUI
 
         public Func<int> action = () => 0;
 
-        public Slider(RectangleShape bar, RectangleShape handle) : base() {
+        public Slider(Rectangle bar, Rectangle handle) : base() {
             this.bar = bar;
             this.handle = handle;
 
-            this.bar.Position = new Vector2f(300, 100);
-            this.handle.Position = new Vector2f(300, 100 - ((handle.Size.Y - bar.Size.Y) / 2));
-            this.bar.FillColor = new Color(103, 163, 225, 255);
-            this.handle.FillColor = new Color(0, 102, 203, 255);
+            this.bar.X = 300;
+            this.bar.Y = 100;
+            this.handle.X = 300;
+            this.handle.Y = 100 - ((handle.Height - bar.Height) / 2);
+            //this.bar.FillColor = new Color(103, 163, 225, 255);
+            //this.handle.FillColor = new Color(0, 102, 203, 255);
 
-            x = (int)handle.Position.X;
-            y = (int)handle.Position.Y;
-            width = (int)handle.Size.X;
-            height = (int)handle.Size.Y;
+            x = handle.X;
+            y = handle.Y;
+            width = handle.Width;
+            height = handle.Height;
         }
 
-        public Slider(RectangleShape bar, RectangleShape handle, Func<int> action) : base() {
+        public Slider(Rectangle bar, Rectangle handle, Func<int> action) : base() {
             this.bar = bar;
             this.handle = handle;
 
-            this.bar.Position = new Vector2f(300, 100);
-            this.handle.Position = new Vector2f(300, 100 - ((handle.Size.Y - bar.Size.Y) / 2));
-            this.bar.FillColor = new Color(103, 163, 225, 255);
-            this.handle.FillColor = new Color(0, 102, 203, 255);
+            this.bar.X = 300;
+            this.bar.Y = 100;
+            this.handle.X = 300;
+            this.handle.Y = 100 - ((handle.Height - bar.Height) / 2);
+            //this.bar.FillColor = new Color(103, 163, 225, 255);
+            //this.handle.FillColor = new Color(0, 102, 203, 255);
+
+            x = handle.X;
+            y = handle.Y;
+            width = handle.Width;
+            height = handle.Height;
 
             this.action = action;
-
-            x = (int)handle.Position.X;
-            y = (int)handle.Position.Y;
-            width = (int)handle.Size.X;
-            height = (int)handle.Size.Y;
         }
 
-        public Slider(RectangleShape bar, RectangleShape handle, int defaultPos, Func<int> action) : base() {
+        public Slider(Rectangle bar, Rectangle handle, int defaultPos, Func<int> action) : base() {
             this.bar = bar;
             this.handle = handle;
 
             this.defaultPos = defaultPos;
 
-            this.bar.Position = new Vector2f(300, 100);
-            this.handle.Position = new Vector2f(300 + ((bar.Size.X / 100) * defaultPos), 100 - ((handle.Size.Y - bar.Size.Y) / 2));
-            this.bar.FillColor = new Color(103, 163, 225, 255);
-            this.handle.FillColor = new Color(0, 102, 203, 255);
+            this.bar.X = 300;
+            this.bar.Y = 100;
+            this.handle.X = 300;
+            this.handle.Y = 100 - ((handle.Height - bar.Height) / 2);
+            //this.bar.FillColor = new Color(103, 163, 225, 255);
+            //this.handle.FillColor = new Color(0, 102, 203, 255);
+
+            x = handle.X;
+            y = handle.Y;
+            width = handle.Width;
+            height = handle.Height;
 
             this.action = action;
-
-            x = (int)handle.Position.X;
-            y = (int)handle.Position.Y;
-            width = (int)handle.Size.X;
-            height = (int)handle.Size.Y;
         }
 
         public int X {
@@ -113,16 +117,16 @@ namespace SVNE.GUI
         }
 
         public bool MouseInBounds() {
-            MouseState mState = Mouse.GetState();
+            Point mState = Game.mousePos;
 
-            if (mState.X >= X * Game.xRatio &&
-               mState.X <= X * Game.xRatio + Width * Game.xRatio &&
-               mState.Y >= Y * Game.yRatio &&
-               mState.Y <= Y * Game.yRatio + Height * Game.yRatio ||
-               mState.X >= bar.Position.X * Game.xRatio &&
-               mState.X <= bar.Position.X * Game.xRatio + bar.Size.X * Game.xRatio &&
-               mState.Y >= bar.Position.Y * Game.yRatio &&
-               mState.Y <= bar.Position.Y * Game.yRatio + bar.Size.Y * Game.yRatio) {
+            if (mState.X >= handle.X * Game.xRatio &&
+               mState.X <= handle.X * Game.xRatio + handle.Width * Game.xRatio &&
+               mState.Y >= handle.Y * Game.yRatio &&
+               mState.Y <= handle.Y * Game.yRatio + handle.Height * Game.yRatio ||
+               mState.X >= bar.X * Game.xRatio &&
+               mState.X <= bar.X * Game.xRatio + bar.Width * Game.xRatio &&
+               mState.Y >= bar.Y * Game.yRatio &&
+               mState.Y <= bar.Y * Game.yRatio + bar.Height * Game.yRatio) {
 
                 if (isDisplaying) {
                     //System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Hand;
@@ -142,27 +146,30 @@ namespace SVNE.GUI
         }
 
         public bool MouseDown() {
-            MouseState mState = Mouse.GetState();
+            Point mState = Game.mousePos;
 
-            if (MouseInBounds() && mState.IsButtonDown(MouseButton.Left)) {
+            if (MouseInBounds() && Mouse.GetState().IsButtonDown(MouseButton.Left)) {
                 grabbed = true;
             }
 
             if(grabbed) {
-                float mouseX = mState.X / Game.xRatio;
-                float mouseY = mState.Y / Game.yRatio;
+                int mouseX = mState.X;
+                int mouseY = mState.Y;
 
-                x = (int)(mouseX - (handle.Size.X / 2));
-                handle.Position = new Vector2f(mouseX - (handle.Size.X / 2), handle.Position.Y);
+                x = (int)(mouseX - (handle.Width / 2));
+                handle.X = mouseX - (handle.Width / 2);
+                handle.Y = handle.Y;
 
-                if (handle.Position.X <= bar.Position.X) {
-                    x = (int)(bar.Position.X);
-                    handle.Position = new Vector2f(bar.Position.X, handle.Position.Y);
+                if (handle.X <= bar.X) {
+                    x = (int)(bar.X);
+                    handle.X = bar.X;
+                    handle.Y = handle.Y;
                 }
 
-                if (handle.Position.X >= (bar.Position.X + bar.Size.X) - handle.Size.X) {
-                    x = (int)((bar.Position.X + bar.Size.X) - handle.Size.X);
-                    handle.Position = new Vector2f((bar.Position.X + bar.Size.X) - handle.Size.X, handle.Position.Y);
+                if (handle.X >= (bar.X + bar.Width) - handle.Width) {
+                    x = (int)((bar.X + bar.Width) - handle.Width);
+                    handle.X = (bar.X + bar.Width) - handle.X;
+                    handle.Y = handle.Y;
                 }
 
                 action();
@@ -187,31 +194,34 @@ namespace SVNE.GUI
         }
 
         public int GetPosition() {
-            handlePos = (int)((handle.Position.X - bar.Position.X) / ((bar.Size.X - handle.Size.X) / 100));
+            handlePos = (int)((handle.X - bar.X) / ((bar.Width - handle.Width) / 100));
 
-            return (int)((handle.Position.X - bar.Position.X) / (bar.Size.X / 100));
+            return (int)((handle.X - bar.X) / (bar.Width / 100));
         }
 
         public void Draw() {
-            MouseState mState = Mouse.GetState();
+            Point mState = Game.mousePos;
 
-            if (grabbed && mState.IsButtonDown(MouseButton.Left)) {
+            if (grabbed && Mouse.GetState().IsButtonDown(MouseButton.Left)) {
                 //float mouseX = Mouse.GetPosition(Core.SVNE.window).X / Game.xRatio;
                 //float mouseY = Mouse.GetPosition(Core.SVNE.window).Y / Game.yRatio;
-                float mouseX = 0;
-                float mouseY = 0;
+                float mouseX = mState.X;
+                float mouseY = mState.Y;
 
-                x = (int)(mouseX - (handle.Size.X / 2));
-                handle.Position = new Vector2f(mouseX - (handle.Size.X / 2), handle.Position.Y);
+                x = (int)(mouseX - (handle.X / 2));
+                handle.X = (int)mouseX - (handle.Width / 2);
+                handle.Y = handle.Y;
 
-                if (handle.Position.X <= bar.Position.X) {
-                    x = (int)(bar.Position.X);
-                    handle.Position = new Vector2f(bar.Position.X, handle.Position.Y);
+                if (handle.X <= bar.X) {
+                    x = (int)(bar.X);
+                    handle.X = bar.X;
+                    handle.Y = handle.Y;
                 }
 
-                if (handle.Position.X >= (bar.Position.X + bar.Size.X) - handle.Size.X) {
-                    x = (int)((bar.Position.X + bar.Size.X) - handle.Size.X);
-                    handle.Position = new Vector2f((bar.Position.X + bar.Size.X) - handle.Size.X, handle.Position.Y);
+                if (handle.X >= (bar.X + bar.Width) - handle.Width) {
+                    x = (int)((bar.X + bar.Width) - handle.Width);
+                    handle.X = (bar.X + bar.Width) - handle.Width;
+                    handle.Y = handle.Y;
                 }
 
                 GetPosition();
@@ -222,6 +232,13 @@ namespace SVNE.GUI
 
             //target.Draw(bar, states);
             //target.Draw(handle, states);
+
+            Game.gfxRenderer.Clear(System.Drawing.Color.Empty);
+
+            Game.gfxRenderer.DrawRect(Brushes.Cyan, bar.X, bar.Y, bar.Width, bar.Height);
+            Game.gfxRenderer.DrawRect(Brushes.DarkCyan, handle.X, handle.Y, handle.Width, handle.Height);
+
+            Functions.DrawGFX(Game.gfxRenderer.Texture);
         }
     }
 }

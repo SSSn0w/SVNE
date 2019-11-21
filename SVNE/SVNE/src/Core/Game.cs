@@ -29,7 +29,7 @@ namespace SVNE.Core {
 
         int texture;
 
-        public static TextRenderer textRenderer;
+        public static SysGraphicsRenderer gfxRenderer;
         string consolasPath = "Assets/Fonts/Consolas.ttf";
         public static PrivateFontCollection Fonts = new PrivateFontCollection();
 
@@ -69,14 +69,15 @@ namespace SVNE.Core {
             texture = LoadAsset.LoadTexture("Assets/Characters/Magilou/character.png");
             Fonts.AddFontFile(consolasPath);
 
-            textRenderer = new TextRenderer(Width, Height);
+            gfxRenderer = new SysGraphicsRenderer(Width, Height);
 
-            textRenderer.Clear(Color.Empty);
+            gfxRenderer.Clear(Color.Empty);
             /*PointF position = PointF.Empty;
             textRenderer.DrawString("The quick brown fox jumps over the lazy dog", consolas, Brushes.Black, position);
             position.Y += consolas.Height;*/
 
             mainMenu = new MainMenu();
+            optionsMenu = new OptionsMenu();
 
             /*mainMenu = new MainMenu();
             gameMenu = new GameMenu();
@@ -89,6 +90,7 @@ namespace SVNE.Core {
             Menus.Add(gameSlotMenu);*/
 
             Menus.Add(mainMenu);
+            Menus.Add(optionsMenu);
 
             LoadSounds();
 
@@ -99,7 +101,7 @@ namespace SVNE.Core {
             GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
             GL.DeleteBuffer(VertexBufferObject);
 
-            textRenderer.Dispose();
+            gfxRenderer.Dispose();
 
             base.OnUnload(e);
         }
@@ -142,17 +144,19 @@ namespace SVNE.Core {
         }
 
         protected override void OnRenderFrame(FrameEventArgs e) {
+            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+
             if (gameState == (int)States.MainMenu) {
                 StopDisplaying();
                 mainMenu.IsDisplaying(true);
 
-                //Draw(mainMenu);
+                mainMenu.Draw();
             }
             else if (gameState == (int)States.OptionsMenu) {
                 StopDisplaying();
                 optionsMenu.IsDisplaying(true);
 
-                //Draw(optionsMenu);
+                optionsMenu.Draw();
             }
             else if (gameState == (int)States.LoadMenu) {
                 StopDisplaying();
@@ -204,13 +208,7 @@ namespace SVNE.Core {
                 //Draw(gameMenu);
             }
 
-            //window.Display();
-
-            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-
             //Functions.Draw(texture, 0, 0, 400, 600);
-
-            mainMenu.Draw();
 
             SwapBuffers();
             base.OnRenderFrame(e);
@@ -239,7 +237,7 @@ namespace SVNE.Core {
         public void StopDisplaying() {
             mainMenu.IsDisplaying(false);
             //gameMenu.IsDisplaying(false);
-            //optionsMenu.IsDisplaying(false);
+            optionsMenu.IsDisplaying(false);
             //gameSlotMenu.IsDisplaying(false);
         }
 

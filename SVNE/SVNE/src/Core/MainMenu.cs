@@ -68,7 +68,7 @@ namespace SVNE.Core {
             GL.ClearColor(Color.White);
 
             foreach (Clickable control in MenuControls) {
-                if (true) {//control.IsDisplayed) {
+                if (control.IsDisplayed) {
                     control.Draw();
                 }
             }

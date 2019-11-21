@@ -22,7 +22,7 @@ namespace SVNE.Core {
             GL.End();
         }
 
-        public static void DrawText(int texture) {
+        public static void DrawGFX(int texture) {
             GL.MatrixMode(MatrixMode.Modelview);
             GL.LoadIdentity();
 

@@ -16,20 +16,18 @@ namespace SVNE.Core {
         public static bool mouseDownBackground = false;
         public static bool hideControls = false;
 
-        /*public static void OnMousePressed(object sender, MouseButtonEventArgs e) {
-            if (e.Button == Mouse.Button.Left) {
+        public static void HandleMouse() {
+            MouseState mState = Mouse.GetState();
+
+            /*if (mState.IsButtonDown(MouseButton.Left)) {
                 if (Game.gameState == (int)Game.States.MainMenu) {
-                    /*foreach (Clickable control in Game.mainMenu.MenuControls) {
-                        if (control.MouseInBounds(SVNE.window)) {
+                    foreach (Clickable control in Game.mainMenu.MenuControls) {
+                        if (control.MouseInBounds()) {
                             control.IsMouseDown = true;
                         }
                     }
                 }
-            }
-        }*/
-
-        public static void HandleMouse() {
-            MouseState mState = Mouse.GetState();
+            }*/
 
             if (true){//window.HasFocus()) {
                 if (Game.gameState == (int)Game.States.MainMenu || Game.gameState == (int)Game.States.OptionsMenu || Game.gameState == (int)Game.States.LoadMenu || Game.gameState == (int)Game.States.SaveMenu || Game.gameState == (int)Game.States.Paused) {
