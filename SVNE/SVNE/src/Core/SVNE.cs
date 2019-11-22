@@ -14,7 +14,7 @@ namespace SVNE.Core {
         public static Game game;
 
         public static void Main() {
-            using (Game game = new Game(defaultWidth, defaultHeight, "SVNE")) {
+            using (game = new Game(defaultWidth, defaultHeight, "SVNE")) {
                 game.Run();// 60.0);
             }
         }

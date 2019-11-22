@@ -153,23 +153,19 @@ namespace SVNE.GUI
             }
 
             if(grabbed) {
-                int mouseX = mState.X;
-                int mouseY = mState.Y;
+                int mouseX = (int)(mState.X / Game.xRatio);
 
                 x = (int)(mouseX - (handle.Width / 2));
                 handle.X = mouseX - (handle.Width / 2);
-                handle.Y = handle.Y;
 
                 if (handle.X <= bar.X) {
                     x = (int)(bar.X);
                     handle.X = bar.X;
-                    handle.Y = handle.Y;
                 }
 
                 if (handle.X >= (bar.X + bar.Width) - handle.Width) {
                     x = (int)((bar.X + bar.Width) - handle.Width);
                     handle.X = (bar.X + bar.Width) - handle.X;
-                    handle.Y = handle.Y;
                 }
 
                 action();
@@ -194,7 +190,7 @@ namespace SVNE.GUI
         }
 
         public int GetPosition() {
-            handlePos = (int)((handle.X - bar.X) / ((bar.Width - handle.Width) / 100));
+            handlePos = (int)(((handle.X - bar.X) / ((bar.Width - handle.Width) / 100)) * Game.xRatio);
 
             return (int)((handle.X - bar.X) / (bar.Width / 100));
         }
@@ -203,25 +199,19 @@ namespace SVNE.GUI
             Point mState = Game.mousePos;
 
             if (grabbed && Mouse.GetState().IsButtonDown(MouseButton.Left)) {
-                //float mouseX = Mouse.GetPosition(Core.SVNE.window).X / Game.xRatio;
-                //float mouseY = Mouse.GetPosition(Core.SVNE.window).Y / Game.yRatio;
-                float mouseX = mState.X;
-                float mouseY = mState.Y;
+                float mouseX = mState.X / Game.xRatio;
 
-                x = (int)(mouseX - (handle.X / 2));
-                handle.X = (int)mouseX - (handle.Width / 2);
-                handle.Y = handle.Y;
+                x = (int)(mouseX - (handle.Width / 2));
+                handle.X = (int)(mouseX - (handle.Width / 2));
 
                 if (handle.X <= bar.X) {
-                    x = (int)(bar.X);
+                    x = bar.X;
                     handle.X = bar.X;
-                    handle.Y = handle.Y;
                 }
 
                 if (handle.X >= (bar.X + bar.Width) - handle.Width) {
-                    x = (int)((bar.X + bar.Width) - handle.Width);
+                    x = (bar.X + bar.Width) - handle.Width;
                     handle.X = (bar.X + bar.Width) - handle.Width;
-                    handle.Y = handle.Y;
                 }
 
                 GetPosition();
@@ -229,9 +219,6 @@ namespace SVNE.GUI
             else {
                 Reset();
             }
-
-            //target.Draw(bar, states);
-            //target.Draw(handle, states);
 
             Game.gfxRenderer.Clear(System.Drawing.Color.Empty);
 

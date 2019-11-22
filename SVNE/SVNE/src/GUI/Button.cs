@@ -328,8 +328,10 @@ namespace SVNE.GUI {
             if (background == 0) {
                 if (mState.X >= X * Game.xRatio &&
                    mState.X <= X * Game.xRatio + Width * Game.xRatio &&
-                   mState.Y >= Y - (height / 2) * Game.yRatio &&
-                   mState.Y <= Y - (height / 2) * Game.yRatio + Height * Game.yRatio) {
+                   mState.Y >= (Y - (height / 2)) * Game.yRatio &&
+                   mState.Y <= (Y - (height / 2)) * Game.yRatio + Height * Game.yRatio) {
+
+                    //Console.WriteLine(X * Game.xRatio + ", " + Y * Game.xRatio);
 
                     if (isDisplaying && changeCursor) {
                         //System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Hand;

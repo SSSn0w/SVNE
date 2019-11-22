@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
 using SVNE.GUI;
@@ -34,7 +35,8 @@ namespace SVNE.Core {
         }
 
         public int Big() {
-            //SVNE.window.Size = new Vector2u(1280, 720);
+            SVNE.game.Width = 1280;
+            SVNE.game.Height = 720;
             //Game.xRatio = ((float)SVNE.window.Size.X / (float)SVNE.defaultWidth);
             //Game.yRatio = ((float)SVNE.window.Size.Y / (float)SVNE.defaultHeight);
 
@@ -42,7 +44,8 @@ namespace SVNE.Core {
         }
 
         public int Small() {
-            //SVNE.window.Size = new Vector2u(640, 360);
+            SVNE.game.Width = 640;
+            SVNE.game.Height = 360;
             //Game.xRatio = ((float)SVNE.window.Size.X / (float)SVNE.defaultWidth);
             //Game.yRatio = ((float)SVNE.window.Size.Y / (float)SVNE.defaultHeight);
 

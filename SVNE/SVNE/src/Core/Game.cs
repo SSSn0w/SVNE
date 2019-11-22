@@ -54,8 +54,10 @@ namespace SVNE.Core {
         }
 
         protected override void OnLoad(EventArgs e) {
-            xRatio = (Size.Width / SVNE.defaultWidth);
-            yRatio = (Size.Height / SVNE.defaultHeight);
+            xRatio = ((float)Width / SVNE.defaultWidth);
+            yRatio = ((float)Height / SVNE.defaultHeight);
+
+            Console.WriteLine(xRatio);
 
             windowLocation = Location;
 
@@ -215,8 +217,8 @@ namespace SVNE.Core {
         }
 
         protected override void OnResize(EventArgs e) {
-            xRatio = (Size.Width / SVNE.defaultWidth);
-            yRatio = (Size.Height / SVNE.defaultHeight);
+            xRatio = ((float)Width / SVNE.defaultWidth);
+            yRatio = ((float)Height / SVNE.defaultHeight);
 
             GL.Viewport(0, 0, Width, Height);
             base.OnResize(e);
