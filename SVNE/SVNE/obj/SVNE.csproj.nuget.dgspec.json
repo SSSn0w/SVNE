@@ -1,26 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Programming\\SVNE-OpenGL\\SVNE\\SVNE\\SVNE.csproj": {}
+    "D:\\Programming\\SVNE\\SVNE\\SVNE\\SVNE.csproj": {}
   },
   "projects": {
-    "D:\\Programming\\SVNE-OpenGL\\SVNE\\SVNE\\SVNE.csproj": {
+    "D:\\Programming\\SVNE\\SVNE\\SVNE\\SVNE.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Programming\\SVNE-OpenGL\\SVNE\\SVNE\\SVNE.csproj",
+        "projectUniqueName": "D:\\Programming\\SVNE\\SVNE\\SVNE\\SVNE.csproj",
         "projectName": "SVNE",
-        "projectPath": "D:\\Programming\\SVNE-OpenGL\\SVNE\\SVNE\\SVNE.csproj",
+        "projectPath": "D:\\Programming\\SVNE\\SVNE\\SVNE\\SVNE.csproj",
         "packagesPath": "C:\\Users\\lachl\\.nuget\\packages\\",
-        "outputPath": "D:\\Programming\\SVNE-OpenGL\\SVNE\\SVNE\\obj\\",
+        "outputPath": "D:\\Programming\\SVNE\\SVNE\\SVNE\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
           "C:\\Users\\lachl\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.Fallback.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -42,44 +42,11 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "dependencies": {
-            "ManagedBass": {
-              "target": "Package",
-              "version": "[2.0.4, )"
-            },
-            "Microsoft.Win32.SystemEvents": {
-              "target": "Package",
-              "version": "[4.7.0-preview3.19551.4, )"
-            },
-            "OpenTK": {
-              "target": "Package",
-              "version": "[3.1.0, )"
-            },
-            "OpenTK.GLControl": {
-              "target": "Package",
-              "version": "[3.1.0, )"
-            },
-            "System.Drawing.Common": {
-              "target": "Package",
-              "version": "[4.7.0-preview3.19551.4, )"
-            }
-          },
           "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48"
+            "net461"
           ],
           "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100-preview3-014645\\RuntimeIdentifierGraph.json"
+          "warn": true
         }
       }
     }

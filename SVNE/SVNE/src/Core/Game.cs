@@ -80,6 +80,7 @@ namespace SVNE.Core {
 
             mainMenu = new MainMenu();
             optionsMenu = new OptionsMenu();
+            gameSlotMenu = new GameSlotMenu();
 
             /*mainMenu = new MainMenu();
             gameMenu = new GameMenu();
@@ -93,6 +94,7 @@ namespace SVNE.Core {
 
             Menus.Add(mainMenu);
             Menus.Add(optionsMenu);
+            Menus.Add(gameSlotMenu);
 
             LoadSounds();
 
@@ -171,7 +173,7 @@ namespace SVNE.Core {
                 gameSlotMenu.IsDisplaying(true);
                 gameMenu.IsDisplaying(true);
 
-                //Draw(gameSlotMenu);
+                Draw(gameSlotMenu);
             }
             else if (gameState == (int)States.Playing) {
                 StopDisplaying();
@@ -240,7 +242,7 @@ namespace SVNE.Core {
             mainMenu.IsDisplaying(false);
             //gameMenu.IsDisplaying(false);
             optionsMenu.IsDisplaying(false);
-            //gameSlotMenu.IsDisplaying(false);
+            gameSlotMenu.IsDisplaying(false);
         }
 
         public void LoadSounds() {

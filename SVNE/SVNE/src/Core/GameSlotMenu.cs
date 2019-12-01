@@ -3,23 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
-using SFML.Graphics;
-using SFML.System;
-using SFML.Window;
-using SFML.Audio;
+using OpenTK;
 
 using SVNE.GUI;
-using System.IO;
 
 namespace SVNE.Core {
     class GameSlotMenu : Menu {
         public List<Clickable> MenuControls = new List<Clickable>();
 
-        public Texture defaultTexture = new Texture("Assets/UI/default_slot.png");
-        public Texture otherTexture = new Texture("Assets/UI/default_slot2.png"); //temp
+        int defaultTexture = LoadAsset.LoadTexture("Assets/UI/default_slot.png");
+        int otherTexture = LoadAsset.LoadTexture("Assets/UI/default_slot2.png"); //temp
 
-        public Image screenShot;
+        public Bitmap screenShot;
         private int slot = 1;
         public int selectedSlot = 0;
 
@@ -56,7 +53,7 @@ namespace SVNE.Core {
                     }
                     catch (Exception e) {
                         Console.WriteLine("Save thumbnail not found...");
-                        slotTex = new Texture("Assets/UI/no-image.jpg");
+                        slotTex = new LoadAsset.LoadTexture("Assets/UI/no-image.jpg");
                     }
 
                     MenuControls.Add(new Button(new Sprite(slotTex), new Sprite(slotTex), xPos, yPos, tileWidth, tileHeight, SlotAction));
@@ -85,7 +82,7 @@ namespace SVNE.Core {
             if (Game.gameState == (int)Game.States.LoadMenu) {
                 Console.WriteLine("loading game in slot...");
 
-                try {
+                /*try {
                     TimeLine.LoadVariables();
 
                     GameSave gameSave = ReadFromBinaryFile<GameSave>("Data/" + (selectedSlot + 1) + ".save");
@@ -129,7 +126,7 @@ namespace SVNE.Core {
                     Game.gameState = (int)Game.States.Playing;
                     TimeLine.musicPlayer.Loop = true;
                     //TimeLine.musicPlayer.SoundBuffer = Game.Sounds[0];
-                    //TimeLine.musicPlayer.Play();
+                    //TimeLine.musicPlayer.Play();*/
                 }
                 catch (Exception e) {
                     
@@ -139,9 +136,9 @@ namespace SVNE.Core {
             if (Game.gameState == (int)Game.States.SaveMenu) {
                 Console.WriteLine("saving game in slot...");
 
-                screenShot.SaveToFile("Data/" + (selectedSlot + 1) + ".png");
+                screenShot.Save("Data/" + (selectedSlot + 1), ImageFormat.png);
 
-                List<CharacterState> characters = new List<CharacterState>();
+                /*List<CharacterState> characters = new List<CharacterState>();
                 foreach (Character character in TimeLine.Characters) {
                     bool hidden = false;
 
@@ -156,7 +153,7 @@ namespace SVNE.Core {
                 }
 
                 GameSave gameSave = new GameSave(TimeLine.timeLineCounter, TimeLine.currentBackground, characters, TimeLine.currentSong);
-                WriteToBinaryFile<GameSave>("Data/" + (selectedSlot + 1) + ".save", gameSave);
+                WriteToBinaryFile<GameSave>("Data/" + (selectedSlot + 1) + ".save", gameSave);*/
 
                 RefreshControls();
             }
