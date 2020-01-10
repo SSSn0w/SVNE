@@ -15,11 +15,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Programming\\SVNE\\SVNE\\SVNE\\SVNE.csproj",
+      "projectUniqueName": "C:\\Users\\lachl\\Desktop\\Code\\Projects\\SVNE\\SVNE\\SVNE\\SVNE.csproj",
       "projectName": "SVNE",
-      "projectPath": "D:\\Programming\\SVNE\\SVNE\\SVNE\\SVNE.csproj",
+      "projectPath": "C:\\Users\\lachl\\Desktop\\Code\\Projects\\SVNE\\SVNE\\SVNE\\SVNE.csproj",
       "packagesPath": "C:\\Users\\lachl\\.nuget\\packages\\",
-      "outputPath": "D:\\Programming\\SVNE\\SVNE\\SVNE\\obj\\",
+      "outputPath": "C:\\Users\\lachl\\Desktop\\Code\\Projects\\SVNE\\SVNE\\SVNE\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",
